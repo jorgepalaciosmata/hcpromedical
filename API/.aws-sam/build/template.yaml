@@ -1,0 +1,159 @@
+Transform: AWS::Serverless-2016-10-31
+Resources:
+  Api:
+    Type: AWS::Serverless::Api
+    Properties:
+      Name:
+        Fn::Sub:
+        - ${ResourceName} From Stack ${AWS::StackName}
+        - ResourceName: Api
+      StageName: Prod
+      DefinitionBody:
+        openapi: '3.0'
+        info: {}
+        paths:
+          /personalInfo:
+            get:
+              x-amazon-apigateway-integration:
+                httpMethod: POST
+                type: aws_proxy
+                uri:
+                  Fn::Sub: arn:${AWS::Partition}:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetPersonalInfo.Arn}/invocations
+              responses: {}
+          /artifact:
+            get:
+              x-amazon-apigateway-integration:
+                httpMethod: POST
+                type: aws_proxy
+                uri:
+                  Fn::Sub: arn:${AWS::Partition}:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetArtifact.Arn}/invocations
+              responses: {}
+      EndpointConfiguration: REGIONAL
+      TracingEnabled: true
+  GetPersonalInfo:
+    Type: AWS::Serverless::Function
+    Properties:
+      Description:
+        Fn::Sub:
+        - Stack ${AWS::StackName} Function ${ResourceName}
+        - ResourceName: GetPersonalInfo
+      CodeUri: GetPersonalInfo
+      Handler: index.handler
+      Runtime: nodejs18.x
+      MemorySize: 3008
+      Timeout: 30
+      Tracing: Active
+      Environment:
+        Variables:
+          TABLE_NAME:
+            Ref: PersonalInfoTable
+          TABLE_ARN:
+            Fn::GetAtt:
+            - PersonalInfoTable
+            - Arn
+      Policies:
+      - DynamoDBCrudPolicy:
+          TableName:
+            Ref: PersonalInfoTable
+      Events:
+        ApiGETpersonalInfo:
+          Type: Api
+          Properties:
+            Path: /personalInfo
+            Method: GET
+            RestApiId:
+              Ref: Api
+    Metadata:
+      SamResourceId: GetPersonalInfo
+  GetPersonalInfoLogGroup:
+    Type: AWS::Logs::LogGroup
+    DeletionPolicy: Retain
+    Properties:
+      LogGroupName:
+        Fn::Sub: /aws/lambda/${GetPersonalInfo}
+  PersonalInfoTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+      - AttributeName: id
+        AttributeType: S
+      BillingMode: PAY_PER_REQUEST
+      KeySchema:
+      - AttributeName: id
+        KeyType: HASH
+      StreamSpecification:
+        StreamViewType: NEW_AND_OLD_IMAGES
+  GetArtifact:
+    Type: AWS::Serverless::Function
+    Properties:
+      Description:
+        Fn::Sub:
+        - Stack ${AWS::StackName} Function ${ResourceName}
+        - ResourceName: GetArtifact
+      CodeUri: GetArtifact
+      Handler: index.handler
+      Runtime: nodejs16.x
+      MemorySize: 3008
+      Timeout: 30
+      Tracing: Active
+      Environment:
+        Variables:
+          BUCKET_NAME:
+            Ref: hcpromedicalartifact
+          BUCKET_ARN:
+            Fn::GetAtt:
+            - hcpromedicalartifact
+            - Arn
+      Events:
+        ApiGETartifact:
+          Type: Api
+          Properties:
+            Path: /artifact
+            Method: GET
+            RestApiId:
+              Ref: Api
+      Policies:
+      - S3CrudPolicy:
+          BucketName:
+            Ref: hcpromedicalartifact
+    Metadata:
+      SamResourceId: GetArtifact
+  GetArtifactLogGroup:
+    Type: AWS::Logs::LogGroup
+    DeletionPolicy: Retain
+    Properties:
+      LogGroupName:
+        Fn::Sub: /aws/lambda/${GetArtifact}
+  hcpromedicalartifact:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName:
+        Fn::Sub: ${AWS::StackName}-hcpromedi-${AWS::AccountId}
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+        - ServerSideEncryptionByDefault:
+            SSEAlgorithm: aws:kms
+            KMSMasterKeyID: alias/aws/s3
+      PublicAccessBlockConfiguration:
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+  hcpromedicalartifactBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket:
+        Ref: hcpromedicalartifact
+      PolicyDocument:
+        Id: RequireEncryptionInTransit
+        Version: '2012-10-17'
+        Statement:
+        - Principal: '*'
+          Action: '*'
+          Effect: Deny
+          Resource:
+          - Fn::GetAtt:
+            - hcpromedicalartifact
+            - Arn
+          - Fn::Sub: ${hcpromedicalartifact.Arn}/*
+          Condition:
+            Bool:
+              aws:SecureTransport: 'false'
