@@ -25,6 +25,13 @@ Resources:
                 type: aws_proxy
                 uri: !Sub arn:${AWS::Partition}:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetArtifact.Arn}/invocations
               responses: {}
+          /personalinfo:
+            post:
+              x-amazon-apigateway-integration:
+                httpMethod: POST
+                type: aws_proxy
+                uri: !Sub arn:${AWS::Partition}:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${SetPersonalInfo.Arn}/invocations
+              responses: {}
       EndpointConfiguration: REGIONAL
       TracingEnabled: true
   GetPersonalInfo:
@@ -130,3 +137,34 @@ Resources:
             Condition:
               Bool:
                 aws:SecureTransport: 'false'
+  SetPersonalInfo:
+    Type: AWS::Serverless::Function
+    Properties:
+      Description: !Sub
+        - Stack ${AWS::StackName} Function ${ResourceName}
+        - ResourceName: SetPersonalInfo
+      CodeUri: src/SetPersonalInfo
+      Handler: index.handler
+      Runtime: nodejs18.x
+      MemorySize: 3008
+      Timeout: 30
+      Tracing: Active
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref PersonalInfoTable
+          TABLE_ARN: !GetAtt PersonalInfoTable.Arn
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref PersonalInfoTable
+      Events:
+        ApiPOSTpersonalinfo:
+          Type: Api
+          Properties:
+            Path: /personalinfo
+            Method: POST
+            RestApiId: !Ref Api
+  SetPersonalInfoLogGroup:
+    Type: AWS::Logs::LogGroup
+    DeletionPolicy: Retain
+    Properties:
+      LogGroupName: !Sub /aws/lambda/${SetPersonalInfo}
