@@ -11,13 +11,6 @@ Resources:
         openapi: '3.0'
         info: {}
         paths:
-          /personalInfo:
-            get:
-              x-amazon-apigateway-integration:
-                httpMethod: POST
-                type: aws_proxy
-                uri: !Sub arn:${AWS::Partition}:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetPersonalInfo.Arn}/invocations
-              responses: {}
           /artifact:
             get:
               x-amazon-apigateway-integration:
@@ -32,8 +25,20 @@ Resources:
                 type: aws_proxy
                 uri: !Sub arn:${AWS::Partition}:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${SetPersonalInfo.Arn}/invocations
               responses: {}
+          /personalInfo/{id}:
+            get:
+              x-amazon-apigateway-integration:
+                httpMethod: POST
+                type: aws_proxy
+                uri: !Sub arn:${AWS::Partition}:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetPersonalInfo.Arn}/invocations
+              responses: {}
       EndpointConfiguration: REGIONAL
       TracingEnabled: true
+      Cors:
+        AllowMethods:
+          - GET,POST
+        AllowOrigin:
+          - localhost
   GetPersonalInfo:
     Type: AWS::Serverless::Function
     Properties:
@@ -54,10 +59,10 @@ Resources:
         - DynamoDBCrudPolicy:
             TableName: !Ref PersonalInfoTable
       Events:
-        ApiGETpersonalInfo:
+        ApiGETpersonalInfoid:
           Type: Api
           Properties:
-            Path: /personalInfo
+            Path: /personalInfo/{id}
             Method: GET
             RestApiId: !Ref Api
   GetPersonalInfoLogGroup:
