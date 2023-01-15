@@ -1,0 +1,12 @@
+# Ignore Mac system files
+.DS_Store
+
+# Ignore node_modules folder
+node_modules
+
+# API AWS system files
+API/.aws-composer
+API/.aws-sam
+
+# Client
+Client/.expo
