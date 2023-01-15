@@ -10,3 +10,6 @@ API/.aws-sam
 
 # Client
 Client/.expo
+
+# package lock
+package-lock.json
