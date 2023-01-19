@@ -32,11 +32,19 @@ function HistorialMedicoScreen({ navigation }) {
   );
 }
 
+
+
 async function readPersonalInfo()
 {
-  await axios.get(
-    'https://p8ada5o8e0.execute-api.us-east-1.amazonaws.com/Prod/personalInfo/1' 
+
+  await axios.post(
+    'https://p8ada5o8e0.execute-api.us-east-1.amazonaws.com/Prod/personalinfo', {
+      id: '11'
+    }
   )
+  // await axios.get(
+  //    'https://p8ada5o8e0.execute-api.us-east-1.amazonaws.com/Prod/personalInfo/1'    
+  // )
   .then(function (response) {
     // handle success
     console.log(response);
