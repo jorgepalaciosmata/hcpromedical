@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { View, Button , TextInput, ScrollView, StyleSheet, Text } from 'react-native';
 const axios = require('axios').default;
 
-const PostPersonalInfoScreen = () => {
+const PostPersonalInfoScreen = ({navigation}) => {
 
     
     const [name, setName] = useState("");
@@ -26,6 +26,7 @@ const PostPersonalInfoScreen = () => {
           .then(function (response) {
             // handle success
             console.log(response);
+            navigation.navigate('HC Cloud')
           }).catch(function (error) {
             // handle error
             console.log(error);
@@ -33,6 +34,7 @@ const PostPersonalInfoScreen = () => {
             // always executed
             console.log(userData)
           });
+          
     }
 
     return (  
