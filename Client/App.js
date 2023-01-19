@@ -5,6 +5,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 const axios = require('axios').default;
 import * as Application from 'expo-application';
 
+//Views Imports
+import GetPersonalInfoScreen from './screens/GetPersonalInfoScreen'
+import PostPersonalInfoScreen from './screens/PostPersonalInfoScreen'
+
 function HomeScreen({ navigation }) {
   return (
       
@@ -17,6 +21,23 @@ function HomeScreen({ navigation }) {
             style = {{ width: 100, height: 100 }} />
           <Text>Historial médico</Text>
         </TouchableOpacity>
+
+        <TouchableOpacity 
+          style={{width: "150", alignItems: 'center'}}
+          onPress={() => navigation.navigate('PostPersonalInfo')} >
+          <Image source={require('./assets/icons/medical-history.png')} 
+            style = {{ width: 100, height: 100 }} />
+          <Text>POST</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity 
+          style={{width: "150", alignItems: 'center'}}
+          onPress={() => navigation.navigate('GetPersonalInfo')} >
+          <Image source={require('./assets/icons/medical-history.png')} 
+            style = {{ width: 100, height: 100 }} />
+          <Text>GET</Text>
+        </TouchableOpacity>
+        
       </View>
     // </div>
   );
@@ -32,11 +53,19 @@ function HistorialMedicoScreen({ navigation }) {
   );
 }
 
+
+
 async function readPersonalInfo()
 {
-  await axios.get(
-    'https://p8ada5o8e0.execute-api.us-east-1.amazonaws.com/Prod/personalInfo/1' 
+
+  await axios.post(
+    'https://p8ada5o8e0.execute-api.us-east-1.amazonaws.com/Prod/personalinfo', {
+      id: '11'
+    }
   )
+  // await axios.get(
+  //    'https://p8ada5o8e0.execute-api.us-east-1.amazonaws.com/Prod/personalInfo/1'    
+  // )
   .then(function (response) {
     // handle success
     console.log(response);
@@ -71,11 +100,14 @@ const Stack = createNativeStackNavigator();
 function App() {
   return (
     <NavigationContainer>
+      {/* I saw that often we create a funtcion named MyStack and we return that in this part */}
       <Stack.Navigator initialRouteName="HC Cloud">
         <Stack.Screen name="HC Cloud" component={HomeScreen} />
         <Stack.Screen name="Historial" component={HistorialMedicoScreen} />
         <Stack.Screen name="Calendario" component={CalendarioScreen} />
         <Stack.Screen name="Laboratorio" component={LaboratorioScreen} />
+        <Stack.Screen name="GetPersonalInfo" component={GetPersonalInfoScreen} />
+        <Stack.Screen name="PostPersonalInfo" component={PostPersonalInfoScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
