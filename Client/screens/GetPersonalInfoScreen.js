@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
+import { useState } from 'react';
 import { Text, View } from 'react-native';
+const axios = require('axios').default;
 
 const GetPersonalInfoScreen = () => {
 
@@ -25,9 +27,10 @@ const GetPersonalInfoScreen = () => {
   
   return (  
     <View>
-        {data.map((user) => {
+      <Text>Lista de usuarios</Text>
+        {/* {data.map((user) => {
                     return <Text>{user.name}</Text>;
-                  })}
+                  })} */}
     </View> )
  
 };
