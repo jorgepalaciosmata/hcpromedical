@@ -17,6 +17,7 @@ const PostPersonalInfoScreen = ({navigation}) => {
 
     async function submmitHandler( ) {
         const userData = {
+            id: '', // i supposed that the server is going to give an id for this user
             name: name,
             lastName: lastName,
             phone: phone
