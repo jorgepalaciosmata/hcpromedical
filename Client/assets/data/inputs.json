@@ -1,0 +1,14 @@
+[
+    {
+        "placeholder": "Name",
+        "handleChangeText": "name"
+    },
+    {
+        "placeholder": "Last Name",
+        "handleChangeText": "lastName"
+    },
+    {
+        "placeholder": "Phone Number",
+        "handleChangeText": "phone"
+    }
+]

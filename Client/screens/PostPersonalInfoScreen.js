@@ -3,6 +3,9 @@ import { useState } from 'react';
 import { View, Button , TextInput, ScrollView, StyleSheet, Text } from 'react-native';
 const axios = require('axios').default;
 
+//json import
+import inputs from "../assets/data/inputs.json"
+
 const PostPersonalInfoScreen = ({navigation}) => {
 
     const [user, setUser] = useState({
@@ -35,21 +38,16 @@ const PostPersonalInfoScreen = ({navigation}) => {
 
     return (  
         <ScrollView style={styles.container}>
-            <View style={styles.inputStyle}>
-                <TextInput 
-                placeholder='Name'
-                onChangeText={(value) => handleChangeText('name',value)}/>
-            </View>
-            <View style={styles.inputStyle}>
-                <TextInput 
-                placeholder='Last Name'
-                onChangeText={(value) => handleChangeText('lastName',value)}/>
-            </View>
-            <View style={styles.inputStyle}>
-                <TextInput 
-                placeholder='Phone Number'
-                onChangeText={(value) => handleChangeText('phone',value)}/>
-            </View>
+            {
+                inputs.map( (input, index)=>(
+                    <View style={styles.inputStyle} key={index}>
+                        <TextInput 
+                            placeholder={input.placeholder}
+                            onChangeText={(value) => handleChangeText(`${input.handleChangeText}`,value)}/>
+                    </View>
+                ) )
+            }
+
             <View style={styles.inputStyle}>
                 <Button 
                 title='Save'
