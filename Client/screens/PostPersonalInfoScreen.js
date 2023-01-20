@@ -5,25 +5,20 @@ const axios = require('axios').default;
 
 const PostPersonalInfoScreen = ({navigation}) => {
 
-    
-    const [name, setName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [phone, setPhone] = useState("");
+    const [user, setUser] = useState({
+        id:"", //I need to fix this problem later!
+        name: "",
+        lastName: "",
+        phone: "",
+    })
 
-    // Handlers onChangeText
-    const hName = (value) => setName(value);
-    const hLastName = (value) => setLastName(value);
-    const hPhone = (value) => setPhone(value);
+    const handleChangeText = (name , value) => {
+        setUser({...user, [name]:value});
+    }
 
     async function submmitHandler( ) {
-        const userData = {
-            id: '', // i supposed that the server is going to give an id for this user
-            name: name,
-            lastName: lastName,
-            phone: phone
-        }
-
-        await axios.post( 'https://p8ada5o8e0.execute-api.us-east-1.amazonaws.com/Prod/personalinfo', userData)
+        
+        await axios.post( 'https://p8ada5o8e0.execute-api.us-east-1.amazonaws.com/Prod/personalinf', user)
           .then(function (response) {
             // handle success
             console.log(response);
@@ -33,7 +28,7 @@ const PostPersonalInfoScreen = ({navigation}) => {
             console.log(error);
           }).then(function () {
             // always executed
-            console.log(userData)
+            console.log(user)
           });
           
     }
@@ -43,17 +38,17 @@ const PostPersonalInfoScreen = ({navigation}) => {
             <View style={styles.inputStyle}>
                 <TextInput 
                 placeholder='Name'
-                onChangeText={(value) => hName(value)}/>
+                onChangeText={(value) => handleChangeText('name',value)}/>
             </View>
             <View style={styles.inputStyle}>
                 <TextInput 
                 placeholder='Last Name'
-                onChangeText={(value) => hLastName(value)}/>
+                onChangeText={(value) => handleChangeText('lastName',value)}/>
             </View>
             <View style={styles.inputStyle}>
                 <TextInput 
                 placeholder='Phone Number'
-                onChangeText={(value) => hPhone(value)}/>
+                onChangeText={(value) => handleChangeText('phone',value)}/>
             </View>
             <View style={styles.inputStyle}>
                 <Button 
