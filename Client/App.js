@@ -8,6 +8,7 @@ import * as Application from 'expo-application';
 //Views Imports
 import GetPersonalInfoScreen from './screens/GetPersonalInfoScreen'
 import PostPersonalInfoScreen from './screens/PostPersonalInfoScreen'
+import PersonalInfoScreen from './screens/PersonalInfoScreen';
 
 function HomeScreen({ navigation }) {
   return (
@@ -38,6 +39,13 @@ function HomeScreen({ navigation }) {
           <Text>GET</Text>
         </TouchableOpacity>
         
+        <TouchableOpacity 
+          style={{width: "150", alignItems: 'center'}}
+          onPress={() => navigation.navigate('PersonalInfo')} >
+          <Image source={require('./assets/icons/medical-history.png')} 
+            style = {{ width: 100, height: 100 }} />
+          <Text>Informacion Personal</Text>
+        </TouchableOpacity>
       </View>
     // </div>
   );
@@ -108,6 +116,7 @@ function App() {
         <Stack.Screen name="Laboratorio" component={LaboratorioScreen} />
         <Stack.Screen name="GetPersonalInfo" component={GetPersonalInfoScreen} />
         <Stack.Screen name="PostPersonalInfo" component={PostPersonalInfoScreen} />
+        <Stack.Screen name="PersonalInfo" component={PersonalInfoScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
