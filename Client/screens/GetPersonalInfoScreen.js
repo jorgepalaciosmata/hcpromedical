@@ -3,34 +3,43 @@ import { useState } from 'react';
 import { Text, View } from 'react-native';
 const axios = require('axios').default;
 
+
 const GetPersonalInfoScreen = () => {
 
-  const [data, setData] = useState([])
+  const [person, setPerson] = useState({
+    id: ''
+  });
+  const [isInit, setIsInit] = useState(false);
 
   async function getData () {
-    await axios.get('https://p8ada5o8e0.execute-api.us-east-1.amazonaws.com/Prod/personalInfo/')
-   .then({data} = setData(data))
+    await axios.get('https://p8ada5o8e0.execute-api.us-east-1.amazonaws.com/Prod/personalInfo/50')
+   .then(function (response) {
+    setIsInit(true);
+    setPerson(person => ( 
+      {
+        id: response.data.item.id
+      }
+    )); 
+   })
    .catch(function (error) {
      // handle error
      console.log(error);
    })
    .then(function () {
      // always executed
+     console.log(person);
    });
   }
 
   useEffect(() => {
-    getData();
-  }, []);
-  
-
+    if (!isInit) {
+      getData();
+    }
+  }, [person]);
   
   return (  
     <View>
-      <Text>Lista de usuarios</Text>
-        {/* {data.map((user) => {
-                    return <Text>{user.name}</Text>;
-                  })} */}
+      <div>ID: {person.id}</div>
     </View> )
  
 };
