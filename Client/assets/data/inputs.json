@@ -1,7 +1,5 @@
 [
     {
-        //dataType: text, select, radiobuttons
-        //label: input, select, radio
         "placeholder": "Name",
         "handleChangeText": "name"
     },

@@ -7,13 +7,18 @@ import inputs from "../assets/data/inputs.json";
 
 const PersonalInfoScreen = ({ navigation }) => {
 
-  const [user, setUser] = useState("");
+  const [user, setUser] = useState({
+    id:"", //I need to fix this problem later!
+    name: "",
+    lastName: "",
+    phone: "",
+  });
   
+  const [isInit, setIsInit] = useState(false);
+
   const handleChangeText = (name , value) => {
     setUser({...user, [name]:value});
   }
-
- 
 
   async function getData() {
     await axios
@@ -22,7 +27,9 @@ const PersonalInfoScreen = ({ navigation }) => {
       )
       .then(function ({ data }) {
         const item = data.item;
-        console.log(item);
+
+        setIsInit(true);
+        setUser({...item});
       })
       .catch(function (error) {
         // handle error
@@ -30,21 +37,22 @@ const PersonalInfoScreen = ({ navigation }) => {
       })
       .then(function () {
         // always executed
-        setUser("hola")
-        console.log(user)
       });
   }
 
   useEffect(() => {
-    getData();
-  }, []);
+    if (!isInit) {
+      getData();
+    }
+  }, [user]);
 
   return (
     <ScrollView style={styles.container}>
       {inputs.map((input, index) => (
         <View style={styles.inputStyle} key={index}>
+          <Text>{input.handleChangeText + ':'}</Text>
           <TextInput
-            defaultValue={user.handleChangeText}
+            defaultValue={user[input.handleChangeText]}
             onChangeText={(value) =>handleChangeText(`${input.handleChangeText}`, value)}
           />
         </View>
