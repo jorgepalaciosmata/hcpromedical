@@ -1,5 +1,4 @@
 import React from 'react';
-import { Text } from 'react-native';
 
 import CheckBoxCom from '../components/CheckBoxCom';
 import TextBoxCom from '../components/TextBoxCom';

@@ -6,7 +6,9 @@ const TextBoxCom = ({content}) => {
     <View style={styles.container}>
       <View style={styles.inputStyle}>
         <Text>{content.placeholder + ':'}</Text>
-        <TextInput/>
+        <TextInput
+          inputMode={content.inputMode}
+        />
       </View>
     </View>
   )
