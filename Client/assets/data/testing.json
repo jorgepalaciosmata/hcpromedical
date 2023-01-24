@@ -5,5 +5,33 @@
 			"instructions": "Seleccione sus enfermedades previas",
 			"options": [ "cancer","diabetes","hipertension"]
 			}
+	},
+	{
+		"inputType": "textbox",
+		"content": {
+			"placeholder": "Phone Number",
+			"handleChangeText": "phone"
+		}
+	},
+	{
+		"inputType": "textbox",
+		"content": {
+			"placeholder": "Phone Number",
+			"handleChangeText": "phone"
+		}
+	},
+	{
+		"inputType": "textbox",
+		"content": {
+			"placeholder": "Phone Number",
+			"handleChangeText": "phone"
+		}
+	},
+	{
+		"inputType": "checkbox",
+		"content": {
+			"instructions": "Seleccione sus enfermedades previas",
+			"options": [ "cancer","diabetes","hipertension"]
+			}
 	}
 ]

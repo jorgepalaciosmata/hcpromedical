@@ -1,12 +1,19 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { Text } from 'react-native';
 
-import CheckBoxCom from '../components/CheckBoxCom'
+import CheckBoxCom from '../components/CheckBoxCom';
+import TextBoxCom from '../components/TextBoxCom';
+
+
 import inputs from "../assets/data/testing.json"
 
 const TestView = () => {
 	return (
   	inputs.map( (input, index) => (
-        <CheckBoxCom key={index} options={input.content.options} />
+			(input.inputType == "checkbox") ?
+      <CheckBoxCom key={index} options={input.content.options} instructions={input.content.instructions}/>
+		 	:
+			<TextBoxCom  key={index} content={input.content}/>
     ))
   );
  
