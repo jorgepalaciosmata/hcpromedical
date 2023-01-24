@@ -6,9 +6,10 @@ const axios = require('axios').default;
 import * as Application from 'expo-application';
 
 //Views Imports
-import GetPersonalInfoScreen from './screens/GetPersonalInfoScreen'
-import PostPersonalInfoScreen from './screens/PostPersonalInfoScreen'
+import GetPersonalInfoScreen from './screens/GetPersonalInfoScreen';
+import PostPersonalInfoScreen from './screens/PostPersonalInfoScreen';
 import PersonalInfoScreen from './screens/PersonalInfoScreen';
+import TestView from './screens/TestView';
 
 function HomeScreen({ navigation }) {
   return (
@@ -45,6 +46,14 @@ function HomeScreen({ navigation }) {
           <Image source={require('./assets/icons/medical-history.png')} 
             style = {{ width: 100, height: 100 }} />
           <Text>Informacion Personal</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity 
+          style={{width: "150", alignItems: 'center'}}
+          onPress={() => navigation.navigate('Testing JSON')} >
+          <Image source={require('./assets/icons/medical-history.png')} 
+            style = {{ width: 100, height: 100 }} />
+          <Text>Testing JSON</Text>
         </TouchableOpacity>
       </View>
     // </div>
@@ -117,6 +126,7 @@ function App() {
         <Stack.Screen name="GetPersonalInfo" component={GetPersonalInfoScreen} />
         <Stack.Screen name="PostPersonalInfo" component={PostPersonalInfoScreen} />
         <Stack.Screen name="PersonalInfo" component={PersonalInfoScreen} />
+        <Stack.Screen name="Testing JSON" component={TestView} />
       </Stack.Navigator>
     </NavigationContainer>
   );
