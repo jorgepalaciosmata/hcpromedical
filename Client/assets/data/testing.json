@@ -1,0 +1,9 @@
+[
+	{
+		"inputType": "checkbox",
+		"content": {
+			"instructions": "Seleccione sus enfermedades previas",
+			"options": [ "cancer","diabetes","hipertension"]
+			}
+	}
+]

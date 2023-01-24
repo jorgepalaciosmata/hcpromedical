@@ -1,14 +1,16 @@
 import React, { useEffect } from 'react';
 
 import CheckBoxCom from '../components/CheckBoxCom'
+import inputs from "../assets/data/testing.json"
 
-const GetPersonalInfoScreen = () => {
-  const options = ['cancer','diabetes','taquicardia','epilepsia'];
-  return (
-    <CheckBoxCom options={options}/>
+const TestView = () => {
+	return (
+  	inputs.map( (input, index) => (
+        <CheckBoxCom key={index} options={input.content.options} />
+    ))
   );
  
 };
 
 
-export default GetPersonalInfoScreen;
+export default TestView;
