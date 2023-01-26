@@ -6,13 +6,24 @@ import TextBoxCom from '../components/TextBoxCom';
 
 import inputs from "../assets/data/testing.json"
 
+
 const TestView = () => {
+
+	inputs.forEach((input, key) => {
+		if (input.inputType=="checkbox") {
+			input.render= <CheckBoxCom key={key} options={input.content.options} instructions={input.content.instructions}/>
+	
+		} else if(input.inputType=="textbox") {
+			input.render= <TextBoxCom  key={key} content={input.content}/>
+		}
+	});
+
+	console.log(inputs)
+
+
 	return (
-  	inputs.map( (input, index) => (
-			(input.inputType == "checkbox") ?
-      <CheckBoxCom key={index} options={input.content.options} instructions={input.content.instructions}/>
-		 	:
-			<TextBoxCom  key={index} content={input.content}/>
+  	inputs.map( (input) => (
+			input.render
     ))
   );
  
