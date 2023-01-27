@@ -76,6 +76,7 @@ function App() {
         <Stack.Screen name="Laboratorio" component={LaboratorioScreen} />
         <Stack.Screen name="Recetas" component={RecetasScreen} />
         <Stack.Screen name="Authentication" component={AuthenticationScreen} />
+        <Stack.Screen name="Testing JSON" component={TestView} />
       </Stack.Navigator>
     </NavigationContainer>
   );
