@@ -2,16 +2,27 @@
 	{
 		"inputType": "checkbox",
 		"content": {
-			"instructions": "Seleccione sus enfermedades previas",
-			"options": [ "cancer","diabetes","hipertension"]
-			}
+			"display": "Cancer",
+			"name": "cancer"
+		}
 	},
 	{
-		"inputType": "textbox",
+		"inputType": "checkbox",
 		"content": {
-			"placeholder": "Phone Number",
-			"handleChangeText": "phone",
-			"inputMode": "tel"
+			"display": "Diabetes",
+			"name": "diabetes"
+		}
+	},{
+		"inputType": "checkbox",
+		"content": {
+			"display": "Hipertension",
+			"name": "hipertension"
+		}
+	},{
+		"inputType": "checkbox",
+		"content": {
+			"display": "Asma",
+			"name": "asma"
 		}
 	}
 ]
