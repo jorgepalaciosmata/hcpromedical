@@ -12,17 +12,27 @@
 			"display": "Diabetes",
 			"name": "diabetes"
 		}
-	},{
+	},
+	{
 		"inputType": "checkbox",
 		"content": {
 			"display": "Hipertension",
 			"name": "hipertension"
 		}
-	},{
+	},
+	{
 		"inputType": "checkbox",
 		"content": {
 			"display": "Asma",
 			"name": "asma"
+		}
+	},
+	{
+		"inputType": "radioButton",
+		"content": {
+			"display": "Genero",
+			"name": "genero",
+			"options": ["Masculino","Femenino","Otro"]
 		}
 	}
 ]
