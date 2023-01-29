@@ -1,9 +1,17 @@
 
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { dataContext } from '../screens/TestView';
 
 const RadioButtonCom = ({content}) => {
   const [selectedOption, setSelectedOption] = useState();
+  const saveDataFromInput = useContext(dataContext);
+
+  const setData = (option) => {
+    setSelectedOption(option);
+    saveDataFromInput( [content.name], option );
+  }
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{content.display}</Text>
@@ -13,7 +21,7 @@ const RadioButtonCom = ({content}) => {
         <View key={option} style={styles.option}>
           <TouchableOpacity 
             style={styles.outer}
-            onPress={()=>setSelectedOption(option)} >
+            onPress={()=>setData(option)} >
             { selectedOption === option && <View style={styles.inner}></View>}
           </TouchableOpacity> 
           <Text>{option}</Text>
