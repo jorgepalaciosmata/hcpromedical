@@ -18,6 +18,7 @@ const AuthenticationScreen = () => {
         });
     }
     const [request, response, promptAsync] = Google.useAuthRequest({
+        responseType: "id_token",
         webClientId: '109720273058-ailnd6jvmnst2ihfei9dqjbe9j4t4gih.apps.googleusercontent.com'
     });
 
