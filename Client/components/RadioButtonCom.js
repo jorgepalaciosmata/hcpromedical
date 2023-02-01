@@ -13,35 +13,27 @@ const RadioButtonCom = ({content}) => {
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>{content.display}</Text>
+    <View>
+    <Text>{content.display}:</Text>
 
-      <View style={styles.wrapper}>
-        {content.options.map(option => (
-        <View key={option} style={styles.option}>
-          <TouchableOpacity 
-            style={styles.outer}
-            onPress={()=>setData(option)} >
-            { selectedOption === option && <View style={styles.inner}></View>}
-          </TouchableOpacity> 
-          <Text>{option}</Text>
-        </View>
-      ))}
+    <View style={styles.wrapper}>
+      {content.options.map(option => (
+      <View key={option} style={styles.option}>
+        <TouchableOpacity 
+          style={styles.outer}
+          onPress={()=>setData(option)} >
+          { selectedOption === option && <View style={styles.inner}></View>}
+        </TouchableOpacity> 
+        <Text>{option}</Text>
       </View>
+    ))}
+    </View>
+    
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex:1,
-    justifyContent: 'center',
-    alignItems:'center',
-  },
-  text: {
-    fontSize:20,
-    fontWeight: '700',
-  },
   outer: {
     width: 25,
     height: 25,
@@ -59,14 +51,13 @@ const styles = StyleSheet.create({
     borderRadius: 10
   },
   wrapper: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    marginTop: 3
   },
   option: {
-    flexWrap:'wrap', 
     alignItems: 'left', 
     flexDirection: "row",
-    alignItems: 'center'
+    alignItems: 'center',
+    flexGrow: 1,
   }
 });
 export default RadioButtonCom;

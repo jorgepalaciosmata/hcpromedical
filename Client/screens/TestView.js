@@ -1,13 +1,14 @@
 import React, {useState, useContext} from 'react';
-
 import CheckBoxCom from '../components/CheckBoxCom';
 import TextBoxCom from '../components/TextBoxCom';
 import RadioButtonCom from '../components/RadioButtonCom';
-import {Button, View} from 'react-native';
+import {Button, View, Text} from 'react-native';
 
 export const dataContext = React.createContext();
 
-import inputs from "../assets/data/testing.json"
+import inputs from "../assets/data/jsons/InformacionPersonal.json"
+import { personalInfoStyle } from '../assets/styles/PersonalInfo.style';
+import { NavigationContainer, TabActions } from '@react-navigation/native';
 
 	const TestView = () => {
 
@@ -33,11 +34,33 @@ import inputs from "../assets/data/testing.json"
 
 	return (
 	<dataContext.Provider value={saveDataFromInput}>
-  	{inputs.map( (input) => (
-			input.render
-    ))}
+		<View style={personalInfoStyle.background}>
+			<View>
+				<Text>SOY USUARIO TAL</Text>
+			</View>
+			<View style={personalInfoStyle.back}>
+				<View style={personalInfoStyle['content:last-child']}>
+					{inputs[0].render}
+					{inputs[1].render}
+					{inputs[2].render}
+				</View>
 
+				<View style={personalInfoStyle.hr} />
+
+				<View style={personalInfoStyle['content:last-child']}>
+					{inputs[3].render}
+					{inputs[4].render}
+				</View>
+
+				<View style={personalInfoStyle.hr} />
+
+				<View style={personalInfoStyle['content:last-child']}>
+					{inputs[5].render}
+				</View>
+			</View>
+		</View>
 		<Button onPress={onPressEvent}/>
+
 	</dataContext.Provider>
   );
 
