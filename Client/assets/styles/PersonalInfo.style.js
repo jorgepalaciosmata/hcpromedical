@@ -18,5 +18,27 @@ export const personalInfoStyle = StyleSheet.create({
         borderBottomWidth: StyleSheet.hairlineWidth,
         borderColor: 'black',
         borderStyle:'solid',
+    },
+    image: {
+        width: 150,
+        height: 150,
+        borderRadius: 150,
+        borderWidth: 2,
+        borderColor: "black",
+        overflow: "hidden",
+    },
+    userCase: {
+        display:'flex',
+        alignItems:'center',
+        justifyContent: 'center',
+        marginBottom: 30,
+        marginTop: 30
+    },
+    text: {
+        marginTop: 10,
+        color: "#FFFFFF",
+        fontFamily: 'Inter',
+        fontStyle: "normal",
+        fontWeight: 300,
     }
   });

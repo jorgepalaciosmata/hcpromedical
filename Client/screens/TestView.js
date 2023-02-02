@@ -2,13 +2,14 @@ import React, {useState, useContext} from 'react';
 import CheckBoxCom from '../components/CheckBoxCom';
 import TextBoxCom from '../components/TextBoxCom';
 import RadioButtonCom from '../components/RadioButtonCom';
-import {Button, View, Text} from 'react-native';
+import {Button, View, Text, Image} from 'react-native';
 
 export const dataContext = React.createContext();
 
 import inputs from "../assets/data/jsons/InformacionPersonal.json"
 import { personalInfoStyle } from '../assets/styles/PersonalInfo.style';
-import { NavigationContainer, TabActions } from '@react-navigation/native';
+import { MenuBottom } from '../components/MenuBottom';
+
 
 	const TestView = () => {
 
@@ -35,9 +36,13 @@ import { NavigationContainer, TabActions } from '@react-navigation/native';
 	return (
 	<dataContext.Provider value={saveDataFromInput}>
 		<View style={personalInfoStyle.background}>
-			<View>
-				<Text>SOY USUARIO TAL</Text>
-			</View>
+			<View style={personalInfoStyle.userCase}>
+				<Image  
+				source={{uri: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29uYXxlbnwwfHwwfHw%3D&w=1000&q=80"}} 
+				style={personalInfoStyle.image}
+				/>
+				<Text style={personalInfoStyle.text}>Maria Sanchez Dominguez</Text>
+			</View> 
 			<View style={personalInfoStyle.back}>
 				<View style={personalInfoStyle['content:last-child']}>
 					{inputs[0].render}
@@ -60,11 +65,12 @@ import { NavigationContainer, TabActions } from '@react-navigation/native';
 			</View>
 		</View>
 		<Button onPress={onPressEvent}/>
-
+		<MenuBottom></MenuBottom>
 	</dataContext.Provider>
   );
 
 };
+
 
 
 export default TestView;

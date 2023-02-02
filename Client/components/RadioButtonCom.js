@@ -14,7 +14,7 @@ const RadioButtonCom = ({content}) => {
 
   return (
     <View>
-    <Text>{content.display}:</Text>
+    <Text style={styles.text}>{content.display}:</Text>
 
     <View style={styles.wrapper}>
       {content.options.map(option => (
@@ -42,7 +42,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems:'center',
     marginRight: 10,
-    marginLeft: 10
+    marginLeft: 10,
+    marginTop: 5,
   },
   inner: {
     width: 15,
@@ -58,6 +59,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: 'center',
     flexGrow: 1,
+  },
+  text: {
+    marginTop: 5
   }
 });
 export default RadioButtonCom;
