@@ -6,11 +6,11 @@ import * as WebBrowser from 'expo-web-browser';
 WebBrowser.maybeCompleteAuthSession();
 
 const AuthenticationScreen = () => {
-    let accessToken = '';
+    let idToken = '';
 
     async function GetUserData() {
         let userInfoResponse = await fetch("https://www.googleapis.com/userinfo/v2/me", {
-            headers: { Authorization: `Bearer ${accessToken}`}
+            headers: { Authorization: `Bearer ${idToken}`}
         });
 
         userInfoResponse.json().then(data => {
@@ -24,8 +24,7 @@ const AuthenticationScreen = () => {
 
     React.useEffect(() => {
     if (response?.type === 'success') {
-        const { authentication } = response;
-        accessToken = authentication.accessToken;
+        idToken = response.params.id_token;
     }
     }, [response]);
 
