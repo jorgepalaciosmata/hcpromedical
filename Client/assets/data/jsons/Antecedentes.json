@@ -1,0 +1,198 @@
+[
+	{
+		"inputType": "checkbox",
+		"content": {
+			"display": "Diabetes",
+			"name": "diabates"
+		}
+	},
+	{
+		"inputType": "checkbox",
+		"content": {
+			"display": "Hipertension",
+			"name": "hipertension"
+		}
+	},
+	{
+		"inputType": "checkbox",
+		"content": {
+			"display": "Colesterol elevado",
+			"name": "colesterol-elevado"
+		}
+	},
+	{
+		"inputType": "checkbox",
+		"content": {
+			"display": "Hypothiroidismo",
+			"name": "Hypothiroidismo"
+		}
+	},
+    {
+		"inputType": "checkbox",
+		"content": {
+			"display": "Goiter",
+			"name": "goiter"
+		}
+	},
+	{
+		"inputType": "checkbox",
+		"content": {
+			"display": "Cancer",
+			"name": "cancer"
+		}
+	},
+    {
+		"inputType": "checkbox",
+		"content": {
+			"display": "Leucemia",
+			"name": "leucemia"
+		}
+	},
+    {
+		"inputType": "checkbox",
+		"content": {
+			"display": "Psoriasis",
+			"name": "psoriasis"
+		}
+	},
+    {
+		"inputType": "checkbox",
+		"content": {
+			"display": "Problemas Cardiacos",
+			"name": "problemas-cardiacos"
+		}
+	},
+    {
+		"inputType": "checkbox",
+		"content": {
+			"display": "Heart murmur",
+			"name": "heart-murmur"
+		}
+	},
+    {
+		"inputType": "checkbox",
+		"content": {
+			"display": "Neumonia",
+			"name": "neumonia"
+		}
+	},
+    {
+		"inputType": "checkbox",
+		"content": {
+			"display": "Embolia pulmonar",
+			"name": "embolia-pulmonar"
+		}
+	},
+    {
+		"inputType": "checkbox",
+		"content": {
+			"display": "Asma",
+			"name": "asma"
+		}
+	},
+    {
+		"inputType": "checkbox",
+		"content": {
+			"display": "Enfisema",
+			"name": "enfisema"
+		}
+	},
+    {
+		"inputType": "checkbox",
+		"content": {
+			"display": "Infarto",
+			"name": "infarto"
+		}
+	},
+    {
+		"inputType": "checkbox",
+		"content": {
+			"display": "Epilepsia",
+			"name": "epilepsia"
+		}
+	},
+    {
+		"inputType": "checkbox",
+		"content": {
+			"display": "Cataratas",
+			"name": "cataratas"
+		}
+	},
+    {
+		"inputType": "checkbox",
+		"content": {
+			"display": "Problemas renales",
+			"name": "problemas-renales"
+		}
+	},
+    {
+		"inputType": "checkbox",
+		"content": {
+			"display": "Piedras en el riñon",
+			"name": "piedras-en-el-riñon"
+		}
+	},
+    {
+		"inputType": "checkbox",
+		"content": {
+			"display": "Enfermedad de Crohns",
+			"name": "enfermedad-de-crohns"
+		}
+	},
+    {
+		"inputType": "checkbox",
+		"content": {
+			"display": "Colitis",
+			"name": "colitis"
+		}
+	},
+    {
+		"inputType": "checkbox",
+		"content": {
+			"display": "Anemia",
+			"name": "anemia"
+		}
+	},
+    {
+		"inputType": "checkbox",
+		"content": {
+			"display": "Jaundice",
+			"name": "jaundice"
+		}
+	},
+    {
+		"inputType": "checkbox",
+		"content": {
+			"display": "Ulceras estomacales",
+			"name": "ulceras-estomacales"
+		}
+	},
+    {
+		"inputType": "checkbox",
+		"content": {
+			"display": "Fiebre reumatica",
+			"name": "fiebre-reumatica"
+		}
+	},
+    {
+		"inputType": "checkbox",
+		"content": {
+			"display": "Tuberculosis",
+			"name": "tuberculosis"
+		}
+	},
+    {
+		"inputType": "checkbox",
+		"content": {
+			"display": "HIV/AIDS",
+			"name": "hiv/aids"
+		}
+	},
+    {
+		"inputType": "checkbox",
+		"content": {
+			"display": "Otro",
+			"name": "otro"
+		}
+	}
+]

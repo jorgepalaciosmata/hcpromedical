@@ -1,15 +1,10 @@
 import React, {useState, useContext} from 'react';
 import {View, CheckBox, Text, StyleSheet} from 'react-native';
-import { dataContext } from '../screens/TestView';
 
 const CheckBoxCom = ({content} ) => {
   const saveDataFromInput = useContext(dataContext);
 
   const [isSelected, setSelection] = useState(false);
-
-  const loadInfo = () => {
-    saveDataFromInput( [content.name], isSelected );
-  }
   
   const setData = () => {
     setSelection(!isSelected)
