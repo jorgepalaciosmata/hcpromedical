@@ -7,20 +7,12 @@ import TextBoxCom from "../components/TextBoxCom";
 import { useForm } from "../hooks/useForm";
 
 export const dataContext = React.createContext();
-import inputs from "../assets/data/jsons/InformacionPersonal.json"
+import inputsFromJson from "../assets/data/jsons/InformacionPersonal.json"
+import { useWhatComWillUse } from "../hooks/useWhatComWillUse";
 const PersonalInfoScreen = ({ navigation }) => {
   
 	const {data, setData, saveDataFromInput, updateData} = useForm();
-
-	inputs.forEach((input, key) => {
-		if (input.inputType=="checkbox") {
-			input.render= <CheckBoxCom key={key} content={input.content} />
-		} else if(input.inputType=="textbox") {
-			input.render= <TextBoxCom  key={key} content={input.content} />
-		} else if(input.inputType=="radioButton") {
-			input.render= <RadioButtonCom  key={key} content={input.content} />
-		}
-	});
+	const {inputs} = useWhatComWillUse(inputsFromJson);
 
 	return (
 		<dataContext.Provider value={{data, saveDataFromInput}}>
