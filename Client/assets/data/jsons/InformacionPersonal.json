@@ -11,7 +11,7 @@
         "inputType": "textbox",
         "content": {
             "placeholder": "Primer Apellido",
-            "handleChangeText": "lastName",
+            "handleChangeText": "firstLastName",
             "inputMode": "text"
         }
     },
@@ -27,7 +27,7 @@
         "inputType": "textbox",
         "content": {
             "placeholder": "Fecha De Nacimento",
-            "handleChangeText": "dateOfBirth",
+            "handleChangeText": "birthday",
             "inputMode": "text"
         }
     },
@@ -35,7 +35,7 @@
 		"inputType": "radioButton",
 		"content": {
 			"display": "Genero",
-			"name": "genero",
+			"name": "gender",
 			"options": ["Masculino","Femenino","Prefiero no especificar"]
 		}
 	},
@@ -43,7 +43,7 @@
         "inputType": "textbox",
         "content": {
             "placeholder": "Direccion",
-            "handleChangeText": "adress",
+            "handleChangeText": "address",
             "inputMode": "text"
         }
     }

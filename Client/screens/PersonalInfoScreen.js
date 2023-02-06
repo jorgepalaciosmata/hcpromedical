@@ -1,67 +1,61 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
-import { View, Button , TextInput, ScrollView, StyleSheet, Text } from 'react-native';
-import { prodApi } from "../api/prodApi";
-const axios = require("axios").default;
+import React from "react";
+import { View, Button , Text, Image } from 'react-native';
+import { personalInfoStyle } from '../assets/styles/PersonalInfo.style';
+import CheckBoxCom from "../components/CheckBoxCom";
+import RadioButtonCom from "../components/RadioButtonCom";
+import TextBoxCom from "../components/TextBoxCom";
+import { useForm } from "../hooks/useForm";
 
-import inputs from "../assets/data/inputs.json";
-
+export const dataContext = React.createContext();
+import inputs from "../assets/data/jsons/InformacionPersonal.json"
 const PersonalInfoScreen = ({ navigation }) => {
-
-  const [user, setUser] = useState({
-    id:"", //I need to fix this problem later!
-    name: "",
-    lastName: "",
-    phone: "",
-  });
   
-  const [isInit, setIsInit] = useState(false);
+	const {data, setData, saveDataFromInput} = useForm();
 
-  const handleChangeText = (name , value) => {
-    setUser({...user, [name]:value});
-  }
+	inputs.forEach((input, key) => {
+		if (input.inputType=="checkbox") {
+			input.render= <CheckBoxCom key={key} content={input.content} />
+		} else if(input.inputType=="textbox") {
+			input.render= <TextBoxCom  key={key} content={input.content} />
+		} else if(input.inputType=="radioButton") {
+			input.render= <RadioButtonCom  key={key} content={input.content} />
+		}
+	});
 
-  async function getData() {
-    const response = await prodApi.get( '/personalInfo/50' );
-    setUser( response.data.item )
-  }
+	return (
+		<dataContext.Provider value={{data, saveDataFromInput}}>
+			<View style={personalInfoStyle.background}>
+				<View style={personalInfoStyle.userCase}>
+					<Image  
+					source={{uri: data.profilePicture}} 
+					style={personalInfoStyle.image}
+					/>
+					<Text style={personalInfoStyle.text}>{data.name} {data.firstLastName} {data.secondLastName}</Text>
+				</View> 
+				<View style={personalInfoStyle.back}>
+					<View style={personalInfoStyle['content:last-child']}>
+						{inputs[0].render}
+						{inputs[1].render}
+						{inputs[2].render}
+					</View>
 
-  useEffect(() => {
-      getData();
-  }, []);
+					<View style={personalInfoStyle.hr} />
 
-  return (
-    <ScrollView style={styles.container}>
-      {inputs.map((input, index) => (
-        <View style={styles.inputStyle} key={index}>
-          <Text>{input.handleChangeText + ':'}</Text>
-          <TextInput
-            defaultValue={user[input.handleChangeText]}
-            onChangeText={(value) =>handleChangeText(`${input.handleChangeText}`, value)}
-          />
-        </View>
-      ))}
+					<View style={personalInfoStyle['content:last-child']}>
+						{inputs[3].render}
+						{inputs[4].render}
+					</View>
 
-      <View style={styles.inputStyle}>
-        <Button title="Save"  />
-      </View>
-    </ScrollView>
-  );
-};
+					<View style={personalInfoStyle.hr} />
 
-const styles = StyleSheet.create({
-  container: {
-      padding: 35
-  },
-  inputStyle: {
-      flex: 1,
-      padding: 0,
-      marginBottom: 15,
-      borderRadius: 5,
-      borderBottomWidth: 1,
-      borderBottomColor: '#cccccc',
-  }
-})
-
+					<View style={personalInfoStyle['content:last-child']}>
+						{inputs[5].render}
+					</View>
+				</View>
+			</View>
+			<Button onPress={()=>console.log(data)}/>
+		</dataContext.Provider>
+	);
+	};
 
 export default PersonalInfoScreen;

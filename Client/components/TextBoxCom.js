@@ -1,13 +1,17 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Text, StyleSheet, View, TextInput} from 'react-native';
+import { dataContext } from '../screens/PersonalInfoScreen';
 
-const TextBoxCom = ({content}) => {
+const TextBoxCom = ({content},{defaultValue}) => {
+  const {data, saveDataFromInput} = useContext(dataContext);
   return (
     <>
       <View style={styles.inputStyle}>
         <Text>{content.placeholder + ':'}</Text>
         <TextInput
           inputMode={content.inputMode}
+          defaultValue={data[content.handleChangeText]}
+          onChangeText={( value ) => saveDataFromInput(content.handleChangeText,value)}
         />
       </View>
     </>

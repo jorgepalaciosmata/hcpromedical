@@ -8,8 +8,6 @@ export const dataContext = React.createContext();
 
 import inputs from "../assets/data/jsons/InformacionPersonal.json"
 import { personalInfoStyle } from '../assets/styles/PersonalInfo.style';
-import { MenuBottom } from '../components/MenuBottom';
-
 
 	const TestView = () => {
 
@@ -65,7 +63,6 @@ import { MenuBottom } from '../components/MenuBottom';
 			</View>
 		</View>
 		<Button onPress={onPressEvent}/>
-		<MenuBottom></MenuBottom>
 	</dataContext.Provider>
   );
 

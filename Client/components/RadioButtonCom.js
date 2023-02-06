@@ -1,16 +1,22 @@
 
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import { dataContext } from '../screens/TestView';
+import { dataContext } from '../screens/PersonalInfoScreen';
 
 const RadioButtonCom = ({content}) => {
+  const {data, saveDataFromInput} = useContext(dataContext);
   const [selectedOption, setSelectedOption] = useState();
-  const saveDataFromInput = useContext(dataContext);
 
+  setTimeout(()=>{
+    setSelectedOption(data.gender);
+  },10)
+  
+
+  
   const setData = (option) => {
     setSelectedOption(option);
     saveDataFromInput( [content.name], option );
-  }
+  } 
 
   return (
     <View>
@@ -18,14 +24,14 @@ const RadioButtonCom = ({content}) => {
 
     <View style={styles.wrapper}>
       {content.options.map(option => (
-      <View key={option} style={styles.option}>
-        <TouchableOpacity 
-          style={styles.outer}
-          onPress={()=>setData(option)} >
-          { selectedOption === option && <View style={styles.inner}></View>}
-        </TouchableOpacity> 
-        <Text>{option}</Text>
-      </View>
+        <View key={option} style={styles.option}>
+          <TouchableOpacity 
+            style={styles.outer}
+            onPress={()=>setData(option)} >
+            { selectedOption === option && <View style={styles.inner}></View>}
+          </TouchableOpacity> 
+          <Text>{option}</Text>
+        </View>
     ))}
     </View>
     
@@ -35,8 +41,8 @@ const RadioButtonCom = ({content}) => {
 
 const styles = StyleSheet.create({
   outer: {
-    width: 25,
-    height: 25,
+    width: 20,
+    height: 20,
     borderWidth: 1,
     borderRadius: 15,
     justifyContent: 'center',
