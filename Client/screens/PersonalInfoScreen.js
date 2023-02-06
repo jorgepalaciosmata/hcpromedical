@@ -1,14 +1,12 @@
 import React from "react";
 import { View, Button , Text, Image } from 'react-native';
 import { personalInfoStyle } from '../assets/styles/PersonalInfo.style';
-import CheckBoxCom from "../components/CheckBoxCom";
-import RadioButtonCom from "../components/RadioButtonCom";
-import TextBoxCom from "../components/TextBoxCom";
 import { useForm } from "../hooks/useForm";
-
-export const dataContext = React.createContext();
 import inputsFromJson from "../assets/data/jsons/InformacionPersonal.json"
 import { useWhatComWillUse } from "../hooks/useWhatComWillUse";
+
+export const dataContext = React.createContext();
+
 const PersonalInfoScreen = ({ navigation }) => {
   
 	const {data, setData, saveDataFromInput, updateData} = useForm();
