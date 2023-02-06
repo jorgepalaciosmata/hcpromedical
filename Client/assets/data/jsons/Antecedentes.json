@@ -189,7 +189,7 @@
 		}
 	},
     {
-		"inputType": "checkbox",
+		"inputType": "checkboxText",
 		"content": {
 			"display": "Otro",
 			"name": "otro"
