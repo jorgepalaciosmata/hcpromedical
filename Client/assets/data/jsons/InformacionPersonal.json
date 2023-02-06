@@ -1,0 +1,50 @@
+[
+    {
+        "inputType": "textbox",
+        "content": {
+            "placeholder": "Nombre",
+            "handleChangeText": "name",
+            "inputMode": "text"
+        }
+    },
+    {
+        "inputType": "textbox",
+        "content": {
+            "placeholder": "Primer Apellido",
+            "handleChangeText": "firstLastName",
+            "inputMode": "text"
+        }
+    },
+    {
+        "inputType": "textbox",
+        "content": {
+            "placeholder": "Segundo Apellido",
+            "handleChangeText": "secondLastName",
+            "inputMode": "text"
+        }
+    },
+    {
+        "inputType": "textbox",
+        "content": {
+            "placeholder": "Fecha De Nacimento",
+            "handleChangeText": "birthday",
+            "inputMode": "text"
+        }
+    },
+    {
+		"inputType": "radioButton",
+		"content": {
+			"display": "Genero",
+			"name": "gender",
+			"options": ["Masculino","Femenino","Prefiero no especificar"]
+		}
+	},
+    {
+        "inputType": "textbox",
+        "content": {
+            "placeholder": "Direccion",
+            "handleChangeText": "address",
+            "inputMode": "text"
+        }
+    }
+]

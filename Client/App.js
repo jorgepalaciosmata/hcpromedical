@@ -9,6 +9,7 @@ import HistorialMedicoScreen from './screens/HistorialMedicoScreen';
 import LaboratorioScreen from './screens/LaboratorioScreen';
 import RecetasScreen from './screens/RecetasScreen';
 import AuthenticationScreen from './screens/AuthenticationScreen';
+import TestView from './screens/TestView';
 
 function HomeScreen({ navigation }) {
   return (
@@ -28,7 +29,6 @@ function HomeScreen({ navigation }) {
             style = {{ width: 100, height: 100 }} />
           <Text>Historial médico</Text>
         </TouchableOpacity>
-
         <TouchableOpacity 
           style={{width: 150, alignItems: 'center'}}
           onPress={() => navigation.navigate('Laboratorio')} >
@@ -52,6 +52,14 @@ function HomeScreen({ navigation }) {
             style = {{ width: 100, height: 100 }} />
           <Text>Authentication</Text>
         </TouchableOpacity>
+
+        <TouchableOpacity 
+         style={{width: "150", alignItems: 'center'}}
+          onPress={() => navigation.navigate('Testing JSON')} >
+          <Image source={require('./assets/icons/medical-history.png')} 
+            style = {{ width: 100, height: 100 }} />
+          <Text>Testing JSON</Text>
+        </TouchableOpacity>
       </View>
   );
 }
@@ -68,6 +76,7 @@ function App() {
         <Stack.Screen name="Laboratorio" component={LaboratorioScreen} />
         <Stack.Screen name="Recetas" component={RecetasScreen} />
         <Stack.Screen name="Authentication" component={AuthenticationScreen} />
+        <Stack.Screen name="Testing JSON" component={TestView} />
       </Stack.Navigator>
     </NavigationContainer>
   );
