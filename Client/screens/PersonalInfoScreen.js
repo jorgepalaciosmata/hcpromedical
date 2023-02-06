@@ -10,7 +10,7 @@ export const dataContext = React.createContext();
 import inputs from "../assets/data/jsons/InformacionPersonal.json"
 const PersonalInfoScreen = ({ navigation }) => {
   
-	const {data, setData, saveDataFromInput} = useForm();
+	const {data, setData, saveDataFromInput, updateData} = useForm();
 
 	inputs.forEach((input, key) => {
 		if (input.inputType=="checkbox") {
@@ -53,7 +53,7 @@ const PersonalInfoScreen = ({ navigation }) => {
 					</View>
 				</View>
 			</View>
-			<Button onPress={()=>console.log(data)}/>
+			<Button onPress={updateData}/>
 		</dataContext.Provider>
 	);
 	};

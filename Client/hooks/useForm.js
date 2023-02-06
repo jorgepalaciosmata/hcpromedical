@@ -17,9 +17,16 @@ export const useForm = ( ) => {
 		setData({...data, [name]:value});
 	}
 
+  async function updateData( ) {   
+    const response = await prodApi.post( '/personalinfo/50', data);
+    console.log(response);
+      
+}
+
   return {
     data,
     setData,
-    saveDataFromInput
+    saveDataFromInput,
+    updateData
   }
 }
