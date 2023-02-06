@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { View, Button , TextInput, ScrollView, StyleSheet, Text } from 'react-native';
+import { prodApi } from "../api/prodApi";
 const axios = require("axios").default;
 
 import inputs from "../assets/data/inputs.json";
@@ -21,30 +22,13 @@ const PersonalInfoScreen = ({ navigation }) => {
   }
 
   async function getData() {
-    await axios
-      .get(
-        "https://p8ada5o8e0.execute-api.us-east-1.amazonaws.com/Prod/personalInfo/50"
-      )
-      .then(function ({ data }) {
-        const item = data.item;
-
-        setIsInit(true);
-        setUser({...item});
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      })
-      .then(function () {
-        // always executed
-      });
+    const response = await prodApi.get( '/personalInfo/50' );
+    setUser( response.data.item )
   }
 
   useEffect(() => {
-    if (!isInit) {
       getData();
-    }
-  }, [user]);
+  }, []);
 
   return (
     <ScrollView style={styles.container}>
