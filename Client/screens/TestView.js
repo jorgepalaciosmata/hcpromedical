@@ -9,7 +9,6 @@ const TestView = () => {
     inputs.map(input=> (
        input.render
     ))
-    
   )
 }
 

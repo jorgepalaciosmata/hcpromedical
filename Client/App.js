@@ -10,13 +10,14 @@ import LaboratorioScreen from './screens/LaboratorioScreen';
 import RecetasScreen from './screens/RecetasScreen';
 import AuthenticationScreen from './screens/AuthenticationScreen';
 import TestView from './screens/TestView';
+import { AntecedentesScreen } from './screens/AntecedentesScreen';
 
 function HomeScreen({ navigation }) {
   return (
       <View style={{ flexWrap:'wrap', alignItems: 'left', flexDirection: "row", padding: '20px' }}>
         <TouchableOpacity 
           style={{width: 150, alignItems: 'center'}}
-          onPress={() => navigation.navigate('PersonalInfo')} >
+          onPress={() => navigation.navigate('Informacion Personal')} >
           <Image source={require('./assets/icons/nutricion.png')} 
             style = {{ width: 100, height: 100 }} />
           <Text>Informacion Personal</Text>
@@ -55,7 +56,15 @@ function HomeScreen({ navigation }) {
 
         <TouchableOpacity 
          style={{width: "150", alignItems: 'center'}}
-          onPress={() => navigation.navigate('Testing JSON')} >
+          onPress={() => navigation.navigate('Testing')} >
+          <Image source={require('./assets/icons/medical-history.png')} 
+            style = {{ width: 100, height: 100 }} />
+          <Text>Testing JSON</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity 
+         style={{width: "150", alignItems: 'center'}}
+          onPress={() => navigation.navigate('Antecedentes')} >
           <Image source={require('./assets/icons/medical-history.png')} 
             style = {{ width: 100, height: 100 }} />
           <Text>Testing JSON</Text>
@@ -71,12 +80,13 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="HC Cloud">
         <Stack.Screen name="HC Cloud" component={HomeScreen} />
-        <Stack.Screen name="PersonalInfo" component={PersonalInfoScreen} />
+        <Stack.Screen name="Informacion Personal" component={PersonalInfoScreen} />
         <Stack.Screen name="Historial" component={HistorialMedicoScreen} />
         <Stack.Screen name="Laboratorio" component={LaboratorioScreen} />
         <Stack.Screen name="Recetas" component={RecetasScreen} />
         <Stack.Screen name="Authentication" component={AuthenticationScreen} />
-        <Stack.Screen name="Testing JSON" component={TestView} />
+        <Stack.Screen name="Antecedentes" component={AntecedentesScreen} />
+        <Stack.Screen name="Testing" component={TestView} />
       </Stack.Navigator>
     </NavigationContainer>
   );
