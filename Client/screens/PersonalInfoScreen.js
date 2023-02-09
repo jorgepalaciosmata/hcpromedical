@@ -4,6 +4,7 @@ import { personalInfoStyle } from '../assets/styles/PersonalInfo.style';
 import { useForm } from "../hooks/useForm";
 import inputsFromJson from "../assets/data/jsons/InformacionPersonal.json"
 import { useWhatComWillUse } from "../hooks/useWhatComWillUse";
+import {BirthdayCom} from '../components/BirthdayCom'
 
 export const dataContext = React.createContext();
 
@@ -32,7 +33,7 @@ const PersonalInfoScreen = ({ navigation }) => {
 					<View style={personalInfoStyle.hr} />
 
 					<View style={personalInfoStyle['content:last-child']}>
-						{inputs[3].render}
+						<BirthdayCom text="Fecha de Nacimiento" />
 						{inputs[4].render}
 					</View>
 
