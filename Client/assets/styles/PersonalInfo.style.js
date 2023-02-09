@@ -1,4 +1,3 @@
-import { AuthError } from 'expo-auth-session';
 import { StyleSheet } from 'react-native';
 
 export const personalInfoStyle = StyleSheet.create({

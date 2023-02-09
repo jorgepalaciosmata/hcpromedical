@@ -24,7 +24,7 @@
 		"inputType": "checkbox",
 		"content": {
 			"display": "Hypothiroidismo",
-			"name": "Hypothiroidismo"
+			"name": "hypothiroidismo"
 		}
 	},
     {
@@ -186,13 +186,6 @@
 		"content": {
 			"display": "HIV/AIDS",
 			"name": "hiv/aids"
-		}
-	},
-    {
-		"inputType": "checkboxText",
-		"content": {
-			"display": "Otro",
-			"name": "otro"
 		}
 	}
 ]

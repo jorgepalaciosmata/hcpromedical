@@ -67,7 +67,7 @@ function HomeScreen({ navigation }) {
           onPress={() => navigation.navigate('Antecedentes')} >
           <Image source={require('./assets/icons/medical-history.png')} 
             style = {{ width: 100, height: 100 }} />
-          <Text>Testing JSON</Text>
+          <Text>Mis Antecedentes</Text>
         </TouchableOpacity>
       </View>
   );
