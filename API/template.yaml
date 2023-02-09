@@ -32,13 +32,18 @@ Resources:
                 type: aws_proxy
                 uri: !Sub arn:${AWS::Partition}:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetPersonalInfo.Arn}/invocations
               responses: {}
+          /listartifacts:
+            get:
+              x-amazon-apigateway-integration:
+                httpMethod: POST
+                type: aws_proxy
+                uri: !Sub arn:${AWS::Partition}:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ListArtifacts.Arn}/invocations
+              responses: {}
       EndpointConfiguration: REGIONAL
       TracingEnabled: true
       Cors:
-        AllowMethods:
-          - GET,POST
-        AllowOrigin:
-          - localhost
+        AllowMethods: '''GET,POST'''
+        AllowOrigin: '''localhost'''
   GetPersonalInfo:
     Type: AWS::Serverless::Function
     Properties:
@@ -173,3 +178,51 @@ Resources:
     DeletionPolicy: Retain
     Properties:
       LogGroupName: !Sub /aws/lambda/${SetPersonalInfo}
+  ListArtifacts:
+    Type: AWS::Serverless::Function
+    Properties:
+      Description: !Sub
+        - Stack ${AWS::StackName} Function ${ResourceName}
+        - ResourceName: ListArtifacts
+      CodeUri: src/ListArtifact
+      Handler: index.handler
+      Runtime: nodejs16.x
+      MemorySize: 3008
+      Timeout: 30
+      Tracing: Active
+      Environment:
+        Variables:
+          BUCKET_NAME: !Ref hcpromedicalartifact
+          BUCKET_ARN: !GetAtt hcpromedicalartifact.Arn
+      Policies:
+        - S3CrudPolicy:
+            BucketName: !Ref hcpromedicalartifact
+      Events:
+        ApiGETlistartifacts:
+          Type: Api
+          Properties:
+            Path: /listartifacts
+            Method: GET
+            RestApiId: !Ref Api
+  ListArtifactsLogGroup:
+    Type: AWS::Logs::LogGroup
+    DeletionPolicy: Retain
+    Properties:
+      LogGroupName: !Sub /aws/lambda/${ListArtifacts}
+  EmailProcessing:
+    Type: AWS::Serverless::Function
+    Properties:
+      Description: !Sub
+        - Stack ${AWS::StackName} Function ${ResourceName}
+        - ResourceName: EmailProcessing
+      CodeUri: src/EmailProcessing
+      Handler: index.handler
+      Runtime: nodejs18.x
+      MemorySize: 3008
+      Timeout: 30
+      Tracing: Active
+  EmailProcessingLogGroup:
+    Type: AWS::Logs::LogGroup
+    DeletionPolicy: Retain
+    Properties:
+      LogGroupName: !Sub /aws/lambda/${EmailProcessing}
