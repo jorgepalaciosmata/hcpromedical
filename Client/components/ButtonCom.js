@@ -1,9 +1,11 @@
 import React from 'react'
 import { TouchableOpacity, View, Text, StyleSheet } from 'react-native'
 
-export const ButtonCom = ({text}) => {
+export const ButtonCom = ({text, onPress}) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity
+        onPress={onPress}
+    >
         <View style={styles.container}>        
             <Text style={styles.text}>{text}</Text>
         </View>

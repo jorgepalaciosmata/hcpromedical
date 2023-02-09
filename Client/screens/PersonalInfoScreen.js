@@ -5,6 +5,7 @@ import { useForm } from "../hooks/useForm";
 import inputsFromJson from "../assets/data/jsons/InformacionPersonal.json"
 import { useWhatComWillUse } from "../hooks/useWhatComWillUse";
 import {BirthdayCom} from '../components/BirthdayCom'
+import { ButtonCom } from "../components/ButtonCom";
 
 export const dataContext = React.createContext();
 
@@ -44,7 +45,12 @@ const PersonalInfoScreen = ({ navigation }) => {
 					</View>
 				</View>
 			</View>
-			<Button onPress={updateData}/>
+			<View style={personalInfoStyle.buttonContainer}>
+				<ButtonCom
+					text="Actualizar datos"
+					onPress={()=>updateData()}
+					/>
+			</View>		
 		</dataContext.Provider>
 	);
 	};

@@ -1,3 +1,4 @@
+import { AuthError } from 'expo-auth-session';
 import { StyleSheet } from 'react-native';
 
 export const personalInfoStyle = StyleSheet.create({
@@ -40,5 +41,9 @@ export const personalInfoStyle = StyleSheet.create({
         fontFamily: 'Inter',
         fontStyle: "normal",
         fontWeight: 300,
+    },
+    buttonContainer: {
+        alignSelf: 'center',
+        justifyContent: 'center',
     }
   });
