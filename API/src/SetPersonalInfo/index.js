@@ -7,15 +7,10 @@ const ddbDocClient = DynamoDBDocumentClient.from(client);
 exports.handler = async event => {
 
     try {
-    
       const id = JSON.parse(event.body).id;
-
       const command = new PutCommand({
         TableName: process.env.TABLE_NAME,
-        Item: {
-          "id": id,
-          "test": "test test"
-        }
+        Item: JSON.parse(event.body)
       });
 
       const response = await ddbDocClient.send(command);

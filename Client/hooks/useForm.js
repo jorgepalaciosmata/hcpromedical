@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { prodApi } from "../api/prodApi";
+import axios from "axios";
 
 export const useForm = ( ) => {
   const [data, setData] = useState({});
@@ -18,9 +19,8 @@ export const useForm = ( ) => {
 	}
 
   async function updateData( ) {   
-    const response = await prodApi.post( '/personalinfo/50', data);
+    const response = await prodApi.post( '/personalinfo', data);
     console.log(response);
-      
 }
 
   return {
