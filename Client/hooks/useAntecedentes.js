@@ -11,10 +11,12 @@ export const useAntecedentes = () => {
         2.1 Cuando se mande a pintar el checkbox identificar si esta en true o false para que se establezca, si esta en undefined, se pintara en falso. (el json tiene una propiedad llamada name este es el nombre con el que se guardara la propiedad en la base de datos)
   */}
   const [diseases, setDiseases] = useState({})
+  const [data, setData] = useState({});
 
   async function getData() {
     const response = await prodApi.get( '/personalInfo/50' );
     setDiseases( response.data.item.diseases );
+    setData( response.data.item );
   }
 
   useEffect(() => {
@@ -25,8 +27,16 @@ export const useAntecedentes = () => {
 		setDiseases({...diseases, [name]:value});
 	}
 
+  async function saveOnDB () {
+    const request = {...data, 'diseases': diseases}
+    console.log(request);
+    const response = await prodApi.post( '/personalinfo', request);
+    console.log(response);
+  }
+
   return {
     diseases,
-    updateDiseases
+    updateDiseases,
+    saveOnDB
   }
 }

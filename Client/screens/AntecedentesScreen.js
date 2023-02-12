@@ -10,7 +10,7 @@ export const diseasesContext = React.createContext();
 
 export const AntecedentesScreen = () => {
     const { inputs } = useWhatComWillUse(inputsFromJson);
-    const { diseases, updateDiseases } = useAntecedentes();
+    const { diseases, updateDiseases, saveOnDB } = useAntecedentes();
 
     return (
         <diseasesContext.Provider value={ {diseases, updateDiseases} } >
@@ -32,7 +32,7 @@ export const AntecedentesScreen = () => {
                         ))}
                     </View>
                         
-                    <ButtonCom text={"Actualizar datos"} onPress={()=>console.log(diseases)} />
+                    <ButtonCom text={"Actualizar datos"} onPress={saveOnDB} />
                 </View>
             
             </ScrollView>
