@@ -13,20 +13,14 @@ export const useForm = ( ) => {
       getData();
   }, []);
 
-  const saveDataFromInput = (name, value) => {
-		setData({...data, [name]:value});
-	}
-
   async function updateData( ) {   
     const response = await prodApi.post( '/personalinfo', data);
-    console.log(response);
-      
-}
+    console.log(response); 
+  }
 
   return {
     data,
     setData,
-    saveDataFromInput,
     updateData
   }
 }

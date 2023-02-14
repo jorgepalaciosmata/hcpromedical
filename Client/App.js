@@ -78,7 +78,7 @@ const Stack = createNativeStackNavigator();
 function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Testing">
+      <Stack.Navigator initialRouteName="HC Cloud">
         <Stack.Screen name="HC Cloud" component={HomeScreen} />
         <Stack.Screen name="Informacion Personal" component={PersonalInfoScreen} />
         <Stack.Screen name="Historial" component={HistorialMedicoScreen} />

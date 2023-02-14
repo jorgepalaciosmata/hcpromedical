@@ -9,8 +9,8 @@ import { useWhatComWillUse } from '../hooks/useWhatComWillUse'
 export const diseasesContext = React.createContext();
 
 export const AntecedentesScreen = () => {
-    const { diseases, updateDiseases, saveOnDB } = useAntecedentes();
-    const { inputs } = useWhatComWillUse(inputsFromJson);
+    const { diseases, setDiseases, saveOnDB } = useAntecedentes();
+    const { inputs } = useWhatComWillUse(inputsFromJson, diseases, setDiseases);
 
     //tengo que mandar diseses y updateDiseases en el componente
     /*

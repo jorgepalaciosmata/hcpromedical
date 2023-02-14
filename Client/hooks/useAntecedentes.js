@@ -23,9 +23,7 @@ export const useAntecedentes = () => {
     getData();
   }, [])
   
-  const updateDiseases = (name, value) => {
-		setDiseases({...diseases, [name]:value});
-	}
+
 
   async function saveOnDB () {
     const request = {...data, 'diseases': diseases}
@@ -36,7 +34,7 @@ export const useAntecedentes = () => {
 
   return {
     diseases,
-    updateDiseases,
+    setDiseases,
     saveOnDB
   }
 }
