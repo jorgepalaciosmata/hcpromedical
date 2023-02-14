@@ -1,26 +1,23 @@
 [
 	{
-        "inputType": "textbox",
-        "content": {
-            "placeholder": "Nombre",
-            "handleChangeText": "name",
-            "inputMode": "text"
-        }
-    },
-    {
-        "inputType": "textbox",
-        "content": {
-            "placeholder": "Primer Apellido",
-            "handleChangeText": "firstLastName",
-            "inputMode": "text"
-        }
-    },
-    {
-        "inputType": "textbox",
-        "content": {
-            "placeholder": "Segundo Apellido",
-            "handleChangeText": "secondLastName",
-            "inputMode": "text"
-        }
-    }
+		"inputType": "checkbox",
+		"content": {
+			"display": "Diabetes",
+			"name": "diabetes"
+		}
+	},
+	{
+		"inputType": "checkbox",
+		"content": {
+			"display": "Hipertension",
+			"name": "hipertension"
+		}
+	},
+	{
+		"inputType": "checkbox",
+		"content": {
+			"display": "Colesterol elevado",
+			"name": "colesterol-elevado"
+		}
+	}
 ]

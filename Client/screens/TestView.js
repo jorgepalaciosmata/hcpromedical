@@ -1,15 +1,12 @@
 import React, { useState } from 'react'
 import { Button, ScrollView } from 'react-native'
 
-import inputsFromJson from '../assets/data/jsons/Antecedentes.json'
-import TextBoxCom from '../components/TextBoxCom'
 import { useWhatComWillUse } from '../hooks/useWhatComWillUse'
 import inputsFromJsonAgain from '../assets/data/jsons/testing.json'
 
 const TestView = () => {
   const [data, setData] = useState({
-    name: "Carlos",
-    secondLastName: "Mendez"
+    diabetes: true
   }) 
   const {inputs} = useWhatComWillUse(inputsFromJsonAgain, data, setData);
 

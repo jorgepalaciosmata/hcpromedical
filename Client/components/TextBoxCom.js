@@ -1,9 +1,7 @@
-import React, {useContext, useState} from 'react';
+import React from 'react';
 import {Text, StyleSheet, View, TextInput} from 'react-native';
-import { dataContext } from '../screens/PersonalInfoScreen';
 
 const TextBoxCom = ({content, data, setData}) => {
-  // const {data, saveDataFromInput} = useContext(dataContext);
   return (
     <>
       <View style={styles.inputStyle}>

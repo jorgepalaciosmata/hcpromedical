@@ -1,21 +1,18 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState} from 'react';
 import {View, CheckBox, Text, StyleSheet} from 'react-native';
-import { diseasesContext } from '../screens/AntecedentesScreen';
 
-const CheckBoxCom = ({content} ) => {
+const CheckBoxCom = ({content, data, setData}) => {
 
-  const { diseases, updateDiseases} = useContext( diseasesContext );
   const [isSelected, setSelection] = useState(false);
   
   setTimeout(() => {
-    if ( diseases[content.name] )
-    setSelection(diseases[content.name])
+    if ( data[content.name] )
+    setSelection(data[content.name])
   }, 10);
 
-  const setData = () => {
+  const updateInfo = () => {
     setSelection(!isSelected)
-    updateDiseases(content.name, !isSelected)
-
+    setData({...data, [content.name]:!isSelected })
   }
 
   
@@ -23,11 +20,10 @@ const CheckBoxCom = ({content} ) => {
     <View style={styles.container}>
       <CheckBox
         value={ isSelected }
-        onValueChange={setData}
+        onValueChange={ updateInfo }
       />
       <Text style={styles.text}>{content.display}</Text>
     </View>
-    
   );
 };
 
@@ -44,4 +40,5 @@ const styles = StyleSheet.create({
     color: "#666666",
   },
 })
+
 export default CheckBoxCom;
