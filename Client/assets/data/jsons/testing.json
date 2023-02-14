@@ -1,0 +1,26 @@
+[
+	{
+        "inputType": "textbox",
+        "content": {
+            "placeholder": "Nombre",
+            "handleChangeText": "name",
+            "inputMode": "text"
+        }
+    },
+    {
+        "inputType": "textbox",
+        "content": {
+            "placeholder": "Primer Apellido",
+            "handleChangeText": "firstLastName",
+            "inputMode": "text"
+        }
+    },
+    {
+        "inputType": "textbox",
+        "content": {
+            "placeholder": "Segundo Apellido",
+            "handleChangeText": "secondLastName",
+            "inputMode": "text"
+        }
+    }
+]

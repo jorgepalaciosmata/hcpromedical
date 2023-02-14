@@ -9,11 +9,17 @@ import { useWhatComWillUse } from '../hooks/useWhatComWillUse'
 export const diseasesContext = React.createContext();
 
 export const AntecedentesScreen = () => {
-    const { inputs } = useWhatComWillUse(inputsFromJson);
     const { diseases, updateDiseases, saveOnDB } = useAntecedentes();
+    const { inputs } = useWhatComWillUse(inputsFromJson);
+
+    //tengo que mandar diseses y updateDiseases en el componente
+    /*
+        Para eso voy a trabajar en useWhatComWillUse, un textbox, un checkbox, un radio tienen el mismo objetivo.
+        Un componente siempre recibe la data (que desea cargar en caso de necesitarse) y recibe la funcion para guardar los datos.
+        Por tanto a useWhatComWillUse se va a hacer cargo de esto....
+    */
 
     return (
-        <diseasesContext.Provider value={ {diseases, updateDiseases} } >
             <ScrollView style={AntecedentesStyles.background}>
                 <View style={AntecedentesStyles.header}>
                     <Image  
@@ -35,8 +41,6 @@ export const AntecedentesScreen = () => {
                     <ButtonCom text={"Actualizar datos"} onPress={saveOnDB} />
                 </View>
             
-            </ScrollView>
-        </diseasesContext.Provider>
-        
+            </ScrollView>      
     )
 }

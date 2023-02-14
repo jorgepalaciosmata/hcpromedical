@@ -2,8 +2,8 @@ import React, {useContext, useState} from 'react';
 import {Text, StyleSheet, View, TextInput} from 'react-native';
 import { dataContext } from '../screens/PersonalInfoScreen';
 
-const TextBoxCom = ({content},{defaultValue}) => {
-  const {data, saveDataFromInput} = useContext(dataContext);
+const TextBoxCom = ({content, data, setData}) => {
+  // const {data, saveDataFromInput} = useContext(dataContext);
   return (
     <>
       <View style={styles.inputStyle}>
@@ -11,7 +11,7 @@ const TextBoxCom = ({content},{defaultValue}) => {
         <TextInput
           inputMode={content.inputMode}
           defaultValue={data[content.handleChangeText]}
-          onChangeText={( value ) => saveDataFromInput(content.handleChangeText,value)}
+          onChangeText={( value ) => setData({...data, lastName: value })}
         />
       </View>
     </>

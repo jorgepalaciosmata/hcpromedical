@@ -1,36 +1,26 @@
-import React from 'react'
-import { Button } from 'react-native'
+import React, { useState } from 'react'
+import { Button, ScrollView } from 'react-native'
 
 import inputsFromJson from '../assets/data/jsons/Antecedentes.json'
+import TextBoxCom from '../components/TextBoxCom'
 import { useWhatComWillUse } from '../hooks/useWhatComWillUse'
-
-const Componente = ({onClick}) => {
-  return (
-    <>
-     <Button onPress={() => onClick("hiram")} ></Button>
-    </>
-    );
-}
+import inputsFromJsonAgain from '../assets/data/jsons/testing.json'
 
 const TestView = () => {
-  const {inputs} = useWhatComWillUse(inputsFromJson);
+  const [data, setData] = useState({
+    name: "Carlos",
+    secondLastName: "Mendez"
+  }) 
+  const {inputs} = useWhatComWillUse(inputsFromJsonAgain, data, setData);
 
-  const saludoConNombre = (nombre)=>{
-    console.log(`Hola ${nombre}`);
-  }
-
-  const saludo = (nombre) => {
-    saludoConNombre(nombre);
-  }
 
   return (
-    <>
-    <Componente onClick={saludo}></Componente>
-    <br></br>
-    <Componente onClick={saludo}></Componente>
-    <Componente onClick={saludo}></Componente>
-    <Componente onClick={saludo}></Componente>
-    </>
+    <ScrollView>
+    {/* <TextBoxCom content={inputContentExample} data={data} setData={setData} /> */}
+    {inputs.map( input => input.render )}
+
+    <Button onPress={()=>console.log(data)}></Button>
+    </ScrollView>
   )
 }
 
