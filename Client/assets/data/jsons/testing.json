@@ -19,5 +19,13 @@
 			"display": "Colesterol elevado",
 			"name": "colesterol-elevado"
 		}
+	},
+	{
+		"inputType": "radioButton",
+		"content": {
+			"display": "Genero",
+			"name": "gender",
+			"options": ["Masculino","Femenino","Prefiero no especificar"]
+		}
 	}
 ]

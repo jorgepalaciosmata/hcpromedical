@@ -6,7 +6,8 @@ import inputsFromJsonAgain from '../assets/data/jsons/testing.json'
 
 const TestView = () => {
   const [data, setData] = useState({
-    diabetes: true
+    diabetes: true,
+    gender: 'Masculino'
   }) 
   const {inputs} = useWhatComWillUse(inputsFromJsonAgain, data, setData);
 
