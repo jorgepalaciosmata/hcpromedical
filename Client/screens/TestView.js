@@ -1,26 +1,30 @@
-import React, { useState } from 'react'
-import { Button, ScrollView } from 'react-native'
-
-import { useWhatComWillUse } from '../hooks/useWhatComWillUse'
-import inputsFromJsonAgain from '../assets/data/jsons/testing.json'
+import React, { useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import CalendarPicker from 'react-native-calendar-picker';
+import { CalendarCom } from '../components/CalendarCom';
 
 const TestView = () => {
-  const [data, setData] = useState({
-    diabetes: true,
-    gender: 'Masculino'
-  }) 
-  const {inputs} = useWhatComWillUse(inputsFromJsonAgain, data, setData);
+const [selectedStartDate, setSelectedStartDate] = useState(null);
 
+const onDateChange = date => {
+  setSelectedStartDate(date);
+};
 
-  return (
-    <ScrollView>
-    {/* <TextBoxCom content={inputContentExample} data={data} setData={setData} /> */}
-    {inputs.map( input => input.render )}
+const startDate = selectedStartDate ? selectedStartDate.toString() : '';
 
-    <Button onPress={()=>console.log(data)}></Button>
-    </ScrollView>
-  )
-}
+return (
+<>
+<CalendarCom />
+</>
+);
+};
 
+const styles = StyleSheet.create({
+container: {
+flex: 1,
+backgroundColor: '#FFFFFF',
+marginTop: 100,
+},
+});
 
 export default TestView;
