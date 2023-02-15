@@ -1,31 +1,54 @@
 import React, { useState } from 'react';
-import { Switch, TextInput, View } from 'react-native';
+import { TextInput, View, CheckBox, Text} from 'react-native';
 
-const CheckBoxTextCom = () => {
+const CheckBoxTextCom = ({content, data, setData}) => {
   const [isEnabled, setIsEnabled] = useState(false);
-  const [text, setText] = useState('');
+  const [text, setText] = useState("");
+
+  setTimeout(() => {
+    if ( data[content.name] ){
+      setIsEnabled(true);
+      setText(data[content.name]);
+    }
+  }, 10);
+
+  const onValueChange = () => {
+    setIsEnabled(!isEnabled);
+    if (! (!isEnabled) ) {
+      setData({...data, [content.name]: false});
+      setText("")
+    }
+  }
+
+  const onChangeText = (text) => {
+    setData({...data, [content.name]: text});
+    setText(text);
+  }
 
   return (
     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-      <Switch
-        trackColor={{ false: '#767577', true: '#81b0ff' }}
-        thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4' }
-        ios_backgroundColor="#3e3e3e"
-        onValueChange={() => setIsEnabled(previousState => !previousState)}
-        value={isEnabled}
+      <CheckBox 
+        value={ isEnabled }
+        onValueChange={ onValueChange }
       />
-      <TextInput
+      <Text 
+      style={{marginLeft: 4,fontWeight: "100",fontSize: 16, color: "#666666",}}
+      >
+        {content.display}
+      </Text>
+      <TextInput 
         style={{
           flex: 1,
-          height: 40,
+          height: 20,
           marginLeft: 16,
           borderColor: 'gray',
           borderWidth: 1,
           padding: 8,
+          borderRadius: 100,
           backgroundColor: isEnabled ? 'white' : 'gray'
         }}
         editable={isEnabled}
-        onChangeText={text => setText(text)}
+        onChangeText={text => onChangeText(text)}
         value={text}
       />
     </View>

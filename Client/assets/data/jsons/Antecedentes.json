@@ -187,5 +187,12 @@
 			"display": "HIV/AIDS",
 			"name": "hiv/aids"
 		}
+	},
+	{
+		"inputType": "checkboxText",
+		"content": {
+			"display": "Otra",
+			"name": "others"
+		}
 	}
 ]

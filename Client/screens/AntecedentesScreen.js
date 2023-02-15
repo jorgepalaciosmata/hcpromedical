@@ -6,7 +6,6 @@ import { ButtonCom } from '../components/ButtonCom'
 import { useAntecedentes } from '../hooks/useAntecedentes'
 import { useWhatComWillUse } from '../hooks/useWhatComWillUse'
 
-export const diseasesContext = React.createContext();
 
 export const AntecedentesScreen = () => {
     const { diseases, setDiseases, saveOnDB } = useAntecedentes();
@@ -30,15 +29,16 @@ export const AntecedentesScreen = () => {
                 </View>
 
                 <View style={AntecedentesStyles.content}>
-                    <View>
-                    <Text style={AntecedentesStyles.titleText}>Mis Enfermedades</Text>
-                    {/* no se como decirle que se carge en mis datos o en otros datos */}
-                    {inputs.map(input=> (
-                        input.render
-                        ))}
+                    <View style={{marginBottom: 20}}>
+                        <Text style={AntecedentesStyles.titleText}>Mis Enfermedades</Text>
+                        {/* no se como decirle que se carge en mis datos o en otros datos */}
+                        {inputs.map(input=> (
+                            input.render
+                            ))}
                     </View>
-                        
-                    <ButtonCom text={"Actualizar datos"} onPress={saveOnDB} />
+                    <View style={{alignItems:"center"}}>
+                        <ButtonCom text={"Actualizar datos"} onPress={saveOnDB}/>
+                    </View>
                 </View>
             
             </ScrollView>      

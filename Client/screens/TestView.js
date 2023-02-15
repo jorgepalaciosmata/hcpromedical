@@ -3,6 +3,7 @@ import { Button, ScrollView } from 'react-native'
 
 import { useWhatComWillUse } from '../hooks/useWhatComWillUse'
 import inputsFromJsonAgain from '../assets/data/jsons/testing.json'
+import CheckBoxTextCom from '../components/CheckBoxTextCom'
 
 const TestView = () => {
   const [data, setData] = useState({
@@ -14,10 +15,7 @@ const TestView = () => {
 
   return (
     <ScrollView>
-    {/* <TextBoxCom content={inputContentExample} data={data} setData={setData} /> */}
-    {inputs.map( input => input.render )}
-
-    <Button onPress={()=>console.log(data)}></Button>
+      <CheckBoxTextCom textN="otro"></CheckBoxTextCom>
     </ScrollView>
   )
 }

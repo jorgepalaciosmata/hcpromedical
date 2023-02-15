@@ -34,5 +34,8 @@ export const AntecedentesStyles = StyleSheet.create({
         fontWeight: "700",
         color:"#666666",
         marginBottom:10,
+    },
+    button: {
+        marginTop: 10,
     }
 })
