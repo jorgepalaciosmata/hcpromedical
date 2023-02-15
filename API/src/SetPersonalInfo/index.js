@@ -6,6 +6,16 @@ const ddbDocClient = DynamoDBDocumentClient.from(client);
 
 exports.handler = async event => {
 
+    var email = null;
+    
+    try {
+      email = validateAuthorization(event.headers['Authorization']);
+      console.log(email);
+    } catch (e) {
+      console.log(e);
+      return sendResponse(401, 'The authorization token is missing or expired.');
+    }
+
     try {
       const id = JSON.parse(event.body).id;
       const command = new PutCommand({
@@ -16,7 +26,7 @@ exports.handler = async event => {
       const response = await ddbDocClient.send(command);
       console.log(response);
     
-      return sendRes(200, '{ "error": false, "message": "' + id + '" }');
+      return sendResponse(200, '{ "error": false, "message": "' + id + '" }');
    
   } catch (err) {
     console.error(`Failed to get item: ${err.message} (${err.constructor.name})`);
@@ -28,7 +38,7 @@ exports.handler = async event => {
   }
 };
 
-const sendRes = (status, body) => {
+const sendResponse = (status, body) => {
     var response = {
         statusCode: status,
         headers: {
@@ -43,3 +53,18 @@ const sendRes = (status, body) => {
     };
     return response;
 };
+
+function parseJwt (token) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(Buffer.from(base64, 'base64').toString().split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+
+    return JSON.parse(jsonPayload);
+}
+
+function validateAuthorization(tokenString) {
+  var jwt = parseJwt(tokenString);
+  return jwt.email;
+}
