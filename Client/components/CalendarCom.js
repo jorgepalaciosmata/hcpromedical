@@ -3,7 +3,7 @@ import { View, StyleSheet, Modal, TextInput, TouchableOpacity, Text } from 'reac
 import CalendarPicker from 'react-native-calendar-picker';
 import { ButtonCom } from './ButtonCom';
 
-export const CalendarCom = ( data, setData ) => {
+export const CalendarCom = ( {text, data, setData} ) => {
     const [showModal, setShowModal] = useState(false)
     const [date, setDate] = useState('Boton');
 
@@ -15,13 +15,16 @@ export const CalendarCom = ( data, setData ) => {
 
   return (
     <View>
-        <TouchableOpacity style={styles.button} onPress={()=> setShowModal(true)}>
+        <Text>{text}</Text>
+        <TouchableOpacity  onPress={()=> setShowModal(true)}>
             <TextInput editable={ false } value={date} style={styles.textInput}/>
         </TouchableOpacity> 
 
         <Modal visible={ showModal }>
             <CalendarPicker onDateChange={ onDateChange } />
-            <ButtonCom text={"aceptar"} onPress={ () => setShowModal(false) }/>
+            <View style={styles.buttonContainer}>
+                <ButtonCom text={"aceptar"} onPress={ () => setShowModal(false) }/>
+            </View>
         </Modal>
     </View>
   )
@@ -37,11 +40,15 @@ const styles = StyleSheet.create({
     },
     textInput: {
         flex: 1,
-          height: 40,
-          marginLeft: 16,
-          borderColor: 'gray',
-          borderWidth: 1,
-          padding: 8,
-          backgroundColor: 'white'
+        padding: 0,
+        marginTop: 5,
+        marginBottom: 2,
+        borderRadius: 5,
+        borderBottomWidth: 1,
+        borderBottomColor: '#cccccc',
+    },
+    buttonContainer: {
+        alignItems: 'center',
+        marginTop: 20,
     }
 });

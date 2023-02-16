@@ -32,7 +32,7 @@ const PersonalInfoScreen = ({ navigation }) => {
 					<View style={personalInfoStyle.hr} />
 
 					<View style={personalInfoStyle['content:last-child']}>
-						<CalendarCom text="Fecha de Nacimiento" />
+						<CalendarCom text="Fecha de Nacimiento:" />
 						{inputs[4].render}
 					</View>
 
