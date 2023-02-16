@@ -11,17 +11,10 @@ const RecetasScreen = ({ navigation }) => {
   async function getData() {
     await axios
       .get(
-        "https://p8ada5o8e0.execute-api.us-east-1.amazonaws.com/Prod/listartifacts",
-        {
-          headers: {
-            "Authorization": "Bearer "
-          }
-        }
+        "https://p8ada5o8e0.execute-api.us-east-1.amazonaws.com/Prod/listartifacts"
       )
       .then(function ({ data }) {
-        const item = data.item;
-        console.log(item);
-        setArtifacts(item.Contents);
+        setArtifacts(data);
         setIsInit(true);
       })
       .catch(function (error) {
@@ -46,7 +39,7 @@ const RecetasScreen = ({ navigation }) => {
       <ScrollView style={styles.container}>
       {
         artifacts.map((artifact, index) => (
-          <Text>{getName(artifact.Key)}</Text>
+          <Text>{artifact}</Text>
           )
         )
       }
