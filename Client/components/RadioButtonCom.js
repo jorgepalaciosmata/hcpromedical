@@ -1,21 +1,19 @@
 
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useState} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import { dataContext } from '../screens/PersonalInfoScreen';
 
-const RadioButtonCom = ({content}) => {
-  const {data, saveDataFromInput} = useContext(dataContext);
+
+const RadioButtonCom = ({content, data, setData}) => {
+  
   const [selectedOption, setSelectedOption] = useState();
 
   setTimeout(()=>{
     setSelectedOption(data.gender);
   },10)
   
-
-  
-  const setData = (option) => {
+  const updateInfo = (option) => {
     setSelectedOption(option);
-    saveDataFromInput( [content.name], option );
+    setData( {...data, [content.name]: option} );
   } 
 
   return (
@@ -27,7 +25,7 @@ const RadioButtonCom = ({content}) => {
         <View key={option} style={styles.option}>
           <TouchableOpacity 
             style={styles.outer}
-            onPress={()=>setData(option)} >
+            onPress={()=>updateInfo(option)} >
             { selectedOption === option && <View style={styles.inner}></View>}
           </TouchableOpacity> 
           <Text>{option}</Text>

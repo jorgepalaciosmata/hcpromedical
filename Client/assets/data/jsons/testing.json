@@ -2,13 +2,6 @@
 	{
 		"inputType": "checkbox",
 		"content": {
-			"display": "Cancer",
-			"name": "cancer"
-		}
-	},
-	{
-		"inputType": "checkbox",
-		"content": {
 			"display": "Diabetes",
 			"name": "diabetes"
 		}
@@ -23,16 +16,16 @@
 	{
 		"inputType": "checkbox",
 		"content": {
-			"display": "Asma",
-			"name": "asma"
+			"display": "Colesterol elevado",
+			"name": "colesterol-elevado"
 		}
 	},
 	{
 		"inputType": "radioButton",
 		"content": {
 			"display": "Genero",
-			"name": "genero",
-			"options": ["Masculino","Femenino","Otro"]
+			"name": "gender",
+			"options": ["Masculino","Femenino","Prefiero no especificar"]
 		}
 	}
 ]
