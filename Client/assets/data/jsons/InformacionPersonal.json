@@ -24,11 +24,10 @@
         }
     },
     {
-        "inputType": "textbox",
+        "inputType": "calendarPicker",
         "content": {
-            "placeholder": "Fecha De Nacimento",
-            "handleChangeText": "birthday",
-            "inputMode": "text"
+            "display": "Fecha De Nacimento",
+            "name": "birthday"
         }
     },
     {

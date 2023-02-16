@@ -3,25 +3,33 @@ import { View, StyleSheet, Modal, TextInput, TouchableOpacity, Text } from 'reac
 import CalendarPicker from 'react-native-calendar-picker';
 import { ButtonCom } from './ButtonCom';
 
-export const CalendarCom = ( data, setData ) => {
+export const CalendarCom = ( {content, data, setData} ) => {
     const [showModal, setShowModal] = useState(false)
     const [date, setDate] = useState('Boton');
 
+    setTimeout(() => {
+        if ( data[content.name] )
+        setDate(data[content.name])
+      }, 10);
 
     const onDateChange = ( date ) => {
         console.log(date)
         setDate(`${date._i.day} - ${date._i.month + 1} - ${date._i.year}`);
+        setData({...data,[content.name]: `${date._i.day} - ${date._i.month + 1} - ${date._i.year}`});
     }
 
   return (
     <View>
-        <TouchableOpacity style={styles.button} onPress={()=> setShowModal(true)}>
+        <Text>{content.name}</Text>
+        <TouchableOpacity  onPress={()=> setShowModal(true)}>
             <TextInput editable={ false } value={date} style={styles.textInput}/>
         </TouchableOpacity> 
 
         <Modal visible={ showModal }>
             <CalendarPicker onDateChange={ onDateChange } />
-            <ButtonCom text={"aceptar"} onPress={ () => setShowModal(false) }/>
+            <View style={styles.buttonContainer}>
+                <ButtonCom text={"aceptar"} onPress={ () => setShowModal(false) }/>
+            </View>
         </Modal>
     </View>
   )
@@ -37,11 +45,15 @@ const styles = StyleSheet.create({
     },
     textInput: {
         flex: 1,
-          height: 40,
-          marginLeft: 16,
-          borderColor: 'gray',
-          borderWidth: 1,
-          padding: 8,
-          backgroundColor: 'white'
+        padding: 0,
+        marginTop: 5,
+        marginBottom: 2,
+        borderRadius: 5,
+        borderBottomWidth: 1,
+        borderBottomColor: '#cccccc',
+    },
+    buttonContainer: {
+        alignItems: 'center',
+        marginTop: 20,
     }
 });
