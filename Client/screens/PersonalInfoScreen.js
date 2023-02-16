@@ -4,8 +4,8 @@ import { personalInfoStyle } from '../assets/styles/PersonalInfo.style';
 import { useForm } from "../hooks/useForm";
 import inputsFromJson from "../assets/data/jsons/InformacionPersonal.json"
 import { useWhatComWillUse } from "../hooks/useWhatComWillUse";
-import {BirthdayCom} from '../components/BirthdayCom'
 import { ButtonCom } from "../components/ButtonCom";
+import { CalendarCom } from "../components/CalendarCom";
 
 const PersonalInfoScreen = ({ navigation }) => {
   
@@ -32,7 +32,7 @@ const PersonalInfoScreen = ({ navigation }) => {
 					<View style={personalInfoStyle.hr} />
 
 					<View style={personalInfoStyle['content:last-child']}>
-						<BirthdayCom text="Fecha de Nacimiento" />
+						<CalendarCom text="Fecha de Nacimiento" />
 						{inputs[4].render}
 					</View>
 

@@ -1,21 +1,27 @@
 import React, { useState } from 'react'
-import { TouchableOpacity, View, StyleSheet, Modal, Text } from 'react-native'
+import { View, StyleSheet, Modal, TextInput, TouchableOpacity, Text } from 'react-native'
 import CalendarPicker from 'react-native-calendar-picker';
 import { ButtonCom } from './ButtonCom';
 
-export const CalendarCom = () => {
+export const CalendarCom = ( data, setData ) => {
     const [showModal, setShowModal] = useState(false)
-    const [date, setDate] = useState(null)
+    const [date, setDate] = useState('Boton');
+
+
+    const onDateChange = ( date ) => {
+        console.log(date)
+        setDate(`${date._i.day} - ${date._i.month + 1} - ${date._i.year}`);
+    }
 
   return (
     <View>
         <TouchableOpacity style={styles.button} onPress={()=> setShowModal(true)}>
-            <Text> Cumpleanios </Text>
-            <Text> date </Text>
-        </TouchableOpacity>
+            <TextInput editable={ false } value={date} style={styles.textInput}/>
+        </TouchableOpacity> 
+
         <Modal visible={ showModal }>
-            <CalendarPicker onDateChange={setDate} />
-            <ButtonCom text={"aceptar"} onPress={ ()=>setShowModal(false) }/>
+            <CalendarPicker onDateChange={ onDateChange } />
+            <ButtonCom text={"aceptar"} onPress={ () => setShowModal(false) }/>
         </Modal>
     </View>
   )
@@ -23,11 +29,19 @@ export const CalendarCom = () => {
 
 const styles = StyleSheet.create({
     button: {
-        backgroundColor: 'black',
+        color: 'white',
         borderRadius: 10,
-        margin: 40,
         padding: 10,
-        width: 200,
         alignItems: 'center',
+        flex: 1,
+    },
+    textInput: {
+        flex: 1,
+          height: 40,
+          marginLeft: 16,
+          borderColor: 'gray',
+          borderWidth: 1,
+          padding: 8,
+          backgroundColor: 'white'
     }
 });
