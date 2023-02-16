@@ -1,11 +1,10 @@
 import React from "react";
-import { View, Button , Text, Image, ScrollView } from 'react-native';
+import { View, Text, Image, ScrollView } from 'react-native';
 import { personalInfoStyle } from '../assets/styles/PersonalInfo.style';
 import { useForm } from "../hooks/useForm";
 import inputsFromJson from "../assets/data/jsons/InformacionPersonal.json"
 import { useWhatComWillUse } from "../hooks/useWhatComWillUse";
 import { ButtonCom } from "../components/ButtonCom";
-import { CalendarCom } from "../components/CalendarCom";
 
 const PersonalInfoScreen = ({ navigation }) => {
   
@@ -32,7 +31,7 @@ const PersonalInfoScreen = ({ navigation }) => {
 					<View style={personalInfoStyle.hr} />
 
 					<View style={personalInfoStyle['content:last-child']}>
-						<CalendarCom text="Fecha de Nacimiento:" />
+						{inputs[3].render}
 						{inputs[4].render}
 					</View>
 

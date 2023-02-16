@@ -3,19 +3,24 @@ import { View, StyleSheet, Modal, TextInput, TouchableOpacity, Text } from 'reac
 import CalendarPicker from 'react-native-calendar-picker';
 import { ButtonCom } from './ButtonCom';
 
-export const CalendarCom = ( {text, data, setData} ) => {
+export const CalendarCom = ( {content, data, setData} ) => {
     const [showModal, setShowModal] = useState(false)
     const [date, setDate] = useState('Boton');
 
+    setTimeout(() => {
+        if ( data[content.name] )
+        setDate(data[content.name])
+      }, 10);
 
     const onDateChange = ( date ) => {
         console.log(date)
         setDate(`${date._i.day} - ${date._i.month + 1} - ${date._i.year}`);
+        setData({...data,[content.name]: `${date._i.day} - ${date._i.month + 1} - ${date._i.year}`});
     }
 
   return (
     <View>
-        <Text>{text}</Text>
+        <Text>{content.name}</Text>
         <TouchableOpacity  onPress={()=> setShowModal(true)}>
             <TextInput editable={ false } value={date} style={styles.textInput}/>
         </TouchableOpacity> 
