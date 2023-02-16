@@ -15,7 +15,10 @@ const TestView = () => {
 
   return (
     <ScrollView>
-      <CheckBoxTextCom textN="otro"></CheckBoxTextCom>
+    {/* <TextBoxCom content={inputContentExample} data={data} setData={setData} /> */}
+    {inputs.map( input => input.render )}
+
+    <Button onPress={()=>console.log(data)}></Button>
     </ScrollView>
   )
 }
