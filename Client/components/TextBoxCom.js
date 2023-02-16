@@ -9,7 +9,7 @@ const TextBoxCom = ({content, data, setData}) => {
         <TextInput
           inputMode={content.inputMode}
           defaultValue={data[content.handleChangeText]}
-          onChangeText={( value ) => setData({...data, lastName: value })}
+          onChangeText={( value ) => setData({...data, [content.handleChangeText]: value })}
         />
       </View>
     </>
