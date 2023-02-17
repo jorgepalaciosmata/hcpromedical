@@ -40,5 +40,9 @@ export const personalInfoStyle = StyleSheet.create({
         fontFamily: 'Inter',
         fontStyle: "normal",
         fontWeight: 300,
+    },
+    buttonContainer: {
+        alignSelf: 'center',
+        justifyContent: 'center',
     }
   });

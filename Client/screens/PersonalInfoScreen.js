@@ -1,19 +1,18 @@
 import React from "react";
-import { View, Button , Text, Image } from 'react-native';
+import { View, Text, Image, ScrollView } from 'react-native';
 import { personalInfoStyle } from '../assets/styles/PersonalInfo.style';
 import { useForm } from "../hooks/useForm";
 import inputsFromJson from "../assets/data/jsons/InformacionPersonal.json"
 import { useWhatComWillUse } from "../hooks/useWhatComWillUse";
-
-export const dataContext = React.createContext();
+import { ButtonCom } from "../components/ButtonCom";
 
 const PersonalInfoScreen = ({ navigation }) => {
   
-	const {data, setData, saveDataFromInput, updateData} = useForm();
-	const {inputs} = useWhatComWillUse(inputsFromJson);
+	const {data, setData, updateData} = useForm();
+	const {inputs} = useWhatComWillUse(inputsFromJson, data, setData);
 
 	return (
-		<dataContext.Provider value={{data, saveDataFromInput}}>
+		<ScrollView>
 			<View style={personalInfoStyle.background}>
 				<View style={personalInfoStyle.userCase}>
 					<Image  
@@ -43,8 +42,13 @@ const PersonalInfoScreen = ({ navigation }) => {
 					</View>
 				</View>
 			</View>
-			<Button onPress={updateData}/>
-		</dataContext.Provider>
+			<View style={personalInfoStyle.buttonContainer}>
+				<ButtonCom
+					text="Actualizar datos"
+					onPress={()=>updateData()}
+					/>
+			</View>		
+		</ScrollView>
 	);
 	};
 

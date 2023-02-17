@@ -42,8 +42,9 @@ Resources:
       EndpointConfiguration: REGIONAL
       TracingEnabled: true
       Cors:
-        AllowMethods: '''GET,POST'''
+        AllowMethods: '''GET,POST,OPTIONS'''
         AllowOrigin: '''localhost'''
+        AllowHeaders: '''Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'''
   GetPersonalInfo:
     Type: AWS::Serverless::Function
     Properties:

@@ -1,23 +1,29 @@
-import React, {useState, useContext} from 'react';
+import React, {useState} from 'react';
 import {View, CheckBox, Text, StyleSheet} from 'react-native';
 
-const CheckBoxCom = ({content} ) => {
+const CheckBoxCom = ({content, data, setData}) => {
 
   const [isSelected, setSelection] = useState(false);
   
-  const setData = () => {
+  setTimeout(() => {
+    if ( data[content.name] )
+    setSelection(data[content.name])
+  }, 10);
+
+  const updateInfo = () => {
     setSelection(!isSelected)
+    setData({...data, [content.name]:!isSelected })
   }
 
+  
   return (
     <View style={styles.container}>
       <CheckBox
-        value={isSelected}
-        onValueChange={setData}
+        value={ isSelected }
+        onValueChange={ updateInfo }
       />
-      <Text>{content.display}</Text>
+      <Text style={styles.text}>{content.display}</Text>
     </View>
-    
   );
 };
 
@@ -26,6 +32,13 @@ const styles = StyleSheet.create({
     flexWrap:'wrap',
     alignItems: 'left',
     flexDirection: "row"
-  }
+  },
+  text: {
+    marginLeft: 4,
+    fontWeight: "100",
+    fontSize: 16,
+    color: "#666666",
+  },
 })
+
 export default CheckBoxCom;

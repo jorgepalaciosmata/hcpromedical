@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { prodApi } from "../api/prodApi";
+import axios from "axios";
 
 export const useForm = ( ) => {
   const [data, setData] = useState({});
@@ -13,20 +14,14 @@ export const useForm = ( ) => {
       getData();
   }, []);
 
-  const saveDataFromInput = (name, value) => {
-		setData({...data, [name]:value});
-	}
-
   async function updateData( ) {   
-    const response = await prodApi.post( '/personalinfo/50', data);
-    console.log(response);
-      
-}
+    const response = await prodApi.post( '/personalinfo', data);
+    console.log(response); 
+  }
 
   return {
     data,
     setData,
-    saveDataFromInput,
     updateData
   }
 }
