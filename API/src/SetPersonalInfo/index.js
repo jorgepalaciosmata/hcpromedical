@@ -7,7 +7,6 @@ const ddbDocClient = DynamoDBDocumentClient.from(client);
 exports.handler = async event => {
 
     var email = null;
-    
     try {
       email = validateAuthorization(event.headers['Authorization']);
       console.log(email);
@@ -15,18 +14,20 @@ exports.handler = async event => {
       console.log(e);
       return sendResponse(401, 'The authorization token is missing or expired.');
     }
+    
+    let data = event.body;
+    data.id = email;
 
     try {
-      const id = JSON.parse(event.body).id;
       const command = new PutCommand({
         TableName: process.env.TABLE_NAME,
-        Item: JSON.parse(event.body)
+        Item: JSON.parse(data)
       });
 
       const response = await ddbDocClient.send(command);
       console.log(response);
     
-      return sendResponse(200, '{ "error": false, "message": "' + id + '" }');
+      return sendResponse(200, '{ "error": false, "message": "' + data + '" }');
    
   } catch (err) {
     console.error(`Failed to get item: ${err.message} (${err.constructor.name})`);
@@ -66,5 +67,13 @@ function parseJwt (token) {
 
 function validateAuthorization(tokenString) {
   var jwt = parseJwt(tokenString);
+  
+  console.log(jwt.exp);
+  console.log(Date.now());
+  
+  if (jwt.exp * 1000 < Date.now()) {
+    throw new Error("Expired token");
+  }
+  
   return jwt.email;
 }
