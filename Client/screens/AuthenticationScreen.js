@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { View, Button, Alert, Modal, StyleSheet, Text, Pressable } from 'react-native';
+import { View, ScrollView, Button, Alert, Modal, StyleSheet, Text, Pressable } from 'react-native';
 import * as Google from 'expo-auth-session/providers/google';
 import * as WebBrowser from 'expo-web-browser';
 import AuthService from '../services/AuthService';
 import { prodApi } from '../api/prodApi';
+import Disclaimer from './Disclaimer';
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -20,7 +21,11 @@ const AuthenticationScreen = () => {
             AuthService.setCurrentUser(response.params.id_token);
 
             try {
-                await prodApi.get( '/personalInfo/self' );
+                await prodApi.get( '/personalInfo/self', {
+                    headers: {
+                        "Authorization": AuthService.getCurrentUser()
+                    }
+                });
                 location.reload();
             } catch (error){
               if (error.response.status === 401) {
@@ -74,8 +79,8 @@ const AuthenticationScreen = () => {
                 }}>
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
-                        <Text style={styles.modalText}>HC Promedical disclaimer</Text>
-
+                        <Text style={styles.modalText}>HC Promedical - Aviso de privacidad</Text>
+                        <Disclaimer />
                         <div style={{marginTop: '30px'}}>
                             <Text style={styles.cancelButton} onPress={() => CancelOnboarding()}>Cancelar</Text>
                             <Pressable
@@ -103,7 +108,7 @@ const styles = StyleSheet.create({
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
-      marginTop: 22,
+      marginTop: 22
     },
     modalView: {
       margin: 20,
@@ -141,6 +146,8 @@ const styles = StyleSheet.create({
     modalText: {
       marginBottom: 15,
       textAlign: 'center',
+      fontWeight: 'bold',
+      fontSize: '20px'
     },
   });
 

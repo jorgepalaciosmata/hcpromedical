@@ -39,6 +39,13 @@ Resources:
                 type: aws_proxy
                 uri: !Sub arn:${AWS::Partition}:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${ListArtifacts.Arn}/invocations
               responses: {}
+          /getsharelink:
+            get:
+              x-amazon-apigateway-integration:
+                httpMethod: POST
+                type: aws_proxy
+                uri: !Sub arn:${AWS::Partition}:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetShareLink.Arn}/invocations
+              responses: {}
       EndpointConfiguration: REGIONAL
       TracingEnabled: true
       Cors:
@@ -100,10 +107,6 @@ Resources:
       MemorySize: 3008
       Timeout: 30
       Tracing: Active
-      Environment:
-        Variables:
-          BUCKET_NAME: !Ref hcpromedicalartifact
-          BUCKET_ARN: !GetAtt hcpromedicalartifact.Arn
       Events:
         ApiGETartifact:
           Type: Api
@@ -111,43 +114,11 @@ Resources:
             Path: /artifact
             Method: GET
             RestApiId: !Ref Api
-      Policies:
-        - S3CrudPolicy:
-            BucketName: !Ref hcpromedicalartifact
   GetArtifactLogGroup:
     Type: AWS::Logs::LogGroup
     DeletionPolicy: Retain
     Properties:
       LogGroupName: !Sub /aws/lambda/${GetArtifact}
-  hcpromedicalartifact:
-    Type: AWS::S3::Bucket
-    Properties:
-      BucketName: !Sub ${AWS::StackName}-hcpromedi-${AWS::AccountId}
-      BucketEncryption:
-        ServerSideEncryptionConfiguration:
-          - ServerSideEncryptionByDefault:
-              SSEAlgorithm: aws:kms
-              KMSMasterKeyID: alias/aws/s3
-      PublicAccessBlockConfiguration:
-        IgnorePublicAcls: true
-        RestrictPublicBuckets: true
-  hcpromedicalartifactBucketPolicy:
-    Type: AWS::S3::BucketPolicy
-    Properties:
-      Bucket: !Ref hcpromedicalartifact
-      PolicyDocument:
-        Id: RequireEncryptionInTransit
-        Version: '2012-10-17'
-        Statement:
-          - Principal: '*'
-            Action: '*'
-            Effect: Deny
-            Resource:
-              - !GetAtt hcpromedicalartifact.Arn
-              - !Sub ${hcpromedicalartifact.Arn}/*
-            Condition:
-              Bool:
-                aws:SecureTransport: 'false'
   SetPersonalInfo:
     Type: AWS::Serverless::Function
     Properties:
@@ -191,13 +162,6 @@ Resources:
       MemorySize: 3008
       Timeout: 30
       Tracing: Active
-      Environment:
-        Variables:
-          BUCKET_NAME: !Ref hcpromedicalartifact
-          BUCKET_ARN: !GetAtt hcpromedicalartifact.Arn
-      Policies:
-        - S3CrudPolicy:
-            BucketName: !Ref hcpromedicalartifact
       Events:
         ApiGETlistartifacts:
           Type: Api
@@ -210,20 +174,27 @@ Resources:
     DeletionPolicy: Retain
     Properties:
       LogGroupName: !Sub /aws/lambda/${ListArtifacts}
-  EmailProcessing:
+  GetShareLink:
     Type: AWS::Serverless::Function
     Properties:
       Description: !Sub
         - Stack ${AWS::StackName} Function ${ResourceName}
-        - ResourceName: EmailProcessing
-      CodeUri: src/EmailProcessing
+        - ResourceName: GetShareLink
+      CodeUri: src/GetShareLink
       Handler: index.handler
       Runtime: nodejs18.x
       MemorySize: 3008
       Timeout: 30
       Tracing: Active
-  EmailProcessingLogGroup:
+      Events:
+        ApiGETgetsharelink:
+          Type: Api
+          Properties:
+            Path: /getsharelink
+            Method: GET
+            RestApiId: !Ref Api
+  GetShareLinkLogGroup:
     Type: AWS::Logs::LogGroup
     DeletionPolicy: Retain
     Properties:
-      LogGroupName: !Sub /aws/lambda/${EmailProcessing}
+      LogGroupName: !Sub /aws/lambda/${GetShareLink}
