@@ -3,7 +3,7 @@ import { useState } from "react";
 import { View, Button , TextInput, ScrollView, StyleSheet, Text } from 'react-native';
 const axios = require("axios").default;
 
-const HistorialMedicoScreen = ({ navigation }) => {
+const HistorialMedicoScreen = ({ navigation, route }) => {
 
   const [isInit, setIsInit] = useState(false);
   const [url, setUrl] = useState("");
@@ -30,6 +30,7 @@ const HistorialMedicoScreen = ({ navigation }) => {
   }
 
   useEffect(() => {
+    alert(route.params.name);
     if (!isInit) {
       getData();
     }

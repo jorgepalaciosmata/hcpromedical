@@ -6,13 +6,10 @@ import AuthService from './services/AuthService';
 
 //Views Imports
 import PersonalInfoScreen from './screens/PersonalInfoScreen';
-import HistorialMedicoScreen from './screens/HistorialMedicoScreen';
-import LaboratorioScreen from './screens/LaboratorioScreen';
+import DocumentScreen from './screens/DocumentScreen';
 import DocumentsScreen from './screens/DocumentsScreen';
 import AuthenticationScreen from './screens/AuthenticationScreen';
-import TestView from './screens/TestView';
 import { AntecedentesScreen } from './screens/AntecedentesScreen';
-
 
 function HomeScreen({ navigation }) {
   return (
@@ -66,6 +63,7 @@ function App() {
         <Stack.Screen name="Informacion Personal" component={PersonalInfoScreen} />
         <Stack.Screen name="Documentos" component={DocumentsScreen} />
         <Stack.Screen name="Antecedentes" component={AntecedentesScreen} />
+        <Stack.Screen name="Documento" component={DocumentScreen} />
       </Stack.Navigator>
     </NavigationContainer>  
     );  

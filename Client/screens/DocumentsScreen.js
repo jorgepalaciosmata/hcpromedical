@@ -4,8 +4,6 @@ import { View, Button , Pressable, ScrollView, StyleSheet, Text } from 'react-na
 import AuthService from '../services/AuthService';
 import { prodApi } from '../api/prodApi';
 
-const axios = require("axios").default;
-
 const DocumentsScreen = ({ navigation }) => {
 
   const [isInit, setIsInit] = useState(false);
@@ -30,6 +28,10 @@ const DocumentsScreen = ({ navigation }) => {
       });
   }
 
+  function loadDocument(artifact) {
+    navigation.navigate('Documento', {artifact: artifact});
+  }
+
   useEffect(() => {
     if (!isInit) {
       getData();
@@ -42,7 +44,7 @@ const DocumentsScreen = ({ navigation }) => {
       {
         artifacts.map((artifact, index) => ( 
           <View style={styles.documentItem}>
-            <Pressable>
+            <Pressable onPress={() => loadDocument(artifact)}>
               <Text style={styles.documentName}>
                 {artifact.name}
               </Text>
