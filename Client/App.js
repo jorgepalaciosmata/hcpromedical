@@ -9,6 +9,7 @@ import DocumentScreen from './screens/DocumentScreen';
 import DocumentsScreen from './screens/DocumentsScreen';
 import AuthenticationScreen from './screens/AuthenticationScreen';
 import { AntecedentesScreen } from './screens/AntecedentesScreen';
+import { DoctorScreen } from "./screens/DoctorScreen";
 
 function HomeScreen({ navigation }) {
   return (
@@ -39,6 +40,7 @@ function App() {
         <Drawer.Screen name="Información personal" component={PersonalInfoScreen} />
         <Drawer.Screen name="Antecedentes" component={AntecedentesScreen} />
         <Drawer.Screen name="Documentos" component={DocumentsScreen} />
+        <Drawer.Screen name="Datos" component={DoctorScreen} />
       </Drawer.Navigator>
     </NavigationContainer>  
     );  

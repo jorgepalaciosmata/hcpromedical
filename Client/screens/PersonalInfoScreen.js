@@ -6,13 +6,13 @@ import inputsFromJson from "../assets/data/jsons/InformacionPersonal.json"
 import { useWhatComWillUse } from "../hooks/useWhatComWillUse";
 import { ButtonCom } from "../components/ButtonCom";
 
-const PersonalInfoScreen = ({ navigation }) => {
+const PersonalInfoScreen = ({ editable = true }) => {
   
 	const {data, setData, updateData} = useForm();
 	const {inputs} = useWhatComWillUse(inputsFromJson, data, setData);
 
 	return (
-		<ScrollView>
+		<ScrollView pointerEvents={editable ? 'auto' : 'none'}>
 			<View style={personalInfoStyle.background}>
 				<View style={personalInfoStyle.userCase}>
 					<Image  

@@ -1,25 +1,17 @@
-import React from 'react'
-import { Button, ScrollView, View, Text, Image } from 'react-native'
-import inputsFromJson from '../assets/data/jsons/Antecedentes.json'
-import { AntecedentesStyles } from '../assets/styles/Antecedentes.style'
-import { ButtonCom } from '../components/ButtonCom'
-import { useAntecedentes } from '../hooks/useAntecedentes'
-import { useWhatComWillUse } from '../hooks/useWhatComWillUse'
+import React from 'react';
+import { ScrollView, View, Text, Image } from 'react-native';
+import inputsFromJson from '../assets/data/jsons/Antecedentes.json';
+import { AntecedentesStyles } from '../assets/styles/Antecedentes.style';
+import { ButtonCom } from '../components/ButtonCom';
+import { useAntecedentes } from '../hooks/useAntecedentes';
+import { useWhatComWillUse } from '../hooks/useWhatComWillUse';
 
-
-export const AntecedentesScreen = () => {
+export const AntecedentesScreen = ({ editable = true }) => {
     const { diseases, setDiseases, saveOnDB } = useAntecedentes();
     const { inputs } = useWhatComWillUse(inputsFromJson, diseases, setDiseases);
 
-    //tengo que mandar diseses y updateDiseases en el componente
-    /*
-        Para eso voy a trabajar en useWhatComWillUse, un textbox, un checkbox, un radio tienen el mismo objetivo.
-        Un componente siempre recibe la data (que desea cargar en caso de necesitarse) y recibe la funcion para guardar los datos.
-        Por tanto a useWhatComWillUse se va a hacer cargo de esto....
-    */
-
     return (
-            <ScrollView style={AntecedentesStyles.background}>
+            <ScrollView style={AntecedentesStyles.background} pointerEvents={editable ? 'auto' : 'none'}>
                 <View style={AntecedentesStyles.header}>
                     <Image  
                         source={require('../assets/icons/antecedentes.png')} 
@@ -31,7 +23,6 @@ export const AntecedentesScreen = () => {
                 <View style={AntecedentesStyles.content}>
                     <View style={{marginBottom: 20}}>
                         <Text style={AntecedentesStyles.titleText}>Mis Enfermedades</Text>
-                        {/* no se como decirle que se carge en mis datos o en otros datos */}
                         {inputs.map(input=> (
                             input.render
                             ))}
@@ -40,7 +31,6 @@ export const AntecedentesScreen = () => {
                         <ButtonCom text={"Actualizar datos"} onPress={saveOnDB}/>
                     </View>
                 </View>
-            
             </ScrollView>      
     )
 }
