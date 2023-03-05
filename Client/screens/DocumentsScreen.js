@@ -33,9 +33,9 @@ const DocumentsScreen = ({ navigation }) => {
   }
 
   useEffect(() => {
-    if (!isInit) {
+    //if (!isInit) {
       getData();
-    }
+    //}
   }, []);
 
   return (

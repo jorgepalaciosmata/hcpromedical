@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, ScrollView, Button, Alert, Modal, StyleSheet, Text, Pressable } from 'react-native';
+import { View, Image, TouchableOpacity, Alert, Modal, StyleSheet, Text, Pressable } from 'react-native';
 import * as Google from 'expo-auth-session/providers/google';
 import * as WebBrowser from 'expo-web-browser';
 import AuthService from '../services/AuthService';
@@ -28,7 +28,7 @@ const AuthenticationScreen = () => {
                 });
                 location.reload();
             } catch (error){
-              if (error.response.status === 401) {
+              if (error.response.status === 404) {
                 setModalVisible(true);
               }  
             }
@@ -61,14 +61,30 @@ const AuthenticationScreen = () => {
     }
 
     return (
-        <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-            <Button
-                disabled={!request}
-                title="Login"
-                onPress={() => {
-                    promptAsync({useProxy: false, showInRecents: true});
-                }} />
-
+        <>
+            <View style={styles.container}>
+                <View style={styles.containerItem}>
+                    <Image style={{width: '100%', flex:1, height: '100%'}}  source={require('../assets/landing.jpg')} />
+                </View>
+                <View style={styles.containerItem}>
+                    <View style={{padding: '40px', height: '100%'}}>
+                        <View style={styles.logoContainer}>
+                            <Image style={{width: '100%', height: '100%'}} source={require('../assets/logo.png')} />
+                        </View>
+                        <Text style={{ marginTop:'40px'} }>
+                            Bienvenido a <b>HC Folder</b>! tu historial médico electrónico que te permite alamcenar, compartir y analizar tu información para el cuidado de tu salud.
+                            Inicia sesión para comenzar.
+                        </Text>
+                        <View style={{marginTop: '50px', alignContent: 'center'}}>
+                            <TouchableOpacity onPress={() => {
+                                promptAsync({useProxy: false, showInRecents: true});
+                            }}>
+                                <Image style={{width: '230px', height:'50px'}}  source={require('../assets/signinButton.png')} />
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </View>
             <Modal
                 animationType="slide"
                 transparent={true}
@@ -92,11 +108,26 @@ const AuthenticationScreen = () => {
                     </View>
                 </View>
             </Modal>
-        </View>
+        </>
     );
 }
 
 const styles = StyleSheet.create({
+    logoContainer: {
+        height: '150px',
+        width: '190px'
+    },
+    container: {
+        flex: 1,
+        flexDirection: 'row',
+        // flexWrap: 'wrap',
+        // alignItems: 'flex-start',
+        height: '100%',
+    },
+    containerItem: {
+        flex:1, 
+        width: '50%'
+    },
     cancelButton: {
         float: 'left', 
         marginTop: '10px', 

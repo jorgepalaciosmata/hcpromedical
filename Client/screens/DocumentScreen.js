@@ -42,11 +42,15 @@ const DocumentScreen = ({ navigation, route }) => {
       }, []);
 
     return (
+        <>
         <View style={styles.container}>
             <Text style={styles.artifactName}>{route.params.artifact.name}</Text>
             <Text style={styles.created}>{formatDate(route.params.artifact.created)}</Text>
-            <iframe height="95%" width="95%" src={artifactUrl}/>
         </View>
+        <div style={styles.doc} height="1000px">
+            <iframe height="1000px" width="95%" src={artifactUrl}/>
+        </div>
+        </>
     );
 }
 
@@ -54,6 +58,9 @@ const styles = StyleSheet.create({
     container: {
         margin: '20px'
     },
+    doc: {
+        marginLeft: '20px'
+    },  
     artifactName: {
         fontWeight: 'bold',
         fontSize: '16px',

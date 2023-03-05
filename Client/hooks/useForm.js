@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { prodApi } from "../api/prodApi";
-import axios from "axios";
 import AuthService from '../services/AuthService';
 
 export const useForm = ( ) => {
@@ -11,7 +10,11 @@ export const useForm = ( ) => {
       headers: {
         "Authorization": AuthService.getCurrentUser()
       }
-    } );
+    }).catch(function (error) {
+      if (error.response.status === 401) {
+          AuthService.logOut();
+      }
+    });
     setData( response.data.item );
   }
 

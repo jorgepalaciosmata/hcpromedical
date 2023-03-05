@@ -1,6 +1,21 @@
-exports.handler = async event => {
-  // Log the event argument for debugging and for use in local development.
-  console.log(JSON.stringify(event, undefined, 2));
+import { createClient } from 'redis';
 
-  return {};
+export const handler = async (event) => {
+
+  const client = createClient({
+    socket: {
+      host: 'hcpromedical-redis.vpko5l.ng.0001.use1.cache.amazonaws.com'
+    }
+  });
+  
+  client.on('error', err => console.log('Redis Client Error', err));
+  
+  await client.connect();
+  
+  await client.set('key', 'value');
+  const value = await client.get('key');
+  console.log(value);
+  await client.disconnect();
+
+  return value;
 };
