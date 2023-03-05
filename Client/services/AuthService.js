@@ -19,7 +19,7 @@ function setCurrentUser(jwtToken) {
 
 function logOut() {
     localStorage.removeItem("user");
-    // window refresh
+    location.reload();
 }
 
 function parseJwt (token) {

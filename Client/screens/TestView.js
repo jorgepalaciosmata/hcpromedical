@@ -4,22 +4,15 @@ import { Button, ScrollView } from 'react-native'
 import { useWhatComWillUse } from '../hooks/useWhatComWillUse'
 import inputsFromJsonAgain from '../assets/data/jsons/testing.json'
 import CheckBoxTextCom from '../components/CheckBoxTextCom'
+import { MedicalEntry } from '../components/MedicalEntry'
+import  { DocumentsViewScreen }  from '../screens/DocumentsViewScreen'
 
 const TestView = () => {
-  const [data, setData] = useState({
-    diabetes: true,
-    gender: 'Masculino'
-  }) 
-  const {inputs} = useWhatComWillUse(inputsFromJsonAgain, data, setData);
-
 
   return (
-    <ScrollView>
-    {/* <TextBoxCom content={inputContentExample} data={data} setData={setData} /> */}
-    {inputs.map( input => input.render )}
-
-    <Button onPress={()=>console.log(data)}></Button>
-    </ScrollView>
+    <>
+      <DocumentsViewScreen></DocumentsViewScreen>
+    </>
   )
 }
 
