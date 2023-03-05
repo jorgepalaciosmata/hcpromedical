@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Button, View, Text, Image, TouchableOpacity } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AuthService from './services/AuthService';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 
 //Views Imports
 import PersonalInfoScreen from './screens/PersonalInfoScreen';
@@ -13,35 +12,12 @@ import { AntecedentesScreen } from './screens/AntecedentesScreen';
 
 function HomeScreen({ navigation }) {
   return (
-      <View style={{ flexWrap:'wrap', alignItems: 'left', flexDirection: "row", padding: '20px' }}>
-        <TouchableOpacity 
-          style={{width: 150, alignItems: 'center'}}
-          onPress={() => navigation.navigate('Informacion Personal')} >
-          <Image source={require('./assets/icons/lab.png')} 
-            style = {{ width: 100, height: 100 }} />
-          <Text>Informacion Personal</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity 
-         style={{width: "150", alignItems: 'center'}}
-          onPress={() => navigation.navigate('Antecedentes')} >
-          <Image source={require('./assets/icons/medical-history.png')} 
-            style = {{ width: 100, height: 100 }} />
-          <Text>Antecedentes</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity 
-          style={{width: 150, alignItems: 'center'}}
-          onPress={() => navigation.navigate('Documentos')} >
-          <Image source={require('./assets/icons/recetas.png')} 
-            style = {{ width: 100, height: 100 }} />
-          <Text>Documentos</Text>
-        </TouchableOpacity>
-      </View>      
+      <>
+      </>
   );
 }
 
-const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
 
 function App() {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -58,13 +34,12 @@ function App() {
   if (currentUser) {
     return (
       <NavigationContainer>
-      <Stack.Navigator initialRouteName="HC Cloud">
-        <Stack.Screen name="HC Cloud" component={HomeScreen} />
-        <Stack.Screen name="Informacion Personal" component={PersonalInfoScreen} />
-        <Stack.Screen name="Documentos" component={DocumentsScreen} />
-        <Stack.Screen name="Antecedentes" component={AntecedentesScreen} />
-        <Stack.Screen name="Documento" component={DocumentScreen} />
-      </Stack.Navigator>
+      <Drawer.Navigator initialRouteName="HC Cloud">
+        <Drawer.Screen name="HC Folder" component={HomeScreen} />
+        <Drawer.Screen name="Información personal" component={PersonalInfoScreen} />
+        <Drawer.Screen name="Antecedentes" component={AntecedentesScreen} />
+        <Drawer.Screen name="Documentos" component={DocumentsScreen} />
+      </Drawer.Navigator>
     </NavigationContainer>  
     );  
   } else {
