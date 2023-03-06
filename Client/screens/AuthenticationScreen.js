@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, Image, TouchableOpacity, Alert, Modal, StyleSheet, Text, Pressable } from 'react-native';
+import { View, Image, TouchableOpacity, Alert, Linking, Modal, StyleSheet, Text, Pressable } from 'react-native';
 import * as Google from 'expo-auth-session/providers/google';
 import * as WebBrowser from 'expo-web-browser';
 import AuthService from '../services/AuthService';
@@ -75,12 +75,23 @@ const AuthenticationScreen = () => {
                             Bienvenido a <b>HC Folder</b>! tu historial médico electrónico que te permite alamcenar, compartir y analizar tu información para el cuidado de tu salud.
                             Inicia sesión para comenzar.
                         </Text>
-                        <View style={{marginTop: '50px', alignContent: 'center'}}>
+                        <View style={{marginTop: '100px', alignItems: 'center', justifyContent: 'center' }}>
                             <TouchableOpacity onPress={() => {
                                 promptAsync({useProxy: false, showInRecents: true});
                             }}>
                                 <Image style={{width: '230px', height:'50px'}}  source={require('../assets/signinButton.png')} />
                             </TouchableOpacity>
+                        </View>
+                        <View style={styles.footer}>
+                            <Text style={{color: 'blue'}} 
+                                onPress={() => Linking.openURL('https://www.hcpromedical.com/aviso-de-privacidad.html')}>
+                                Aviso de privacidad.
+                            </Text>
+                            <Text>
+                                Todos los derechos reservados.
+                                <br/>
+                                HC Promedical ©.
+                            </Text>
                         </View>
                     </View>
                 </View>
@@ -123,11 +134,19 @@ const styles = StyleSheet.create({
         // flexWrap: 'wrap',
         // alignItems: 'flex-start',
         height: '100%',
+        backgroundColor: '#F2F2F2'
     },
     containerItem: {
         flex:1, 
-        width: '50%'
+        width: '50%',
     },
+    footer: {
+        width: '100%', 
+        marginBottom: '20px', 
+        textAlign: 'center', 
+        position: 'absolute', 
+        bottom: 0
+    },  
     cancelButton: {
         float: 'left', 
         marginTop: '10px', 
