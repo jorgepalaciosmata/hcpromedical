@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export const personalInfoStyle = StyleSheet.create({
     background: {
-      backgroundColor: '#2F4550',
+      backgroundColor: 'rgb(39, 51, 88)',
     },
     back: {
         backgroundColor: '#FFFFFF',
@@ -37,9 +37,6 @@ export const personalInfoStyle = StyleSheet.create({
     text: {
         marginTop: 10,
         color: "#FFFFFF",
-        fontFamily: 'Inter',
-        fontStyle: "normal",
-        fontWeight: 300,
     },
     buttonContainer: {
         alignSelf: 'center',
