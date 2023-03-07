@@ -45,28 +45,16 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     title: {
-        fontFamily: 'Inter',
-        fontStyle: 'normal',
-        fontWeight: '500',
         fontSize: 18,
         lineHeight: 18,
-        color: 'rgba(0, 0, 0, 0.6)',
-  
     },
     description: {
         ontFamily: 'Inter',
-        fontStyle: 'normal',
-        fontWeight: '200',
         fontSize: 10,
         lineHeight: 12,
-        color: '#000000',
     },
     date: {
-        fontFamily: 'Inter',
-        fontStyle: 'normal',
-        fontWeight: '300',
         fontSize: 10,
         lineHeight: 18,
-        color: '#000000',
     }
 });
