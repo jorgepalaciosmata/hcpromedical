@@ -18,14 +18,13 @@ const styles = StyleSheet.create({
         height: 50,
         width: 310,
         borderRadius: 100,
-        backgroundColor: "#2F4550",
+        backgroundColor: "rgb(39, 51, 88)",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
     },
     text: {
         color: "#ffffff",
-        fontWeight: "bold",
         fontSize: 20,
     }
 })
