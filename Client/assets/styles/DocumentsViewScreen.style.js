@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export const documentsViewStyle = StyleSheet.create({
     background: {
-        backgroundColor: '#2F4550',
+        backgroundColor: 'rgb(39, 51, 88)',
     },
     image: {
         width: 100,
@@ -32,9 +32,6 @@ export const documentsViewStyle = StyleSheet.create({
         marginTop: 10,
         marginLeft: 10,
         color: "#FFFFFF",
-        fontFamily: 'Inter',
-        fontStyle: "normal",
-        fontWeight: 300,
     },
     userCase: {
         flexWrap:'wrap', 
@@ -44,20 +41,14 @@ export const documentsViewStyle = StyleSheet.create({
         marginBottom: 5,
     },
     title: {
-        color: "#2F4550",
-        fontFamily: 'Inter',
-        fontStyle: "normal",
-        fontWeight: 700,
+        color: "#rgb(39, 51, 88)",
         fontSize: 24,
         marginTop: 20,
         marginLeft: 40,
         marginBottom: 30
     },
     subtitle: {
-        color: "rgba(43, 43, 43, 0.5)",
-        fontFamily: 'Inter',
         fontStyle: "normal",
-        fontWeight: 600,
         fontSize: 20,
         marginLeft: 40
     }
