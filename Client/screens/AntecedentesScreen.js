@@ -1,7 +1,6 @@
 import React from 'react';
-import { ScrollView, View, Text, Image } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import inputsFromJson from '../assets/data/jsons/Antecedentes.json';
-import { AntecedentesStyles } from '../assets/styles/Antecedentes.style';
 import { ButtonCom } from '../components/ButtonCom';
 import { useAntecedentes } from '../hooks/useAntecedentes';
 import { useWhatComWillUse } from '../hooks/useWhatComWillUse';
@@ -11,18 +10,10 @@ export const AntecedentesScreen = ({ editable = true }) => {
     const { inputs } = useWhatComWillUse(inputsFromJson, diseases, setDiseases);
 
     return (
-            <ScrollView style={AntecedentesStyles.background} pointerEvents={editable ? 'auto' : 'none'}>
-                <View style={AntecedentesStyles.header}>
-                    <Image  
-                        source={require('../assets/icons/antecedentes.png')} 
-                        style={AntecedentesStyles.headerImage}
-                    />
-                    <Text style={AntecedentesStyles.headerText}>Antecedentes</Text>
-                </View>
-
-                <View style={AntecedentesStyles.content}>
+            <View pointerEvents={editable ? 'auto' : 'none'}>
+                <View style={styles.content}>
                     <View style={{marginBottom: 20}}>
-                        <Text style={AntecedentesStyles.titleText}>Mis Enfermedades</Text>
+                        <Text style={styles.titleText}>Mis Enfermedades</Text>
                         {inputs.map(input=> (
                             input.render
                             ))}
@@ -31,6 +22,22 @@ export const AntecedentesScreen = ({ editable = true }) => {
                         <ButtonCom text={"Actualizar datos"} onPress={saveOnDB}/>
                     </View>
                 </View>
-            </ScrollView>      
+            </View>      
     )
 }
+
+const styles = StyleSheet.create({
+    content: {
+        backgroundColor: '#FFFFFF',
+        paddingLeft: 50,
+        paddingRight:50,
+        paddingTop:30,
+        paddingBottom:30,
+    },
+    titleText: {
+        fontSize:30,
+        fontWeight: "700",
+        color:"#666666",
+        marginBottom:10,
+    }
+});
