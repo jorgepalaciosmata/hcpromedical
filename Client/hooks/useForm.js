@@ -16,6 +16,7 @@ export const useForm = ( ) => {
       }
     });
     setData( response.data.item );
+    console.log( response );
   }
 
   useEffect(() => {
