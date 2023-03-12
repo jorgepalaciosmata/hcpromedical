@@ -11,9 +11,7 @@ export const documentsViewStyle = StyleSheet.create({
         margin: 50,
     },
     back: {
-        backgroundColor: '#FFFFFF',
-        borderTopLeftRadius: 70,
-        
+        backgroundColor: '#FFFFFF',        
     },
     logoCase: { 
         display:'flex',  
@@ -41,7 +39,6 @@ export const documentsViewStyle = StyleSheet.create({
         marginBottom: 5,
     },
     title: {
-        color: "#rgb(39, 51, 88)",
         fontSize: 24,
         marginTop: 20,
         marginLeft: 40,
