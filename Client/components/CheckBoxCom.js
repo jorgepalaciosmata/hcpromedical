@@ -6,7 +6,7 @@ const CheckBoxCom = ({content, data, setData}) => {
   const [isSelected, setSelection] = useState(false);
   
   setTimeout(() => {
-    if ( data[content.name] )
+    if ( data && data[content.name] )
     setSelection(data[content.name])
   }, 10);
 

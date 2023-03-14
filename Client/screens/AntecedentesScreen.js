@@ -13,7 +13,6 @@ export const AntecedentesScreen = ({ editable = true }) => {
             <View pointerEvents={editable ? 'auto' : 'none'}>
                 <View style={styles.content}>
                     <View style={{marginBottom: 20}}>
-                        <Text style={styles.titleText}>Mis Enfermedades</Text>
                         {inputs.map(input=> (
                             input.render
                             ))}

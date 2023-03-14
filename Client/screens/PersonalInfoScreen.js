@@ -50,6 +50,6 @@ const PersonalInfoScreen = ({ editable = true }) => {
 			</View>		
 		</ScrollView>
 	);
-	};
+};
 
 export default PersonalInfoScreen;

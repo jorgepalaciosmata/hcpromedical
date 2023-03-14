@@ -14,7 +14,7 @@ export const useAntecedentes = () => {
   const [data, setData] = useState({});
 
   async function getData() {
-    const response = await prodApi.get( '/personalInfo/50' );
+    const response = await prodApi.get( '/personalInfo/self' );
     setDiseases( response.data.item.diseases );
     setData( response.data.item );
   }
