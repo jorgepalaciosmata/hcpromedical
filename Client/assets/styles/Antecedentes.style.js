@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 export const AntecedentesStyles = StyleSheet.create({
     background: {
-        backgroundColor: "#2F4550",
+        backgroundColor: "rgb(39, 51, 88)",
     },
     header: {
         height:60,
@@ -14,7 +14,6 @@ export const AntecedentesStyles = StyleSheet.create({
     },
     headerText: {
         fontSize:40,
-        fontWeight: "900",
         color: "#ffffff",
     },
     headerImage: {
@@ -31,8 +30,6 @@ export const AntecedentesStyles = StyleSheet.create({
     },
     titleText: {
         fontSize:30,
-        fontWeight: "700",
-        color:"#666666",
         marginBottom:10,
     },
     button: {

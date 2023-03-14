@@ -32,7 +32,7 @@ const CheckBoxTextCom = ({content, data, setData}) => {
         onValueChange={ onValueChange }
       />
       <Text 
-      style={{marginLeft: 4,fontWeight: "100",fontSize: 16, color: "#666666",}}
+      style={{marginLeft: 4,fontSize: 16,}}
       >
         {content.display}
       </Text>

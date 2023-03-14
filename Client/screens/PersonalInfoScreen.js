@@ -16,7 +16,7 @@ const PersonalInfoScreen = ({ editable = true }) => {
 			<View style={personalInfoStyle.background}>
 				<View style={personalInfoStyle.userCase}>
 					<Image  
-					source={{uri: data.profilePicture}} 
+					source={{uri: data.profilePicture }} 
 					style={personalInfoStyle.image}
 					/>
 					<Text style={personalInfoStyle.text}>{data.name} {data.firstLastName} {data.secondLastName}</Text>
