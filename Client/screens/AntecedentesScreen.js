@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import inputsFromJson from '../assets/data/jsons/Antecedentes.json';
 import { ButtonCom } from '../components/ButtonCom';
 import { useAntecedentes } from '../hooks/useAntecedentes';
@@ -17,9 +17,11 @@ export const AntecedentesScreen = ({ editable = true }) => {
                             input.render
                             ))}
                     </View>
-                    <View style={{alignItems:"center"}}>
-                        <ButtonCom text={"Actualizar datos"} onPress={saveOnDB}/>
-                    </View>
+                    {editable && (
+                        <View style={{alignItems:"center"}}>
+                            <ButtonCom text={"Actualizar datos"} onPress={saveOnDB}/>
+                        </View>
+                    )}
                 </View>
             </View>      
     )

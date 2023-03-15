@@ -42,12 +42,14 @@ const PersonalInfoScreen = ({ editable = true }) => {
 					</View>
 				</View>
 			</View>
-			<View style={personalInfoStyle.buttonContainer}>
-				<ButtonCom
-					text="Actualizar datos"
-					onPress={()=>updateData()}
-					/>
-			</View>		
+			{editable && (
+				<View style={personalInfoStyle.buttonContainer}>
+					<ButtonCom
+						text="Actualizar datos"
+						onPress={()=>updateData()}
+						/>
+				</View>		
+			)}
 		</ScrollView>
 	);
 };
