@@ -1,25 +1,27 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import {View} from 'react-native';
 import inputsFromJson from '../assets/data/jsons/Antecedentes.json';
-import { ButtonCom } from '../components/ButtonCom';
-import { useAntecedentes } from '../hooks/useAntecedentes';
-import { useWhatComWillUse } from '../hooks/useWhatComWillUse';
+import {ButtonCom} from '../components/ButtonCom';
+import {useAntecedentes} from '../hooks/useAntecedentes';
+import {useWhatComWillUse} from '../hooks/useWhatComWillUse';
+import EStyleSheet from 'react-native-extended-stylesheet';
+
 
 export const AntecedentesScreen = ({ editable = true }) => {
     const { diseases, setDiseases, saveOnDB, loading } = useAntecedentes();
     const { inputs } = useWhatComWillUse(inputsFromJson, diseases, setDiseases);
 
     return (
-            <View pointerEvents={editable ? 'auto' : 'none'}>
-                <View style={styles.content}>
-                    <View style={{marginBottom: 20}}>
+            <View pointerEvents = {editable ? 'auto' : 'none'}>
+                <View style = {styles.content}>
+                    <View style = {{marginBottom: 20}}>
                         {inputs.map(input=> (
                             input.render
-                            ))}
+                        ))}
                     </View>
                     {(editable && !loading) && (
-                        <View style={{alignItems:"center"}}>
-                            <ButtonCom text={"Actualizar datos"} onPress={saveOnDB}/>
+                        <View style = {{alignItems:"center"}}>
+                            <ButtonCom text = {"Actualizar datos"} onPress = {saveOnDB}/>
                         </View>
                     )}
                 </View>
@@ -27,8 +29,9 @@ export const AntecedentesScreen = ({ editable = true }) => {
     )
 }
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
     content: {
+        height: '100%',
         backgroundColor: '#FFFFFF',
         paddingLeft: 50,
         paddingRight:50,
