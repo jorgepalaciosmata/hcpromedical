@@ -6,6 +6,8 @@ import { createDrawerNavigator,
   DrawerItemList,
   DrawerItem, } from '@react-navigation/drawer';
 import { View, Modal, Text, StyleSheet, Pressable } from 'react-native';
+import { prodApi } from './api/prodApi';
+import QRCode from 'react-native-qrcode-svg';
 
 //Views Imports
 import PersonalInfoScreen from './screens/PersonalInfoScreen';
@@ -14,7 +16,6 @@ import DocumentsScreen from './screens/DocumentsScreen';
 import AuthenticationScreen from './screens/AuthenticationScreen';
 import { AntecedentesScreen } from './screens/AntecedentesScreen';
 import { DoctorScreen } from "./screens/DoctorScreen";
-import ShareScreen from "./screens/ShareScreen";
 
 function HomeScreen({ navigation }) {
   return (
@@ -27,28 +28,48 @@ const Drawer = createDrawerNavigator();
 
 function CustomDrawerContent(props) {
   const [modalVisible, setModalVisible] = useState(false);
+  const [shareLink, setShareLink] = useState("");
+
+  async function openDialog() {
+    const response = await prodApi.get( '/getsharelink', {
+      headers: {
+        "Authorization": AuthService.getCurrentUser()
+      }
+    }).catch(function (error) {
+      console.log(error);
+    });
+
+    setShareLink(composeShareLinkAddress(response.data.key));
+    setModalVisible(true);
+  }
+
+  function composeShareLinkAddress(key) {
+    return window.location.protocol + '//' 
+      + window.location.hostname
+      + '?key='
+      + key;
+  }
 
   return (
     <>
       <DrawerContentScrollView {...props}>
         <DrawerItemList {...props} />
-        <DrawerItem label="Compartir historial" onPress={() => setModalVisible(true)}/>
+        <DrawerItem label="Compartir historial" onPress={() => openDialog()}/>
         <DrawerItem label="Cerrar sesión" onPress={() => AuthService.logOut()} />
       </DrawerContentScrollView>
       <Modal
           animationType="slide"
           transparent={true}
           visible={modalVisible}>
-          <View style={styles.centeredView}>
-              <View style={styles.modalView}>
-                  <Text style={styles.modalText}>HC Promedical - Compartir historial</Text>
-                  <div style={{marginTop: '30px'}}>
-                      <Text style={styles.cancelButton} onPress={() => setModalVisible(false)}>Cancelar</Text>
-                      <Pressable
-                          style={[styles.button, styles.buttonClose]}
-                          onPress={async () => alert('test')}>
-                          <Text style={styles.textStyle}>Aceptar</Text>
-                      </Pressable>
+          <View style={shareLinkStyles.centeredView}>
+              <View style={shareLinkStyles.modalView}>
+                  <Text style={shareLinkStyles.modalText}>Compartir historial</Text>
+                  <Text style={shareLinkStyles.instructionsLabel}>
+                    Tu profesional de la salud puede escanear este código QR con su dispositivo móvil para acceder a tu historial. 
+                  </Text>
+                  <QRCode value={shareLink} />
+                  <div style={shareLinkStyles.buttonsContainer}>
+                      <Text style={shareLinkStyles.cancelButton} onPress={() => setModalVisible(false)}>Cerrar</Text>
                   </div>
               </View>
           </View>
@@ -95,34 +116,17 @@ function App() {
   }
 }
 
-const styles = StyleSheet.create({
-  logoContainer: {
-      height: '150px',
-      width: '190px'
+const shareLinkStyles = StyleSheet.create({
+  buttonsContainer: {
+    marginTop: '30px'
   },
-  container: {
-      flex: 1,
-      flexDirection: 'row',
-      // flexWrap: 'wrap',
-      // alignItems: 'flex-start',
-      height: '100%',
-      backgroundColor: '#F2F2F2'
-  },
-  containerItem: {
-      flex:1, 
-      width: '50%',
-  },
-  footer: {
-      width: '100%', 
-      marginBottom: '20px', 
-      textAlign: 'center', 
-      position: 'absolute', 
-      bottom: 0
+  instructionsLabel: {
+    marginTop: '20px',
+    marginBottom: '20px'
   },  
   cancelButton: {
       float: 'left', 
       marginTop: '10px', 
-      marginRight: '30px', 
       color:'#2196F3',
       textDecorationLine: 'underline'
   },
@@ -148,25 +152,7 @@ const styles = StyleSheet.create({
     elevation: 5,
     width: 500
   },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-    float: 'left'
-  },
-  buttonOpen: {
-    backgroundColor: '#F194FF',
-  },
-  buttonClose: {
-    backgroundColor: '#2196F3',
-  },
-  textStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
   modalText: {
-    marginBottom: 15,
     textAlign: 'center',
     fontWeight: 'bold',
     fontSize: '20px'
