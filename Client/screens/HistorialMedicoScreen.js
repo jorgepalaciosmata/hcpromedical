@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { View, Button , TextInput, ScrollView, StyleSheet, Text } from 'react-native';
+import EStyleSheet from 'react-native-extended-stylesheet';
 const axios = require("axios").default;
 
 const HistorialMedicoScreen = ({ navigation, route }) => {
@@ -46,7 +47,7 @@ const HistorialMedicoScreen = ({ navigation, route }) => {
   );
 };
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
   container: {
       padding: 35
   },

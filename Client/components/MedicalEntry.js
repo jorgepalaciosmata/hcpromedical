@@ -1,7 +1,6 @@
-import React from 'react'
-
-import { View, Text, Image, StyleSheet } from 'react-native'
-import { Hr } from '../components/Hr'
+import {View, Text, Image} from 'react-native';
+import {Hr} from '../components/Hr';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 export const MedicalEntry = () => {
   return (
@@ -14,7 +13,7 @@ export const MedicalEntry = () => {
                 />
             </View>
             <View style={{width: '%70'}}>
-                <View style={{ flexDirection:'row', justifyContent: 'space-between',  }}>
+                <View style={{flexDirection:'row', justifyContent: 'space-between'}}>
                     <View>
                         <Text style={styles.title}>Chequeo Mensual</Text>
                     </View>
@@ -24,14 +23,13 @@ export const MedicalEntry = () => {
                 </View>
                 <Text style={{width: 230}}>Analisis de sangre, predictivo y cardiovascular.</Text>
             </View>
-
         </View>
         <Hr />
     </View>
   )
 }
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
     image: {
         resizeMode: 'contain',
         width: 50,
