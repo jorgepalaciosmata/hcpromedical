@@ -1,57 +1,102 @@
-import React from "react";
-import { View, Text, Image, ScrollView } from 'react-native';
-import { personalInfoStyle } from '../assets/styles/PersonalInfo.style';
-import { useForm } from "../hooks/useForm";
+import {View, Text, Image, ScrollView} from 'react-native';
+import {useForm} from "../hooks/useForm";
 import inputsFromJson from "../assets/data/jsons/InformacionPersonal.json"
-import { useWhatComWillUse } from "../hooks/useWhatComWillUse";
-import { ButtonCom } from "../components/ButtonCom";
+import {useWhatComWillUse} from "../hooks/useWhatComWillUse";
+import {ButtonCom} from "../components/ButtonCom";
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 const PersonalInfoScreen = ({ editable = true }) => {
-  
 	const {data, setData, updateData, loading} = useForm();
 	const {inputs} = useWhatComWillUse(inputsFromJson, data, setData);
 
 	return (
-		<ScrollView pointerEvents={editable ? 'auto' : 'none'}>
-			<View style={personalInfoStyle.background}>
-				<View style={personalInfoStyle.userCase}>
+		<ScrollView pointerEvents = {editable ? 'auto' : 'none'} style = {{height: '100%'}}>
+			<View style = {styles.background}>
+				<View style = {styles.userCase}>
 					<Image  
-					source={{uri: data.profilePicture }} 
-					style={personalInfoStyle.image}
+						source = {{uri: data.profilePicture }} 
+						style = {styles.image}
 					/>
-					<Text style={personalInfoStyle.text}>{data.name} {data.firstLastName} {data.secondLastName}</Text>
+					<Text style = {styles.text}>{data.name} {data.firstLastName} {data.secondLastName}</Text>
 				</View> 
-				<View style={personalInfoStyle.back}>
-					<View style={personalInfoStyle['content:last-child']}>
+				<View style = {styles.back}>
+					<View style = {styles['content:last-child']}>
 						{inputs[0].render}
 						{inputs[1].render}
 						{inputs[2].render}
 					</View>
 
-					<View style={personalInfoStyle.hr} />
+					<View style = {styles.hr} />
 
-					<View style={personalInfoStyle['content:last-child']}>
+					<View style = {styles['content:last-child']}>
 						{inputs[3].render}
 						{inputs[4].render}
 					</View>
 
-					<View style={personalInfoStyle.hr} />
+					<View style = {styles.hr} />
 
-					<View style={personalInfoStyle['content:last-child']}>
+					<View style = {styles['content:last-child']}>
 						{inputs[5].render}
 					</View>
+					{(editable && !loading) && (
+						<View style = {styles.buttonContainer}>
+							<ButtonCom
+								text = "Actualizar datos"
+								onPress = {() => updateData()}
+							/>
+						</View>		
+					)}
 				</View>
 			</View>
-			{(editable && !loading) && (
-				<View style={personalInfoStyle.buttonContainer}>
-					<ButtonCom
-						text="Actualizar datos"
-						onPress={()=>updateData()}
-						/>
-				</View>		
-			)}
 		</ScrollView>
 	);
 };
+
+const styles = EStyleSheet.create({
+	background: {
+		backgroundColor: '$mainColor',
+		flex: 1,
+	},
+	back: {
+		backgroundColor: '#FFFFFF',
+		borderTopLeftRadius: 70,
+		padding:50,
+		flex: 3
+	},
+	'content:last-child': {
+		marginTop: 30,
+		marginBottom: 30,
+	},
+	hr: {
+		borderBottomWidth: EStyleSheet.hairlineWidth,
+		borderColor: 'black',
+		borderStyle:'solid',
+	},
+	image: {
+		width: 150,
+		height: 150,
+		borderRadius: 150,
+		borderWidth: 2,
+		borderColor: "black",
+		overflow: "hidden",
+	},
+	userCase: {
+		display:'flex',
+		alignItems:'center',
+		justifyContent: 'center',
+		marginBottom: 30,
+		marginTop: 30,
+		flex: 1,
+	},
+	text: {
+		marginTop: 10,
+		color: "#FFFFFF",
+	},
+	buttonContainer: {
+		alignSelf: 'center',
+		justifyContent: 'center',
+		marginTop: 30,
+	}
+  });
 
 export default PersonalInfoScreen;

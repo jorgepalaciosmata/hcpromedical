@@ -5,7 +5,7 @@ import { ButtonCom } from './ButtonCom';
 
 export const CalendarCom = ( {content, data, setData} ) => {
     const [showModal, setShowModal] = useState(false)
-    const [date, setDate] = useState('Boton');
+    const [date, setDate] = useState('10 - 2 - 2003');
 
     setTimeout(() => {
         if ( data[content.name] )

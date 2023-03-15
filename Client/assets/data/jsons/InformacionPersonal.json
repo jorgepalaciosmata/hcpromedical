@@ -27,7 +27,7 @@
         "inputType": "calendarPicker",
         "content": {
             "display": "Fecha De Nacimento",
-            "name": "birthday"
+            "name": "Fecha de nacimiento:"
         }
     },
     {
