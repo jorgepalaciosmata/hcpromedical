@@ -17,7 +17,7 @@ const PersonalInfoScreen = ({ editable = true }) => {
 						source = {{uri: data.profilePicture }} 
 						style = {styles.image}
 					/>
-					<Text style = {styles.text}>{data.name} {data.firstLastName} {data.secondLastName}</Text>
+					<Text style = {{color: "#FFFFFF"}}>{data.name} {data.firstLastName} {data.secondLastName}</Text>
 				</View> 
 				<View style = {styles.back}>
 					<View style = {styles['content:last-child']}>
@@ -79,6 +79,7 @@ const styles = EStyleSheet.create({
 		borderWidth: 2,
 		borderColor: "black",
 		overflow: "hidden",
+		marginBottom: 10,
 	},
 	userCase: {
 		display:'flex',
@@ -87,10 +88,6 @@ const styles = EStyleSheet.create({
 		marginBottom: 30,
 		marginTop: 30,
 		flex: 1,
-	},
-	text: {
-		marginTop: 10,
-		color: "#FFFFFF",
 	},
 	buttonContainer: {
 		alignSelf: 'center',
