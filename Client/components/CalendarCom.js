@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
-import { View, StyleSheet, Modal, TextInput, TouchableOpacity, Text } from 'react-native'
+import { useState } from 'react';
+import {View, Modal, TextInput, TouchableOpacity, Text} from 'react-native'
 import CalendarPicker from 'react-native-calendar-picker';
-import { ButtonCom } from './ButtonCom';
+import {ButtonCom} from './ButtonCom';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
-export const CalendarCom = ( {content, data, setData} ) => {
-    const [showModal, setShowModal] = useState(false)
+export const CalendarCom = ({content, data, setData}) => {
+    const [showModal, setShowModal] = useState(false);
     const [date, setDate] = useState('10 - 2 - 2003');
 
     setTimeout(() => {
@@ -13,7 +14,6 @@ export const CalendarCom = ( {content, data, setData} ) => {
       }, 10);
 
     const onDateChange = ( date ) => {
-        console.log(date)
         setDate(`${date._i.day} - ${date._i.month + 1} - ${date._i.year}`);
         setData({...data,[content.name]: `${date._i.day} - ${date._i.month + 1} - ${date._i.year}`});
     }
@@ -21,22 +21,22 @@ export const CalendarCom = ( {content, data, setData} ) => {
   return (
     <View>
         <Text>{content.name}</Text>
-        <TouchableOpacity  onPress={()=> setShowModal(true)}>
-            <TextInput editable={ false } value={date} style={styles.textInput}/>
+        <TouchableOpacity  onPress = {() => setShowModal(true)}>
+            <TextInput editable = { false } value = {date} style = {styles.textInput}/>
         </TouchableOpacity> 
 
-        <Modal visible={ showModal }>
-            <CalendarPicker onDateChange={ onDateChange } />
-            <View style={styles.buttonContainer}>
-                <ButtonCom text={"regresar"} onPress={ () => setShowModal(false) }/>
-                <ButtonCom text={"aceptar"} onPress={ () => setShowModal(false) }/>
+        <Modal visible = { showModal }>
+            <CalendarPicker onDateChange = { onDateChange } />
+            <View style = {styles.buttonContainer}>
+                <ButtonCom text = {"regresar"} onPress={ () => setShowModal(false) }/>
+                <ButtonCom text = {"aceptar"} onPress={ () => setShowModal(false) }/>
             </View>
         </Modal>
     </View>
   )
 }
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
     button: {
         color: 'white',
         borderRadius: 10,

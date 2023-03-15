@@ -1,16 +1,17 @@
-import {View, Text, Image, ScrollView} from 'react-native';
+import {View, Text, Image} from 'react-native';
 import {useForm} from "../hooks/useForm";
 import inputsFromJson from "../assets/data/jsons/InformacionPersonal.json"
 import {useWhatComWillUse} from "../hooks/useWhatComWillUse";
 import {ButtonCom} from "../components/ButtonCom";
 import EStyleSheet from 'react-native-extended-stylesheet';
+import {FooterCom} from '../components/FooterCom';
 
 const PersonalInfoScreen = ({ editable = true }) => {
 	const {data, setData, updateData, loading} = useForm();
 	const {inputs} = useWhatComWillUse(inputsFromJson, data, setData);
 
 	return (
-		<ScrollView pointerEvents = {editable ? 'auto' : 'none'} style = {{height: '100%'}}>
+		<View pointerEvents = {editable ? 'auto' : 'none'}>
 			<View style = {styles.background}>
 				<View style = {styles.userCase}>
 					<Image  
@@ -24,12 +25,12 @@ const PersonalInfoScreen = ({ editable = true }) => {
 						{inputs[0].render}
 						{inputs[1].render}
 						{inputs[2].render}
+						{inputs[3].render}
 					</View>
 
 					<View style = {styles.hr} />
 
 					<View style = {styles['content:last-child']}>
-						{inputs[3].render}
 						{inputs[4].render}
 					</View>
 
@@ -48,14 +49,16 @@ const PersonalInfoScreen = ({ editable = true }) => {
 					)}
 				</View>
 			</View>
-		</ScrollView>
+			{editable && (
+				<FooterCom />
+			)}
+		</View>
 	);
 };
 
 const styles = EStyleSheet.create({
 	background: {
 		backgroundColor: '$mainColor',
-		flex: 1,
 	},
 	back: {
 		backgroundColor: '#FFFFFF',

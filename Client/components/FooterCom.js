@@ -1,5 +1,5 @@
-import React from 'react';
 import {TouchableOpacity, View, Text, Linking, StyleSheet, ImageBackground} from 'react-native';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 export const FooterCom = () => {
     return (
@@ -19,7 +19,7 @@ export const FooterCom = () => {
     )
 }
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
     image: {
         width: '100%',
         height: '100%',
