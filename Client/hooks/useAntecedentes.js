@@ -12,11 +12,13 @@ export const useAntecedentes = () => {
   */}
   const [diseases, setDiseases] = useState({})
   const [data, setData] = useState({});
+  const [loading, setLoading] = useState(true);
 
   async function getData() {
     const response = await prodApi.get( '/personalInfo/self' );
     setDiseases( response.data.item.diseases );
     setData( response.data.item );
+    setLoading(false);
   }
 
   useEffect(() => {
@@ -35,6 +37,7 @@ export const useAntecedentes = () => {
   return {
     diseases,
     setDiseases,
-    saveOnDB
+    saveOnDB,
+    loading
   }
 }

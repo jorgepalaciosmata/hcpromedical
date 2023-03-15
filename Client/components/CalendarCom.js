@@ -28,6 +28,7 @@ export const CalendarCom = ( {content, data, setData} ) => {
         <Modal visible={ showModal }>
             <CalendarPicker onDateChange={ onDateChange } />
             <View style={styles.buttonContainer}>
+                <ButtonCom text={"regresar"} onPress={ () => setShowModal(false) }/>
                 <ButtonCom text={"aceptar"} onPress={ () => setShowModal(false) }/>
             </View>
         </Modal>
@@ -53,7 +54,10 @@ const styles = StyleSheet.create({
         borderBottomColor: '#cccccc',
     },
     buttonContainer: {
-        alignItems: 'center',
-        marginTop: 20,
+        display: 'flex',
+        flexWrap: 'wrap',
+        flexDirection:'row',
+        gap: 10,
+        alignSelf: 'center'
     }
 });

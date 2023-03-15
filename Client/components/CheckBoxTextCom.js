@@ -6,7 +6,7 @@ const CheckBoxTextCom = ({content, data, setData}) => {
   const [text, setText] = useState("");
 
   setTimeout(() => {
-    if ( data[content.name] ){
+    if ( data && data[content.name] ){
       setIsEnabled(true);
       setText(data[content.name]);
     }

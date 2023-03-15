@@ -8,7 +8,7 @@ import { ButtonCom } from "../components/ButtonCom";
 
 const PersonalInfoScreen = ({ editable = true }) => {
   
-	const {data, setData, updateData} = useForm();
+	const {data, setData, updateData, loading} = useForm();
 	const {inputs} = useWhatComWillUse(inputsFromJson, data, setData);
 
 	return (
@@ -42,12 +42,14 @@ const PersonalInfoScreen = ({ editable = true }) => {
 					</View>
 				</View>
 			</View>
-			<View style={personalInfoStyle.buttonContainer}>
-				<ButtonCom
-					text="Actualizar datos"
-					onPress={()=>updateData()}
-					/>
-			</View>		
+			{(editable && !loading) && (
+				<View style={personalInfoStyle.buttonContainer}>
+					<ButtonCom
+						text="Actualizar datos"
+						onPress={()=>updateData()}
+						/>
+				</View>		
+			)}
 		</ScrollView>
 	);
 };

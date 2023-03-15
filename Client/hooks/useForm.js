@@ -4,6 +4,7 @@ import AuthService from '../services/AuthService';
 
 export const useForm = ( ) => {
   const [data, setData] = useState({});
+  const [loading, setLoading] = useState(true);
   
   async function getData() {
     const response = await prodApi.get( '/personalInfo/self', {
@@ -16,6 +17,7 @@ export const useForm = ( ) => {
       }
     });
     setData( response.data.item );
+    setLoading(false);
     console.log( response );
   }
 
@@ -31,6 +33,7 @@ export const useForm = ( ) => {
   return {
     data,
     setData,
-    updateData
+    updateData,
+    loading
   }
 }
