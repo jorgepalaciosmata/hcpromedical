@@ -6,7 +6,7 @@ import { useAntecedentes } from '../hooks/useAntecedentes';
 import { useWhatComWillUse } from '../hooks/useWhatComWillUse';
 
 export const AntecedentesScreen = ({ editable = true }) => {
-    const { diseases, setDiseases, saveOnDB } = useAntecedentes();
+    const { diseases, setDiseases, saveOnDB, loading } = useAntecedentes();
     const { inputs } = useWhatComWillUse(inputsFromJson, diseases, setDiseases);
 
     return (
@@ -17,7 +17,7 @@ export const AntecedentesScreen = ({ editable = true }) => {
                             input.render
                             ))}
                     </View>
-                    {editable && (
+                    {(editable && !loading) && (
                         <View style={{alignItems:"center"}}>
                             <ButtonCom text={"Actualizar datos"} onPress={saveOnDB}/>
                         </View>
