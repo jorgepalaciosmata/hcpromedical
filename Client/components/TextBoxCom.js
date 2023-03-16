@@ -1,22 +1,22 @@
-import React from 'react';
-import {Text, StyleSheet, View, TextInput} from 'react-native';
+import {Text, View, TextInput} from 'react-native';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 const TextBoxCom = ({content, data, setData}) => {
   return (
     <>
-      <View style={styles.inputStyle}>
+      <View style = {styles.inputStyle}>
         <Text>{content.placeholder + ':'}</Text>
         <TextInput
-          inputMode={content.inputMode}
-          defaultValue={data[content.handleChangeText]}
-          onChangeText={( value ) => setData({...data, [content.handleChangeText]: value })}
+          inputMode = {content.inputMode}
+          defaultValue = {data[content.handleChangeText]}
+          onChangeText = {( value ) => setData({...data, [content.handleChangeText]: value })}
         />
       </View>
     </>
   )
 };
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
   inputStyle: {
       flex: 1,
       padding: 0,

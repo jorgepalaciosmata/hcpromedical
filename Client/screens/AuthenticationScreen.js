@@ -5,6 +5,7 @@ import * as WebBrowser from 'expo-web-browser';
 import AuthService from '../services/AuthService';
 import { prodApi } from '../api/prodApi';
 import Disclaimer from './Disclaimer';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -123,7 +124,7 @@ const AuthenticationScreen = () => {
     );
 }
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
     logoContainer: {
         height: '150px',
         width: '190px'

@@ -6,6 +6,7 @@ import { createDrawerNavigator,
   DrawerItemList,
   DrawerItem, } from '@react-navigation/drawer';
 import { View, Modal, Text, StyleSheet, Pressable } from 'react-native';
+import EStyleSheet from 'react-native-extended-stylesheet';
 import { prodApi } from './api/prodApi';
 import QRCode from 'react-native-qrcode-svg';
 
@@ -16,6 +17,9 @@ import DocumentsScreen from './screens/DocumentsScreen';
 import AuthenticationScreen from './screens/AuthenticationScreen';
 import { AntecedentesScreen } from './screens/AntecedentesScreen';
 import { DoctorScreen } from "./screens/DoctorScreen";
+EStyleSheet.build({ 
+  $mainColor: 'rgb(39, 51, 88)'
+});
 
 function HomeScreen({ navigation }) {
   return (
@@ -81,7 +85,7 @@ function CustomDrawerContent(props) {
 function HCPromedicalDrawer() {
   return (
 
-    <Drawer.Navigator initialRouteName="HC Cloud" drawerContent={(props) => <CustomDrawerContent {...props} />}>
+    <Drawer.Navigator initialRouteName="HC Folder" drawerContent={(props) => <CustomDrawerContent {...props} />}>
       <Drawer.Screen name="HC Folder" component={HomeScreen} />
       <Drawer.Screen name="Información personal" component={PersonalInfoScreen} />
       <Drawer.Screen name="Antecedentes" component={AntecedentesScreen} />
@@ -116,7 +120,23 @@ function App() {
   }
 }
 
-const shareLinkStyles = StyleSheet.create({
+const styles = EStyleSheet.create({
+  logoContainer: {
+      height: '150px',
+      width: '190px'
+  },
+  container: {
+      flex: 1,
+      flexDirection: 'row',
+      // flexWrap: 'wrap',
+      // alignItems: 'flex-start',
+      height: '100%',
+      backgroundColor: '#F2F2F2'
+  },
+  containerItem: {
+      flex:1, 
+      width: '50%',
+  },
   buttonsContainer: {
     marginTop: '30px'
   },

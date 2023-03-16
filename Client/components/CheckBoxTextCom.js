@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { TextInput, View, CheckBox, Text} from 'react-native';
+import {useState} from 'react';
+import {TextInput, View, CheckBox, Text} from 'react-native';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 const CheckBoxTextCom = ({content, data, setData}) => {
   const [isEnabled, setIsEnabled] = useState(false);
-  const [text, setText] = useState("");
+  const [text, setText] = useState('');
 
   setTimeout(() => {
     if ( data && data[content.name] ){
@@ -12,11 +13,11 @@ const CheckBoxTextCom = ({content, data, setData}) => {
     }
   }, 10);
 
-  const onValueChange = () => {
+  const handleOnValueChange = () => {
     setIsEnabled(!isEnabled);
-    if (! (!isEnabled) ) {
+    if (!(!isEnabled)) {
       setData({...data, [content.name]: false});
-      setText("")
+      setText('');
     }
   }
 
@@ -26,33 +27,37 @@ const CheckBoxTextCom = ({content, data, setData}) => {
   }
 
   return (
-    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-      <CheckBox 
-        value={ isEnabled }
-        onValueChange={ onValueChange }
-      />
-      <Text 
-      style={{marginLeft: 4,fontSize: 16,}}
-      >
-        {content.display}
-      </Text>
+    <View style={styles.container}>
+      <CheckBox value = {isEnabled} onValueChange = {handleOnValueChange}/>
+      <Text style={styles.text}>{content.display}</Text>
       <TextInput 
-        style={{
-          flex: 1,
-          height: 20,
-          marginLeft: 16,
-          borderColor: 'gray',
-          borderWidth: 1,
-          padding: 8,
-          borderRadius: 100,
-          backgroundColor: isEnabled ? 'white' : 'gray'
-        }}
-        editable={isEnabled}
-        onChangeText={text => onChangeText(text)}
-        value={text}
+        style = {[styles.input, {backgroundColor: isEnabled ? 'white' : 'gray'}]}
+        editable = {isEnabled}
+        onChangeText = {text => onChangeText(text)}
+        value = {text}
       />
     </View>
   );
 };
+
+const styles = EStyleSheet.create({
+  container: {
+    flexDirection: 'row', 
+    alignItems: 'center',
+  },
+  text: {
+    marginLeft: 4,
+    fontSize: 16,
+  },
+  input: {
+    flex: 1,
+    height: 20,
+    marginLeft: 16,
+    borderColor: 'gray',
+    borderWidth: 1,
+    padding: 8,
+    borderRadius: 100,
+  }
+})
 
 export default CheckBoxTextCom;

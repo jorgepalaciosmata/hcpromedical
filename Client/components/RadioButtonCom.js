@@ -1,43 +1,41 @@
 
-import React, {useState} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-
+import {useState} from 'react';
+import {Text, TouchableOpacity, View} from 'react-native';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 const RadioButtonCom = ({content, data, setData}) => {
-  
   const [selectedOption, setSelectedOption] = useState();
 
-  setTimeout(()=>{
+  setTimeout(() => {
     setSelectedOption(data.gender);
-  },10)
+  }, 10)
   
   const updateInfo = (option) => {
     setSelectedOption(option);
-    setData( {...data, [content.name]: option} );
+    setData({...data, [content.name]: option});
   } 
 
   return (
     <View>
-    <Text style={styles.text}>{content.display}:</Text>
-
-    <View style={styles.wrapper}>
-      {content.options.map(option => (
-        <View key={option} style={styles.option}>
-          <TouchableOpacity 
-            style={styles.outer}
-            onPress={()=>updateInfo(option)} >
-            { selectedOption === option && <View style={styles.inner}></View>}
-          </TouchableOpacity> 
-          <Text>{option}</Text>
-        </View>
-    ))}
-    </View>
-    
+      <Text style = {styles.text}>{content.display}:</Text>
+      <View style = {styles.wrapper}>
+        {content.options.map(option => (
+          <View key = {option} style = {styles.option}>
+            <TouchableOpacity 
+              style = {styles.outer}
+              onPress = {() => updateInfo(option)}
+            >
+              {selectedOption === option && <View style = {styles.inner}/>}
+            </TouchableOpacity> 
+            <Text>{option}</Text>
+          </View>
+        ))}
+      </View>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
+const styles = EStyleSheet.create({
   outer: {
     width: 20,
     height: 20,
@@ -68,4 +66,5 @@ const styles = StyleSheet.create({
     marginTop: 5
   }
 });
+
 export default RadioButtonCom;

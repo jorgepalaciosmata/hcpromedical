@@ -1,14 +1,18 @@
-import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import {View} from 'react-native';
+import EStyleSheet from 'react-native-extended-stylesheet';
 
 export const Hr = () => {
   return (
-    <View style={{
-        borderBottomWidth: StyleSheet.hairlineWidth,
-        borderColor: 'black',
-        borderStyle:'solid', 
-        marginBottom: 10,
-        resizeMode: 'contain'
-      }}/>
+    <View style = {styles.hr}/>
   )
 }
+
+const styles = EStyleSheet.create({
+  hr: {
+    borderBottomWidth: EStyleSheet.hairlineWidth,
+    borderColor: 'black',
+    borderStyle:'solid', 
+    marginBottom: 10,
+    resizeMode: 'contain'
+  }
+});
