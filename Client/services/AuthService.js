@@ -1,8 +1,12 @@
 
+import jwt_decode from 'jwt-decode';
+
+const userItemKey = "user";
+
 function getCurrentUser() {
     let idToken = null;
     try {
-        idToken = localStorage.getItem("user");
+        idToken = localStorage.getItem(userItemKey);
     } catch (e){
         console.log(e);    
     }
@@ -10,26 +14,16 @@ function getCurrentUser() {
 };
 
 function getCurrentUserToken() {
-    return parseJwt(getCurrentUser());
+    return jwt_decode(getCurrentUser());
 }
 
 function setCurrentUser(jwtToken) {
-    localStorage.setItem("user", jwtToken);
+    localStorage.setItem(userItemKey, jwtToken);
 }
 
 function logOut() {
     localStorage.removeItem("user");
-    location.reload();
-}
-
-function parseJwt (token) {
-    var base64Url = token.split('.')[1];
-    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    var jsonPayload = decodeURIComponent(Buffer.from(base64, 'base64').toString().split('').map(function(c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-
-    return JSON.parse(jsonPayload);
+    location.replace(location.hostname);
 }
 
 const AuthService = {

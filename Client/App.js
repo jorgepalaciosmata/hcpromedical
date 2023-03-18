@@ -5,10 +5,11 @@ import { createDrawerNavigator,
   DrawerContentScrollView,
   DrawerItemList,
   DrawerItem, } from '@react-navigation/drawer';
-import { View, Modal, Text, StyleSheet, Pressable } from 'react-native';
+import { View, Modal, Text, StyleSheet, Pressable, TouchableOpacity } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { prodApi } from './api/prodApi';
 import QRCode from 'react-native-qrcode-svg';
+import Clipboard from '@react-native-clipboard/clipboard';
 
 //Views Imports
 import PersonalInfoScreen from './screens/PersonalInfoScreen';
@@ -34,7 +35,7 @@ function CustomDrawerContent(props) {
   const [modalVisible, setModalVisible] = useState(false);
   const [shareLink, setShareLink] = useState("");
 
-  async function openDialog() {
+  async function openShareDialog() {
     const response = await prodApi.get( '/getsharelink', {
       headers: {
         "Authorization": AuthService.getCurrentUser()
@@ -50,7 +51,8 @@ function CustomDrawerContent(props) {
   function composeShareLinkAddress(key) {
     return window.location.protocol + '//' 
       + window.location.hostname
-      + '?key='
+      + ':' + window.location.port
+      + '?sharekey='
       + key;
   }
 
@@ -58,22 +60,28 @@ function CustomDrawerContent(props) {
     <>
       <DrawerContentScrollView {...props}>
         <DrawerItemList {...props} />
-        <DrawerItem label="Compartir historial" onPress={() => openDialog()}/>
+        <DrawerItem label="Compartir historial" onPress={() => {openShareDialog(); props.navigation.closeDrawer()}}/>
         <DrawerItem label="Cerrar sesión" onPress={() => AuthService.logOut()} />
       </DrawerContentScrollView>
       <Modal
           animationType="slide"
           transparent={true}
           visible={modalVisible}>
-          <View style={shareLinkStyles.centeredView}>
-              <View style={shareLinkStyles.modalView}>
-                  <Text style={shareLinkStyles.modalText}>Compartir historial</Text>
-                  <Text style={shareLinkStyles.instructionsLabel}>
+          <View style={styles.centeredView}>
+              <View style={styles.modalView}>
+                  <Text style={styles.modalText}>Compartir historial</Text>
+                  <Text style={styles.instructionsLabel}>
                     Tu profesional de la salud puede escanear este código QR con su dispositivo móvil para acceder a tu historial. 
                   </Text>
                   <QRCode value={shareLink} />
-                  <div style={shareLinkStyles.buttonsContainer}>
-                      <Text style={shareLinkStyles.cancelButton} onPress={() => setModalVisible(false)}>Cerrar</Text>
+
+                  <TouchableOpacity style={styles.shareLink}>
+                    <Text style={styles.copyShareLink}>O has click aquí para compiar el vínculo y compartirlo.</Text>
+                  </TouchableOpacity>
+                  {Clipboard.setString(shareLink)}
+
+                  <div style={styles.buttonsContainer}>
+                      <Text style={styles.cancelButton} onPress={() => setModalVisible(false)}>Cerrar</Text>
                   </div>
               </View>
           </View>
@@ -84,28 +92,34 @@ function CustomDrawerContent(props) {
 
 function HCPromedicalDrawer() {
   return (
-
     <Drawer.Navigator initialRouteName="HC Folder" drawerContent={(props) => <CustomDrawerContent {...props} />}>
       <Drawer.Screen name="HC Folder" component={HomeScreen} />
-      <Drawer.Screen name="Información personal" component={PersonalInfoScreen} />
-      <Drawer.Screen name="Antecedentes" component={AntecedentesScreen} />
-      <Drawer.Screen name="Documentos" component={DocumentsScreen} />
-      <Drawer.Screen name="Datos" component={DoctorScreen} />
+      <Drawer.Screen name="Mi cuenta" component={PersonalInfoScreen} />
+      <Drawer.Screen name="Mi historial médico" component={AntecedentesScreen} />
+      <Drawer.Screen name="Mis historias clínicas" component={DocumentsScreen} />
     </Drawer.Navigator>
   );
 }
+
+const params = new Proxy(new URLSearchParams(window.location.search), {
+  get: (searchParams, prop) => searchParams.get(prop),
+});
 
 function App() {
   const [currentUser, setCurrentUser] = useState(undefined);
 
   useEffect(() => {
     const user = AuthService.getCurrentUser();
-    
     if (user) {
       setCurrentUser(user);
     }
-
   }, []);
+
+  if (params.sharekey) {
+    return (
+      <DoctorScreen />
+    );
+  }
 
   if (currentUser) {
     return (
@@ -113,14 +127,21 @@ function App() {
         <HCPromedicalDrawer />
       </NavigationContainer>
     );  
-  } else {
-    return (
-      <AuthenticationScreen />
-    );
   }
+
+  return (
+    <AuthenticationScreen />
+  );
 }
 
 const styles = EStyleSheet.create({
+  shareLink: {
+    marginTop: '10px',
+  },
+  copyShareLink: {
+    fontWeight: 'bold',
+    marginTop: '10px'
+  },
   logoContainer: {
       height: '150px',
       width: '190px'
@@ -128,8 +149,6 @@ const styles = EStyleSheet.create({
   container: {
       flex: 1,
       flexDirection: 'row',
-      // flexWrap: 'wrap',
-      // alignItems: 'flex-start',
       height: '100%',
       backgroundColor: '#F2F2F2'
   },

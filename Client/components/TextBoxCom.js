@@ -4,12 +4,15 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 const TextBoxCom = ({content, data, setData}) => {
   return (
     <>
-      <View style = {styles.inputStyle}>
-        <Text>{content.placeholder + ':'}</Text>
+      <View style={styles.container}>
+        <Text style={styles.placeholder}>{content.placeholder}</Text>
         <TextInput
           inputMode = {content.inputMode}
           defaultValue = {data[content.handleChangeText]}
           onChangeText = {( value ) => setData({...data, [content.handleChangeText]: value })}
+          placeholder = {content.placeholder}
+          style={styles.textInput}
+          placeholderTextColor='#b2afaf'
         />
       </View>
     </>
@@ -17,17 +20,23 @@ const TextBoxCom = ({content, data, setData}) => {
 };
 
 const styles = EStyleSheet.create({
-  inputStyle: {
-      flex: 1,
-      padding: 0,
-      marginTop: 5,
-      marginBottom: 2,
-      borderRadius: 5,
-      borderBottomWidth: 1,
-      borderBottomColor: '#cccccc',
+  container: {
+    border: '1px solid #ffe5e5',
+    marginBottom: '10px',
+    padding: '5px',
+    borderRadius: 5,
+    width: '100%',
+    maxWidth: '350px'
   },
-  inputMode: {
-    marginTop: 5
+  textInput: {
+    width: '100%',
+    maxWidth: '340px',
+    padding: '5px'
+  },  
+  placeholder: {
+    fontSize: '10px',
+    fontWeight: 'bold',
+    color: '#fc2954'
   }
 })
 

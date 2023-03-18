@@ -17,8 +17,8 @@ const RadioButtonCom = ({content, data, setData}) => {
 
   return (
     <View>
-      <Text style = {styles.text}>{content.display}:</Text>
       <View style = {styles.wrapper}>
+        <Text style = {styles.text}>{content.display}</Text>
         {content.options.map(option => (
           <View key = {option} style = {styles.option}>
             <TouchableOpacity 
@@ -39,31 +39,38 @@ const styles = EStyleSheet.create({
   outer: {
     width: 20,
     height: 20,
-    borderWidth: 1,
+    border: "1px solid #ffe5e5",
     borderRadius: 15,
     justifyContent: 'center',
     alignItems:'center',
     marginRight: 10,
     marginLeft: 10,
     marginTop: 5,
+    backgroundColor: "#ffe5e5"
   },
   inner: {
-    width: 15,
-    height: 15,
-    backgroundColor: 'gray',
+    width: 20,
+    height: 20,
+    backgroundColor: '#fc2954',
     borderRadius: 10
   },
   wrapper: {
-    marginTop: 3
+    marginTop: 3,
+    border: '1px solid #ffe5e5',
+    borderRadius: 5,
+    width: '350px',
+    padding: '5px'
   },
   option: {
     alignItems: 'left', 
     flexDirection: "row",
     alignItems: 'center',
-    flexGrow: 1,
+    // flexGrow: 1,
   },
   text: {
-    marginTop: 5
+    fontSize: '10px',
+    fontWeight: 'bold',
+    color: '#fc2954'
   }
 });
 

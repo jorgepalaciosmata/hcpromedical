@@ -14,13 +14,13 @@ export const CalendarCom = ({content, data, setData}) => {
       }, 10);
 
     const onDateChange = ( date ) => {
-        setDate(`${date._i.day} - ${date._i.month + 1} - ${date._i.year}`);
-        setData({...data,[content.name]: `${date._i.day} - ${date._i.month + 1} - ${date._i.year}`});
+        setDate(`${date._i.day}/${date._i.month + 1}/${date._i.year}`);
+        setData({...data,[content.name]: `${date._i.day}/${date._i.month + 1}/${date._i.year}`});
     }
 
   return (
-    <View>
-        <Text>{content.name}</Text>
+    <View style={styles.container}>
+        <Text style={styles.placeholder}>{content.name}</Text>
         <TouchableOpacity  onPress = {() => setShowModal(true)}>
             <TextInput editable = { false } value = {date} style = {styles.textInput}/>
         </TouchableOpacity> 
@@ -37,6 +37,19 @@ export const CalendarCom = ({content, data, setData}) => {
 }
 
 const styles = EStyleSheet.create({
+    container: {
+        border: '1px solid #ffe5e5',
+        marginBottom: '10px',
+        padding: '5px',
+        borderRadius: 5,
+        width: '100%',
+        maxWidth: '350px'
+    },
+    placeholder: {
+        fontSize: '10px',
+        fontWeight: 'bold',
+        color: '#fc2954'
+    },
     button: {
         color: 'white',
         borderRadius: 10,
@@ -50,8 +63,6 @@ const styles = EStyleSheet.create({
         marginTop: 5,
         marginBottom: 2,
         borderRadius: 5,
-        borderBottomWidth: 1,
-        borderBottomColor: '#cccccc',
     },
     buttonContainer: {
         display: 'flex',

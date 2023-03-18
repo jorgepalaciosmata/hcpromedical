@@ -18,23 +18,25 @@ const PersonalInfoScreen = ({ editable = true }) => {
 						source = {{uri: data.profilePicture }} 
 						style = {styles.image}
 					/>
-					<Text style = {{color: "#FFFFFF"}}>{data.name} {data.firstLastName} {data.secondLastName}</Text>
+					<Text style = {styles.name}>{data.name} {data.firstLastName} {data.secondLastName}</Text>
 				</View> 
-				<View style = {styles.back}>
+				<View style = {styles.inputSection}>
+					{/* Nombre y Appellidos */}
 					<View style = {styles['content:last-child']}>
 						{inputs[0].render}
 						{inputs[1].render}
 						{inputs[2].render}
+					</View>
+
+					{/* Fecha de nacimiento */}
+					<View style = {styles['content:last-child']}>
 						{inputs[3].render}
 					</View>
 
-					<View style = {styles.hr} />
-
+					{/* Género */}
 					<View style = {styles['content:last-child']}>
 						{inputs[4].render}
 					</View>
-
-					<View style = {styles.hr} />
 
 					<View style = {styles['content:last-child']}>
 						{inputs[5].render}
@@ -57,17 +59,19 @@ const PersonalInfoScreen = ({ editable = true }) => {
 };
 
 const styles = EStyleSheet.create({
+	name: {
+		color: "#FFFFFF",
+		fontWeight: 'bold'
+	},
 	background: {
 		backgroundColor: '$mainColor',
 	},
-	back: {
+	inputSection: {
 		backgroundColor: '#FFFFFF',
-		borderTopLeftRadius: 70,
 		padding:50,
 		flex: 3
 	},
 	'content:last-child': {
-		marginTop: 30,
 		marginBottom: 30,
 	},
 	hr: {
@@ -80,9 +84,9 @@ const styles = EStyleSheet.create({
 		height: 150,
 		borderRadius: 150,
 		borderWidth: 2,
-		borderColor: "black",
 		overflow: "hidden",
 		marginBottom: 10,
+		border: '0px'
 	},
 	userCase: {
 		display:'flex',
@@ -91,6 +95,9 @@ const styles = EStyleSheet.create({
 		marginBottom: 30,
 		marginTop: 30,
 		flex: 1,
+		marginLeft: '50px',
+		width: '100%',
+		maxWidth: '200px'
 	},
 	buttonContainer: {
 		alignSelf: 'center',

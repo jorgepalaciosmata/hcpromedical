@@ -8,7 +8,6 @@ import { CalendarCom } from '../components/CalendarCom';
 /*Este hook recibe dos cosas importantes:
     -Data(para que este dentro del componente al que va dirigido pueda ser precargada)
 	-setData (una funcion que nos ayudara a guardar nuestros datos)
-
 */
 export const useWhatComWillUse = (inputs, data, setData) => {
     inputs.forEach((input, key) => {

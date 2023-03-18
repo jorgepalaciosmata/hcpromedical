@@ -5,11 +5,17 @@ import AuthService from '../services/AuthService';
 export const useForm = ( ) => {
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
+
+  const params = new Proxy(new URLSearchParams(window.location.search), {
+    get: (searchParams, prop) => searchParams.get(prop),
+  });
   
   async function getData() {
     const response = await prodApi.get( '/personalInfo/self', {
       headers: {
-        "Authorization": AuthService.getCurrentUser()
+        "Authorization" : params.sharekey ? 
+          "sharekey=" + params.sharekey : 
+          AuthService.getCurrentUser(),
       }
     }).catch(function (error) {
       if (error.response.status === 401) {

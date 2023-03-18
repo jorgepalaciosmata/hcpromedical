@@ -27,13 +27,13 @@
         "inputType": "calendarPicker",
         "content": {
             "display": "Fecha De Nacimento",
-            "name": "Fecha de nacimiento:"
+            "name": "Fecha de nacimiento"
         }
     },
     {
 		"inputType": "radioButton",
 		"content": {
-			"display": "Genero",
+			"display": "Género",
 			"name": "gender",
 			"options": ["Masculino","Femenino","Prefiero no especificar"]
 		}
