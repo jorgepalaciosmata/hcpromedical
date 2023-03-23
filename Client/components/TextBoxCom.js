@@ -2,14 +2,22 @@ import {Text, View, TextInput} from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 
 const TextBoxCom = ({content, data, setData}) => {
+
+  function getValue(id) {
+    if (id && data) {
+      return data[id] ? data[id] : '';
+    }   
+    return '';
+  } 
+
   return (
     <>
       <View style={styles.container}>
         <Text style={styles.placeholder}>{content.placeholder}</Text>
         <TextInput
           inputMode = {content.inputMode}
-          defaultValue = {data[content.handleChangeText]}
-          onChangeText = {( value ) => setData({...data, [content.handleChangeText]: value })}
+          defaultValue = {getValue(content.id)}
+          onChangeText = {( value ) => setData({...data, [content.id]: value })}
           placeholder = {content.placeholder}
           style={styles.textInput}
           placeholderTextColor='#b2afaf'

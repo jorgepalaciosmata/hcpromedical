@@ -1,0 +1,40 @@
+[
+    {
+        "inputType": "textbox",
+        "content": {
+            "placeholder": "Tipo de ejercicio físico",
+            "id": "exerciseType",
+            "inputMode": "text"
+        }
+    },
+    {
+        "inputType": "textbox",
+        "content": {
+            "placeholder": "Frecuencia semanal",
+            "id": "exerciseFrequency",
+            "inputMode": "text"
+        }
+    },
+    {
+		"inputType": "checkboxText",
+		"content": {
+			"display": "Uso de Tabaco",
+			"name": "tabaco"
+		}
+    },
+    {
+		"inputType": "checkboxText",
+		"content": {
+			"display": "Uso de Alcohol",
+			"name": "alcohol"
+		}
+    },
+    {
+        "inputType": "textbox",
+        "content": {
+            "placeholder": "Drogas recreacionales",
+            "id": "drugs",
+            "inputMode": "text"
+        }
+    }
+]

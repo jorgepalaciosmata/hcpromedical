@@ -32,11 +32,12 @@ const styles = EStyleSheet.create({
   container: {
     flexWrap:'wrap',
     alignItems: 'left',
-    flexDirection: "row"
+    flexDirection: "row",
+    marginBottom: '5px'
   },
   text: {
     marginLeft: 4,
-    fontSize: 16,
+    fontSize: 12,
   },
 });
 

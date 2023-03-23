@@ -52,9 +52,6 @@ export const useWhatComWillUse = (inputs, data, setData) => {
 			break;
 		}
 	});
-	
 
-    return {
-        inputs
-    }
+    return inputs;
 }

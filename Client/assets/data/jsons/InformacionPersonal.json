@@ -3,7 +3,7 @@
         "inputType": "textbox",
         "content": {
             "placeholder": "Nombre",
-            "handleChangeText": "name",
+            "id": "name",
             "inputMode": "text"
         }
     },
@@ -11,7 +11,7 @@
         "inputType": "textbox",
         "content": {
             "placeholder": "Primer Apellido",
-            "handleChangeText": "firstLastName",
+            "id": "firstLastName",
             "inputMode": "text"
         }
     },
@@ -19,15 +19,15 @@
         "inputType": "textbox",
         "content": {
             "placeholder": "Segundo Apellido",
-            "handleChangeText": "secondLastName",
+            "id": "secondLastName",
             "inputMode": "text"
         }
     },
     {
         "inputType": "calendarPicker",
         "content": {
-            "display": "Fecha De Nacimento",
-            "name": "Fecha de nacimiento"
+            "display": "Fecha de nacimento",
+            "name": "birthday"
         }
     },
     {
@@ -42,7 +42,7 @@
         "inputType": "textbox",
         "content": {
             "placeholder": "Direccion",
-            "handleChangeText": "address",
+            "id": "address",
             "inputMode": "text"
         }
     }

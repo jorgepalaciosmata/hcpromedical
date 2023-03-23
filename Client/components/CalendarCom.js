@@ -6,7 +6,7 @@ import EStyleSheet from 'react-native-extended-stylesheet';
 
 export const CalendarCom = ({content, data, setData}) => {
     const [showModal, setShowModal] = useState(false);
-    const [date, setDate] = useState('10 - 2 - 2003');
+    const [date, setDate] = useState('');
 
     setTimeout(() => {
         if ( data[content.name] )
@@ -20,7 +20,7 @@ export const CalendarCom = ({content, data, setData}) => {
 
   return (
     <View style={styles.container}>
-        <Text style={styles.placeholder}>{content.name}</Text>
+        <Text style={styles.placeholder}>{content.display}</Text>
         <TouchableOpacity  onPress = {() => setShowModal(true)}>
             <TextInput editable = { false } value = {date} style = {styles.textInput}/>
         </TouchableOpacity> 

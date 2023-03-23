@@ -9248,6 +9248,11 @@
     "css-select" "^5.1.0"
     "css-tree" "^1.1.3"
 
+"react-native-timeline-flatlist@^0.8.0":
+  "integrity" "sha512-IVfCOxYx7Js84CaUJmtuxq2eyLvoQ1nRO5GG0mri14NH2NbMUwL9VhX19/yI8LpU2bnarlo7kjR6GLUP3DM/iQ=="
+  "resolved" "https://registry.npmjs.org/react-native-timeline-flatlist/-/react-native-timeline-flatlist-0.8.0.tgz"
+  "version" "0.8.0"
+
 "react-native-web@~0.18.9":
   "integrity" "sha512-fboP7yqobJ8InSr4fP+bQ3scOtSQtUoPcR+HWasH8b/fk/RO+mWcJs/8n+lewy9WTZc2D68ha7VwRDviUshEWA=="
   "resolved" "https://registry.npmjs.org/react-native-web/-/react-native-web-0.18.12.tgz"
@@ -9261,7 +9266,7 @@
     "postcss-value-parser" "^4.2.0"
     "styleq" "^0.1.2"
 
-"react-native@*", "react-native@>= 0.30.0", "react-native@>=0.57.0", "react-native@>=0.63.4", "react-native@0.70.5":
+"react-native@*", "react-native@>= 0.30.0", "react-native@>= 0.58.2", "react-native@>=0.57.0", "react-native@>=0.63.4", "react-native@0.70.5":
   "integrity" "sha512-5NZM80LC3L+TIgQX/09yiyy48S73wMgpIgN5cCv3XTMR394+KpDI3rBZGH4aIgWWuwijz31YYVF5504+9n2Zfw=="
   "resolved" "https://registry.npmjs.org/react-native/-/react-native-0.70.5.tgz"
   "version" "0.70.5"

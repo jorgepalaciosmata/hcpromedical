@@ -23,7 +23,8 @@ function setCurrentUser(jwtToken) {
 
 function logOut() {
     localStorage.removeItem("user");
-    location.replace(location.hostname);
+    location.href = location.host;
+    location.reload();
 }
 
 const AuthService = {

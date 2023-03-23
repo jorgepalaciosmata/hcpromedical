@@ -1,0 +1,18 @@
+[
+    {
+        "inputType": "textbox",
+        "content": {
+            "placeholder": "Peso en kilogramos",
+            "id": "weight",
+            "inputMode": "text"
+        }
+    },
+    {
+        "inputType": "textbox",
+        "content": {
+            "placeholder": "Estatura",
+            "id": "height",
+            "inputMode": "text"
+        }
+    }
+]

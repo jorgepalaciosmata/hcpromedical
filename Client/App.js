@@ -5,7 +5,7 @@ import { createDrawerNavigator,
   DrawerContentScrollView,
   DrawerItemList,
   DrawerItem, } from '@react-navigation/drawer';
-import { View, Modal, Text, StyleSheet, Pressable, TouchableOpacity } from 'react-native';
+import { View, Modal, Text, TouchableOpacity } from 'react-native';
 import EStyleSheet from 'react-native-extended-stylesheet';
 import { prodApi } from './api/prodApi';
 import QRCode from 'react-native-qrcode-svg';
@@ -18,6 +18,8 @@ import DocumentsScreen from './screens/DocumentsScreen';
 import AuthenticationScreen from './screens/AuthenticationScreen';
 import { AntecedentesScreen } from './screens/AntecedentesScreen';
 import { DoctorScreen } from "./screens/DoctorScreen";
+import ClinicalHistoriesScreen from "./screens/ClinicalHistories";
+
 EStyleSheet.build({ 
   $mainColor: 'rgb(39, 51, 88)'
 });
@@ -92,11 +94,12 @@ function CustomDrawerContent(props) {
 
 function HCPromedicalDrawer() {
   return (
-    <Drawer.Navigator initialRouteName="HC Folder" drawerContent={(props) => <CustomDrawerContent {...props} />}>
+    <Drawer.Navigator initialRouteName="Historias clínicas" drawerContent={(props) => <CustomDrawerContent {...props} />}>
       <Drawer.Screen name="HC Folder" component={HomeScreen} />
-      <Drawer.Screen name="Mi cuenta" component={PersonalInfoScreen} />
-      <Drawer.Screen name="Mi historial médico" component={AntecedentesScreen} />
-      <Drawer.Screen name="Mis historias clínicas" component={DocumentsScreen} />
+      <Drawer.Screen name="Datos personales" component={PersonalInfoScreen} />
+      <Drawer.Screen name="Historial" component={AntecedentesScreen} />
+      <Drawer.Screen name="Documentos" component={DocumentsScreen} />
+      <Drawer.Screen name="Historias clínicas" component={ClinicalHistoriesScreen} />
     </Drawer.Navigator>
   );
 }

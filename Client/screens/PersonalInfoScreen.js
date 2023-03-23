@@ -8,7 +8,7 @@ import {FooterCom} from '../components/FooterCom';
 
 const PersonalInfoScreen = ({ editable = true }) => {
 	const {data, setData, updateData, loading} = useForm();
-	const {inputs} = useWhatComWillUse(inputsFromJson, data, setData);
+	const inputs = useWhatComWillUse(inputsFromJson, data, setData);
 
 	return (
 		<View pointerEvents = {editable ? 'auto' : 'none'}>

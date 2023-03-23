@@ -1,31 +1,64 @@
 import React from "react";
-import {View} from "react-native";
-import inputsFromJson from "../assets/data/jsons/Antecedentes.json";
+import {View, Text} from "react-native";
+import antecedentesInputsModel from "../assets/data/jsons/Antecedentes.json";
+import habitsInputsModel from "../assets/data/jsons/Habits.json";
+import measurementsInputsModel from "../assets/data/jsons/Measurements.json";
 import {ButtonCom} from "../components/ButtonCom";
 import {useAntecedentes} from "../hooks/useAntecedentes";
 import {useWhatComWillUse} from "../hooks/useWhatComWillUse";
 import EStyleSheet from "react-native-extended-stylesheet";
 import {FooterCom} from "../components/FooterCom";
 
-export const AntecedentesScreen = ({ editable = true }) => {
-  const { diseases, setDiseases, saveOnDB, loading } = useAntecedentes();
-  const { inputs } = useWhatComWillUse(inputsFromJson, diseases, setDiseases);
+export const AntecedentesScreen = () => {
+  const { 
+    diseases, 
+    setDiseases, 
+    habits, 
+    setHabits,
+    measurements, 
+    setMeasurements,
+    saveOnDB, 
+    loading } = useAntecedentes();
+
+  const inputs = useWhatComWillUse(antecedentesInputsModel, diseases, setDiseases);
+  const habitInputs  = useWhatComWillUse(habitsInputsModel, habits, setHabits);
+  const measurementsInputs  = useWhatComWillUse(measurementsInputsModel, measurements, setMeasurements);
 
   return (
-    <View pointerEvents={editable ? "auto" : "none"}>
-      <View style = {styles.content}>
-        <View style = {{ marginBottom: 20 }}>
-          {inputs.map((input) => input.render)}
+    <View>
+        <View style = {styles.content}>
+            {/* Estatura y peso */}
+            <Text style={styles.titleText}>
+                Estatura y peso
+            </Text>
+            <View style = {styles.sectionContainer}>
+                {measurementsInputs.map((input) => input.render)}
+            </View>
+
+            {/* Hábitos */}
+            <Text style={styles.titleText}>
+                Hábitos
+            </Text>
+            <View style = {styles.sectionContainer}>
+                {habitInputs.map((input) => input.render)}
+            </View>
+
+            {/* Antecedentes */}
+            <Text style={styles.titleText}>
+                Antecedentes
+            </Text>
+            <View style = {styles.sectionContainer}>
+                {inputs.map((input) => input.render)}
+            </View>
+
+
+            <View style = {{ alignItems: "center" }}>
+                <ButtonCom text = {"Actualizar datos"} onPress = {saveOnDB} />
+            </View>
         </View>
-        {editable && !loading && (
-          <View style = {{ alignItems: "center" }}>
-            <ButtonCom text = {"Actualizar datos"} onPress = {saveOnDB} />
-          </View>
-        )}
-      </View>
-      {editable && (
+
+        {/* Footer */}
         <FooterCom />
-      )}
     </View>
   );
 };
@@ -40,9 +73,11 @@ const styles = EStyleSheet.create({
     paddingBottom: 30,
   },
   titleText: {
-    fontSize: 30,
+    fontSize: 18,
     fontWeight: "700",
-    color: "#666666",
     marginBottom: 10,
   },
+  sectionContainer: {
+    marginBottom: '40px'
+  }
 });

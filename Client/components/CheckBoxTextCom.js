@@ -28,10 +28,12 @@ const CheckBoxTextCom = ({content, data, setData}) => {
 
   return (
     <View style={styles.container}>
-      <CheckBox value = {isEnabled} onValueChange = {handleOnValueChange}/>
-      <Text style={styles.text}>{content.display}</Text>
+      <View style={styles.check}>
+        <CheckBox value = {isEnabled} onValueChange = {handleOnValueChange}/>
+        <Text style={styles.text}>{content.display}</Text>
+      </View>
       <TextInput 
-        style = {[styles.input, {backgroundColor: isEnabled ? 'white' : 'gray'}]}
+        style = {[styles.input, {backgroundColor: isEnabled ? 'white' : '#CCC'}]}
         editable = {isEnabled}
         onChangeText = {text => onChangeText(text)}
         value = {text}
@@ -41,22 +43,32 @@ const CheckBoxTextCom = ({content, data, setData}) => {
 };
 
 const styles = EStyleSheet.create({
+  check: {
+    flexDirection: 'row',
+    marginBottom: '10px'
+  },
   container: {
-    flexDirection: 'row', 
-    alignItems: 'center',
+    flexDirection: 'column', 
+    alignItems: 'left',
+    border: '1px solid #ffe5e5',
+    padding: '5px',
+    borderRadius: 5,
+    width: '100%',
+    maxWidth: '350px',
+    marginBottom: '10px'
   },
   text: {
     marginLeft: 4,
-    fontSize: 16,
+    fontSize: '10px',
+    fontWeight: 'bold',
+    color: '#fc2954'
   },
   input: {
     flex: 1,
-    height: 20,
-    marginLeft: 16,
-    borderColor: 'gray',
-    borderWidth: 1,
-    padding: 8,
-    borderRadius: 100,
+    padding: '5px',
+    border: '1px solid #ffe5e5',
+    width: '100%',
+    maxWidth: '330px'
   }
 })
 
