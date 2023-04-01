@@ -89,14 +89,76 @@ export const DoctorScreen = () => {
         </View>
         
         {/* Historial */}
-        <Text style={styles.inputName}>Antecedentes</Text>
-        <View>
+        {/* Estatura */}
+        <View style={styles.inputContainer}>
+          <Text style={styles.inputName}>Estatura</Text>
           <Text style={styles.valueContainer}>
-            { getDiseasesList(data.diseases) }
+            {data.measurements?.height}
           </Text>
         </View>
-      </View>
 
+        {/* Peso */}
+        <View style={styles.inputContainer}>
+          <Text style={styles.inputName}>Peso</Text>
+          <Text style={styles.valueContainer}>
+            {data.measurements?.weight}
+          </Text>
+        </View>
+
+        {/* Antecedentes */}
+        <View style={styles.inputContainer}>
+          <Text style={styles.inputName}>Antecedentes</Text>
+          <View>
+            <Text style={styles.valueContainer}>
+              { getDiseasesList(data.diseases) }
+            </Text>
+          </View>
+        </View>
+
+        {/* Habitos */}
+        <View style={styles.inputContainer}>
+          <Text style={styles.inputName}>Hábitos</Text>
+            {(data.habits && data.habits.exerciseType) && 
+              (<View>
+                <Text style={styles.valueContainer}>
+                  Tipo de ejercicio: {data.habits.exerciseType}
+                </Text>
+              </View>
+            )}
+
+            {(data.habits && data.habits.exerciseFrequency) && 
+              (<View>
+                <Text style={styles.valueContainer}>
+                  Frecuencia: {data.habits.exerciseFrequency}
+                </Text>
+              </View>
+            )}
+
+            {(data.habits && data.habits.alcohol) && 
+              (<View>
+                <Text style={styles.valueContainer}>
+                  Alcohol: {data.habits.alcohol}
+                </Text>
+              </View>
+            )}
+
+            {(data.habits && data.habits.tabaco) && 
+              (<View>
+                <Text style={styles.valueContainer}>
+                  Tabaco: {data.habits.tabaco}
+                </Text>
+              </View>
+            )}
+
+            {(data.habits && data.habits.drugs) && 
+              (<View>
+                <Text style={styles.valueContainer}>
+                  Drogas recreacionales: {data.habits.drugs}
+                </Text>
+              </View>
+            )}
+        </View>
+      </View>
     </View>
     <FooterCom />
     </>
@@ -143,7 +205,7 @@ const styles = StyleSheet.create({
 		marginBottom: 30,
 		marginTop: 30,
 		flex: 1,
-		marginLeft: '50px',
+		marginLeft: '30px',
 		width: '100%',
 		maxWidth: '200px'
 	},

@@ -13,8 +13,8 @@ export const ButtonCom = ({text, onPress}) => {
 
 const styles = EStyleSheet.create({
     container: {
-        height: 50,
-        width: 310,
+        height: 40,
+        width: 250,
         borderRadius: 100,
         backgroundColor: '$mainColor',
         display: 'flex',
@@ -23,6 +23,6 @@ const styles = EStyleSheet.create({
     },
     text: {
         color: '#ffffff',
-        fontSize: 20,
+        fontSize: 16,
     }
 })

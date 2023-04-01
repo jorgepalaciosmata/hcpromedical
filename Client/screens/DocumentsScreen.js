@@ -28,8 +28,25 @@ const DocumentsScreen = ({ navigation }) => {
       });
   }
 
-  function loadDocument(artifact) {
-    navigation.navigate('Documento', {artifact: artifact});
+  async function loadDocument(artifact) {
+    await prodApi.get(
+      "/artifact",
+      {
+        headers: {
+          "Authorization": AuthService.getCurrentUser()
+        },
+        params: {
+            id: artifact.name
+        }
+      }
+    )
+    .then(function ({ data }) {
+      window.open(data, '_blank');
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    });
   }
 
   useEffect(() => {

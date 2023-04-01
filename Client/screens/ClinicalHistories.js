@@ -1,38 +1,56 @@
 import React, { useEffect, useState } from "react";
-import { View, Button, TouchableOpacity, ScrollView, StyleSheet, Text } from 'react-native';
+import { View, 
+    Button, 
+    TouchableOpacity, 
+    ScrollView, 
+    StyleSheet, 
+    Text,
+    TextInput } from 'react-native';
 import AuthService from '../services/AuthService';
 import { prodApi } from '../api/prodApi';
 import Timeline from 'react-native-timeline-flatlist'
-import EStyleSheet from 'react-native-extended-stylesheet';
+import { CalendarCom } from '../components/CalendarCom';
+import TextBoxCom from "../components/TextBoxCom";
+import { v4 as uuidv4 } from 'uuid';
+import {ButtonCom} from "../components/ButtonCom";
 
 const ClinicalHistoriesScreen = ({ navigation }) => {
     const [clinicalHistories, setClinicalHistories] = useState([{}]);
     const [historyMap, setHistoryMap] = useState({});
-    const [refresh, setRefresh] = useState(false);
+    const [refresh, setRefresh] = useState('');
+    const [newEventVisible, setNewEventVisible] = useState(false);
+    const [newEvent, setNewEvent] = useState({});
+    const [data, setData] = useState({});
+
+    const [newClinicalHistoryName, setNewClinicalHistoryName] = useState('');
+    const [newClinicalHistoryVisible, setNewClinicalHistoryVisible] = useState(false);
 
     useEffect(() => {
-        setClinicalHistories(
-            [
-                {
-                    name: 'Historia Clínica 1',
-                    events: [
-                        { 
-                            id: '123',
-                            time: '02/03/2023', 
-                            title: 'Event 1', 
-                            description: 'Event 1 Description' },
-                        {   
-                            id: '456',
-                            time: '02/03/2023', 
-                            title: 'Event 2', 
-                            description: 'Event 2 Description' 
-                        },
-                    ]
-                }
-            ]
-        );
+        getData();
     }, []);
 
+    async function getData() {
+        const response = await prodApi.get( '/personalInfo/self', {
+            headers: {
+            "Authorization" : AuthService.getCurrentUser(),
+            }
+        }).catch(function (error) {
+            if (error.response.status === 401) {
+                AuthService.logOut();
+            }
+        });
+        setData( response.data.item );
+        setClinicalHistories(response.data.item.clinicalHistories);
+    }
+
+    async function updateData( ) {   
+        const request = {
+            ...data, 
+            'clinicalHistories': clinicalHistories,
+          }
+          const response = await prodApi.post( '/personalinfo', request);
+    }
+    
     function setHistoryVisibility(index) {
         setHistoryMap((prevIndexMap) => ({
             ...prevIndexMap,
@@ -41,7 +59,6 @@ const ClinicalHistoriesScreen = ({ navigation }) => {
     }
 
     function eventPress(event) {
-        
     }
 
     function deleteEvent(toDeleteEvent) {
@@ -77,10 +94,35 @@ const ClinicalHistoriesScreen = ({ navigation }) => {
             
             let currentClinicalHistories = clinicalHistories;
             currentClinicalHistories[toDeleteHistoryIndex].events.splice(toDeleteEventIndex, 1);
-
+            
             setClinicalHistories(currentClinicalHistories);
-            setRefresh(!refresh);
         }
+
+        setRefresh(Math.random());
+        updateData();
+    }
+
+    async function saveEvent(historyIndex) {
+        if (!newEvent || 
+            !newEvent.time ||
+            !newEvent.title || 
+            !newEvent.description) 
+            return;
+
+        const event = {
+            id: uuidv4(),
+            time: newEvent.time,
+            title: newEvent.title,
+            description: newEvent.description
+        }
+
+        let currentClinicalHistories = clinicalHistories;
+        currentClinicalHistories[historyIndex].events.push(event);
+        setClinicalHistories(currentClinicalHistories);
+        setRefresh(Math.random());
+        setNewEvent({});
+        setNewEventVisible(false);
+        updateData();
     }
 
     function renderDetail(rowData, sectionID, rowID) {
@@ -102,6 +144,28 @@ const ClinicalHistoriesScreen = ({ navigation }) => {
             </View>
         );
     }
+
+    function renderTime(rowData, sectionID, rowID) {
+        return (
+            <View style={ styles.timeContainer}>
+                <Text style={ styles.timeText}>
+                    {rowData.time}
+                </Text>
+            </View>
+        )
+    }
+
+    function newClinicalHistoryButtonClick() {
+        
+        // Open form
+        if (!newClinicalHistoryVisible) {
+            setNewClinicalHistoryVisible(true);
+            return;
+        }
+
+        // Save
+        alert('save');
+    }
     return (
         <View style={styles.container}>
             <ScrollView>
@@ -110,7 +174,7 @@ const ClinicalHistoriesScreen = ({ navigation }) => {
                         <View style={styles.historyContainer} key={index}>
                             <TouchableOpacity onPress={() => setHistoryVisibility(index)}>
                                 <Text style={styles.historyName}>
-                                    {history.name}
+                                    {(index + 1) + '. '+ history.name}
                                 </Text>
                             </TouchableOpacity>
                             {historyMap[index]&&
@@ -124,6 +188,7 @@ const ClinicalHistoriesScreen = ({ navigation }) => {
                                         descriptionStyle={{ marginTop: '5px', paddingBottom: '20px', color: 'gray' }}
                                         titleStyle={{ marginTop: '-10px' }}
                                         renderDetail={(rowData, sectionID, rowID) => renderDetail(rowData, sectionID, rowID)}
+                                        renderTime={(rowData, sectionID, rowID) => renderTime(rowData, sectionID, rowID)}
                                         renderFullLine={true}
                                         onEventPress={(event) => eventPress(event)}
                                         isUsingFlatlist={true} 
@@ -131,21 +196,115 @@ const ClinicalHistoriesScreen = ({ navigation }) => {
                                             extraData:{refresh}
                                         }}/>
 
-                                    <TouchableOpacity style={styles.plusButton}>
+                                    <TouchableOpacity style={styles.plusButton} 
+                                        onPress={() => setNewEventVisible(!newEventVisible)}>
                                         <Text style={styles.plusButtonText}>+</Text>
                                     </TouchableOpacity>
+                                    
+                                    {newEventVisible &&
+                                        <View style={styles.newEventContainer}>
+                                            <CalendarCom
+                                                content={{
+                                                    display: "Fecha",
+                                                    name: "time"
+                                                }}
+                                                data={newEvent}
+                                                setData={setNewEvent} />
 
+                                            <TextBoxCom
+                                                content={{
+                                                    placeholder: 'Nombre del evento',
+                                                    id: 'title',
+                                                    inputMode: "text"
+                                                }}
+                                                data={newEvent}
+                                                setData={setNewEvent} />
+
+                                            <TextBoxCom
+                                                content={{
+                                                    placeholder: 'Descripción',
+                                                    id: 'description',
+                                                    inputMode: "text"
+                                                }}
+                                                data={newEvent}
+                                                setData={setNewEvent} />
+                                
+                                            <TouchableOpacity
+                                             style={styles.addEventButton} onPress={() => saveEvent(index)}>
+                                                <Text style={styles.addEventButtonText} >
+                                                    Agregar
+                                                </Text>
+                                            </TouchableOpacity>
+                                        </View>
+                                    }
                                 </View>)
                             }
                         </View>
                     ))
                 }
             </ScrollView>
+            
+            {newClinicalHistoryVisible && 
+            <View style={styles.newClinicalHistoryContainer}>
+                <TextBoxCom
+                    content={{
+                        placeholder: 'Nombre de la historia clínica',
+                        id: 'name',
+                        inputMode: "text"
+                    }}
+                    data={newClinicalHistoryName}
+                    setData={setNewClinicalHistoryName} />
+            </View>}
+            <ButtonCom style={styles.newClinicalHistoryButton}
+                text = {newClinicalHistoryVisible ? 
+                    "Agregar": 
+                    "Nueva historia clínica"}
+                onPress = {() => newClinicalHistoryButtonClick()}
+            />
+
+            {newClinicalHistoryVisible && 
+                <Text 
+                    style={styles.cancelButton} 
+                    onPress={() => setNewClinicalHistoryVisible(false)}>Cancelar</Text>                                
+            }
         </View>
     );
 }
 
 const styles = StyleSheet.create({
+    cancelButton: {
+        float: 'left', 
+        marginTop: '10px', 
+        color:'#2196F3',
+        textDecorationLine: 'underline'
+    },
+    newClinicalHistoryContainer: {
+        backgroundColor: 'white',
+        padding: '5px',
+        maxWidth: '355px',
+        borderRadius: 10,
+        marginBottom: '10px'
+    },  
+    timeContainer: {
+        width: '90px'
+    },
+    timeText: {
+        fontWeight: 'bold'
+    },
+    addEventButton:{ 
+        width: '150px',
+        backgroundColor: '#fc2954',
+        color: 'white',
+        height: '20px',
+        alignItems: 'center'
+    },
+    addEventButtonText: {
+        color: 'white',
+        fontWeight: 'bold',
+    },
+    newEventContainer: {
+        marginTop: '10px'
+    },
     rowData: {
         marginTop: '-10px',
         marginBottom: '20px'
@@ -173,7 +332,7 @@ const styles = StyleSheet.create({
         width: '20px',
         alignContent: 'center',
         alignItems: 'center',
-        marginLeft: '104px'
+        marginLeft: '101px'
     },
     minusButton: {
         marginLeft: '10px',
@@ -192,7 +351,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginBottom: '20px',
         fontSize: '20px',
-        color: '#294CFC'
+        // color: '#294CFC'
     },
     container: {
         marginTop: '20px',

@@ -13,7 +13,6 @@ import Clipboard from '@react-native-clipboard/clipboard';
 
 //Views Imports
 import PersonalInfoScreen from './screens/PersonalInfoScreen';
-import DocumentScreen from './screens/DocumentScreen';
 import DocumentsScreen from './screens/DocumentsScreen';
 import AuthenticationScreen from './screens/AuthenticationScreen';
 import { AntecedentesScreen } from './screens/AntecedentesScreen';
