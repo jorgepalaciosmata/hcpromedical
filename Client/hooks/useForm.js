@@ -11,6 +11,7 @@ export const useForm = ( ) => {
   });
   
   async function getData() {
+    alert('getData start');
     const response = await prodApi.get( '/personalInfo/self', {
       headers: {
         "Authorization" : params.sharekey ? 
@@ -21,10 +22,12 @@ export const useForm = ( ) => {
       if (error.response.status === 401) {
           AuthService.logOut();
       }
-    });
+    alert('getData failure');
+  });
+    alert('getData success');
     setData( response.data.item );
     setLoading(false);
-    alert( response );
+    alert( JSON.stringify(response));
   }
 
   useEffect(() => {
