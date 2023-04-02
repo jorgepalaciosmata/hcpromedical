@@ -26,7 +26,7 @@ EStyleSheet.build({
 function HomeScreen({ navigation }) {
   return (
       <>
-        {localStorage.getItem('user')}
+        {AuthService.getCurrentUserToken()}
       </>
   );
 }
