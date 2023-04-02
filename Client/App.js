@@ -26,6 +26,7 @@ EStyleSheet.build({
 function HomeScreen({ navigation }) {
   return (
       <>
+        {localStorage.getItem('user')}
       </>
   );
 }
@@ -93,7 +94,7 @@ function CustomDrawerContent(props) {
 
 function HCPromedicalDrawer() {
   return (
-    <Drawer.Navigator initialRouteName="Historias clínicas" drawerContent={(props) => <CustomDrawerContent {...props} />}>
+    <Drawer.Navigator initialRouteName="HC Folder" drawerContent={(props) => <CustomDrawerContent {...props} />}>
       <Drawer.Screen name="HC Folder" component={HomeScreen} />
       <Drawer.Screen name="Datos personales" component={PersonalInfoScreen} />
       <Drawer.Screen name="Historial" component={AntecedentesScreen} />
