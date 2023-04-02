@@ -26,7 +26,7 @@ EStyleSheet.build({
 function HomeScreen({ navigation }) {
   return (
       <>
-        {AuthService.getCurrentUserToken()}
+        {AuthService.getCurrentUserToken().email}
       </>
   );
 }
