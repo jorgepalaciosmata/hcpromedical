@@ -1,8 +1,27 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Fragment } from "react";
 import { useState } from "react";
 import { View, Button , Pressable, ScrollView, StyleSheet, Text } from 'react-native';
 import AuthService from '../services/AuthService';
 import { prodApi } from '../api/prodApi';
+
+// ----
+
+import { BrowserRouter as Router } from 'react-router-dom';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import { composeWithDevTools } from 'redux-devtools-extension';
+
+import { BrowserRouter } from 'react-router-dom';
+import Sidebar from '@Components/Sidebar';
+
+import '@Styles/App.scss';
+
+import reducers from '@Reducer';
+import { ViewFiles } from '@Pages';
+
+import generatedummyFileSystem from '@Utils/dummyFileSystem';
+
 
 const DocumentsScreen = ({ navigation }) => {
 
@@ -49,30 +68,33 @@ const DocumentsScreen = ({ navigation }) => {
     });
   }
 
+  const store = createStore(
+    reducers,
+    {
+      fileSystem:
+        localStorage.getItem('fileSystem') &&
+        Object.keys(localStorage.getItem('fileSystem')).length > 0
+          ? JSON.parse(localStorage.getItem('fileSystem'))
+          : generatedummyFileSystem()
+    },
+    composeWithDevTools()
+  );
+
   useEffect(() => {
-    //if (!isInit) {
       getData();
-    //}
   }, []);
 
   return (
-    <View>
-      <ScrollView style={styles.container}>
-      {
-        artifacts.map((artifact, index) => ( 
-          <View style={styles.documentItem}>
-            <Pressable onPress={() => loadDocument(artifact)}>
-              <Text style={styles.documentName}>
-                {artifact.name}
-              </Text>
-            </Pressable>
-            <Text>{ formatDate(artifact.created) }</Text>
-          </View>
-          )
-        )
-      }
-    </ScrollView>
-    </View>
+    <Provider store={store}>
+      <Router>
+        <BrowserRouter>
+          <Fragment>
+            <Sidebar />
+            <ViewFiles />
+          </Fragment>
+        </BrowserRouter>
+      </Router>
+    </Provider>
   );
 };
 

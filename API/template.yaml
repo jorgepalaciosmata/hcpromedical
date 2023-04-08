@@ -50,7 +50,7 @@ Resources:
       TracingEnabled: true
       Cors:
         AllowMethods: '''GET,POST,OPTIONS'''
-        AllowOrigin: '''localhost'''
+        AllowOrigin: '''*'''
         AllowHeaders: '''Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'''
   GetPersonalInfo:
     Type: AWS::Serverless::Function
