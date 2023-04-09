@@ -168,6 +168,7 @@ const ClinicalHistoriesScreen = ({ navigation }) => {
     }
     return (
         <View style={styles.container}>
+            { clinicalHistories && 
             <ScrollView>
                 {
                     clinicalHistories.map((history, index) => (
@@ -243,7 +244,7 @@ const ClinicalHistoriesScreen = ({ navigation }) => {
                     ))
                 }
             </ScrollView>
-            
+            }
             {newClinicalHistoryVisible && 
             <View style={styles.newClinicalHistoryContainer}>
                 <TextBoxCom
