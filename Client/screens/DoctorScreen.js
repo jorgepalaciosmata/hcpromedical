@@ -22,7 +22,7 @@ export const DoctorScreen = () => {
       }
     }).catch(function (error) {
       if (error.response.status === 401) {
-        AuthService.logOut();
+        alert('El código temporal es inválido o ha expirado.')
       }
     });
     setData( response.data.item );

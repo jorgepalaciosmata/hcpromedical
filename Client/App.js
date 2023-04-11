@@ -45,7 +45,7 @@ function CustomDrawerContent(props) {
       console.log(error);
     });
 
-    setShareLink(composeShareLinkAddress(response.data.key));
+    setShareLink(composeShareLinkAddress(response.data));
     setModalVisible(true);
   }
 

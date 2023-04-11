@@ -33,14 +33,11 @@ export const handler = async event => {
         return sendResponse(200, JSON.stringify({
           item: response.Item
         }));
-      } else {
-        console.log(`No item found with id '${id}'`);
+      } 
+      
+      console.log(`No item found with id '${id}'`);
+      return sendResponse(404, "Item not found");
 
-        return {
-          statusCode: 404,
-          body: "Item not found"
-        };
-    }
   } catch (error) {
     console.error(`Failed to get item: ${error.message} (${error.constructor.name})`);
 
@@ -61,7 +58,7 @@ const sendResponse = (status, body) => {
         headers: {
             "Content-Type" : "application/json",
             "Access-Control-Allow-Headers" : "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token",
-            "Access-Control-Allow-Methods" : "OPTIONS,POST",
+            "Access-Control-Allow-Methods" : "OPTIONS,POST,GET",
             "Access-Control-Allow-Credentials" : true,
             "Access-Control-Allow-Origin" : "*",
             "X-Requested-With" : "*"
@@ -74,11 +71,19 @@ const sendResponse = (status, body) => {
 async function validateAuthorization(headers) {
   let email = '';
   
-  const tokenString = headers['Authorization'];
-  const shareKey = headers['ShareKey'];
+  const authorization = headers['Authorization'];
+  
+  const shareKey = (authorization.indexOf('sharekey') != -1) ? 
+    authorization.split('=')[1] : 
+    null;
+    
+  const tokenString = (authorization.indexOf('sharekey') == -1) ?
+    authorization : null;    
   
   // Validate whether the user has a share key
   if (shareKey) {
+    console.log("ShareKey: " + shareKey);
+    
      // REDIS Client initialization
     const client = createClient({
       socket: {
@@ -89,6 +94,7 @@ async function validateAuthorization(headers) {
     await client.connect();
     let val = await client.get(shareKey);
     console.log('redis value: ' + val);
+    return val;
   }
   
   if (!tokenString)
