@@ -64,26 +64,29 @@ const AuthenticationScreen = () => {
     return (
         <>
             <View style={styles.container}>
-                <View style={styles.containerItem}>
+                {/* <View style={styles.containerItem}>
                     <Image style={{width: '100%', flex:1, height: '100%'}}  source={require('../assets/landing.jpg')} />
-                </View>
+                </View> */}
                 <View style={styles.containerItem}>
                     <View style={{padding: '40px', height: '100%'}}>
                         <View style={styles.logoContainer}>
-                            <Image style={{width: '100%', height: '100%'}} source={require('../assets/logo.png')} />
+                            <Image style={{width: '190px', height: '150px'}} source={require('../assets/logo.png')} />
                         </View>
-                        <Text style={{ marginTop:'40px'} }>
-                            Bienvenido a <b>HC Folder</b>! tu historial médico electrónico que te permite alamcenar, compartir y analizar tu información para el cuidado de tu salud.
-                            Inicia sesión para comenzar.
-                        </Text>
-                        <View style={{marginTop: '100px', alignItems: 'center', justifyContent: 'center' }}>
+                        <View style={{alignItems: 'center', justifyContent: 'center'}}>
+                            <Text style={{ width: '100%', maxWidth: '400px'}}>
+                                Bienvenido a <b>HC Folder</b>! tu historial médico electrónico que te permite alamcenar, compartir y analizar tu información para el cuidado de tu salud.
+                                Inicia sesión para comenzar.
+                            </Text>
+                        </View>
+                        <View style={{marginTop: '50px', alignItems: 'center', justifyContent: 'center' }}>
                             <TouchableOpacity onPress={() => {
                                 promptAsync({useProxy: false, showInRecents: true});
                             }}>
-                                <Image style={{width: '230px', height:'50px'}}  source={require('../assets/signinButton.png')} />
+                                <Image style={{width: '191px', height:'46px'}}  source={require('../assets/google_logo.png')} />
                             </TouchableOpacity>
                         </View>
-                        <View style={styles.footer}>
+                    </View>
+                    <View style={styles.footer}>
                             <Text style={{color: 'blue'}} 
                                 onPress={() => Linking.openURL('https://www.hcpromedical.com/aviso-de-privacidad.html')}>
                                 Aviso de privacidad.
@@ -94,7 +97,6 @@ const AuthenticationScreen = () => {
                                 HC Promedical ©.
                             </Text>
                         </View>
-                    </View>
                 </View>
             </View>
             <Modal
@@ -126,8 +128,9 @@ const AuthenticationScreen = () => {
 
 const styles = EStyleSheet.create({
     logoContainer: {
-        height: '150px',
-        width: '190px'
+        height: '300px',
+        width: '100%',
+        alignItems: 'center', justifyContent: 'center'
     },
     container: {
         flex: 1,
