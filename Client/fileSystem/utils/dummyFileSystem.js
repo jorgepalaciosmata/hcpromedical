@@ -9,7 +9,7 @@ const dummyFileSystem = {
     parentPath: null,
     parentID: null,
     children: [
-      'ab7e413a3798155e37a9361140522e39'
+      'ab7e413a3798155e37a9361140522e39' 
     ]
   },
   ab7e413a3798155e37a9361140522e39: {
