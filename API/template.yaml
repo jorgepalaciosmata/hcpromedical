@@ -68,9 +68,13 @@ Resources:
         Variables:
           TABLE_NAME: !Ref PersonalInfoTable
           TABLE_ARN: !GetAtt PersonalInfoTable.Arn
+          TABLE_NAME_2: !Ref ShareTable
+          TABLE_ARN_2: !GetAtt ShareTable.Arn
       Policies:
         - DynamoDBCrudPolicy:
             TableName: !Ref PersonalInfoTable
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ShareTable
       Events:
         ApiGETpersonalInfoid:
           Type: Api
@@ -114,6 +118,13 @@ Resources:
             Path: /artifact
             Method: GET
             RestApiId: !Ref Api
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref ShareTable
+          TABLE_ARN: !GetAtt ShareTable.Arn
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ShareTable
   GetArtifactLogGroup:
     Type: AWS::Logs::LogGroup
     DeletionPolicy: Retain
@@ -169,6 +180,13 @@ Resources:
             Path: /listartifacts
             Method: GET
             RestApiId: !Ref Api
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref ShareTable
+          TABLE_ARN: !GetAtt ShareTable.Arn
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ShareTable
   ListArtifactsLogGroup:
     Type: AWS::Logs::LogGroup
     DeletionPolicy: Retain
@@ -193,8 +211,30 @@ Resources:
             Path: /getsharelink
             Method: GET
             RestApiId: !Ref Api
+      Environment:
+        Variables:
+          TABLE_NAME: !Ref ShareTable
+          TABLE_ARN: !GetAtt ShareTable.Arn
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref ShareTable
   GetShareLinkLogGroup:
     Type: AWS::Logs::LogGroup
     DeletionPolicy: Retain
     Properties:
       LogGroupName: !Sub /aws/lambda/${GetShareLink}
+  ShareTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      AttributeDefinitions:
+        - AttributeName: id
+          AttributeType: S
+      BillingMode: PAY_PER_REQUEST
+      KeySchema:
+        - AttributeName: id
+          KeyType: HASH
+      StreamSpecification:
+        StreamViewType: NEW_AND_OLD_IMAGES
+      TimeToLiveSpecification:
+        AttributeName: expiration
+        Enabled: true

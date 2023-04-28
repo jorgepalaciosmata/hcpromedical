@@ -7,7 +7,7 @@ const ddbDocClient = DynamoDBDocumentClient.from(client);
 
 export const handler = async event => {
 
-    try {
+  try {
       var email = null;
       
       try {
@@ -84,17 +84,15 @@ async function validateAuthorization(headers) {
   if (shareKey) {
     console.log("ShareKey: " + shareKey);
     
-     // REDIS Client initialization
-    const client = createClient({
-      socket: {
-        host: 'hcpromedical-redis.vpko5l.ng.0001.use1.cache.amazonaws.com'
-      }
+    const command = new GetCommand({
+      TableName: process.env.TABLE_NAME_2,
+      Key: { id: shareKey }
     });
-    client.on('error', err => console.log('Redis Client Error', err));
-    await client.connect();
-    let val = await client.get(shareKey);
-    console.log('redis value: ' + val);
-    return val;
+
+    const response = await ddbDocClient.send(command);
+    console.log(response);
+    console.log('sharekey email - ' + response.Item.email); 
+    return response.Item.email;
   }
   
   if (!tokenString)
