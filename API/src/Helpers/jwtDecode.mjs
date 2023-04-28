@@ -1,79 +1,3 @@
-import { createClient } from 'redis';
-
-export const handler = async (event) => {
-
-  const client = createClient({
-    socket: {
-      host: 'hcpromedical-redis.vpko5l.ng.0001.use1.cache.amazonaws.com'
-    }
-  });
-  
-  client.on('error', err => console.log('Redis Client Error', err));
-  await client.connect();
-  var email = '';
-  
-  try {
-    email = await validateAuthorization(event.headers);
-  } catch (e) {
-    console.log(e);
-    return sendResponse(401, 'The authorization token is missing or expired.');
-  }
-  
-  console.log('email: ' +  email);
-  console.log('id: ' + event.requestContext.requestId);
-  
-  await client.set(event.requestContext.requestId, email); 
-  const value = await client.get(email);
-  await client.disconnect();
-  return sendResponse(200, value);
-};
-
-const sendResponse = (status, body) => {
-    var response = {
-        statusCode: status,
-        headers: {
-            "Content-Type" : "application/json",
-            "Access-Control-Allow-Headers" : "Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token",
-            "Access-Control-Allow-Methods" : "OPTIONS,GET",
-            "Access-Control-Allow-Credentials" : true,
-            "Access-Control-Allow-Origin" : "*",
-            "X-Requested-With" : "*"
-        },
-        body: body
-    };
-    return response;
-};
-
-async function validateAuthorization(headers) {
-  let email = '';
-  
-  const tokenString = headers['Authorization'];
-  
-  if (!tokenString)
-    throw new Error("Empty ID token");
- 
-  var jwt = null;
-  
-  try {
-    jwt = jwtDecode(tokenString);
-  }
-  catch (error) {
-    console.log(error);
-    throw new Error("Invalid token", error);
-  }
-  
-  if (!jwt) {
-    throw new Error("Invalid token empty");
-  }    
-  
-  if (jwt.exp * 1000 < Date.now()) {
-    throw new Error("Expired token");
-  }
-  
-  return jwt.email;
-}
-
-
 // ----------------------
 // JWT DECODE
 // ----------------------
@@ -165,7 +89,7 @@ async function validateAuthorization(headers) {
   InvalidTokenError.prototype = new Error();
   InvalidTokenError.prototype.name = "InvalidTokenError";
 
-  function jwtDecode(token, options) {
+  export function jwtDecode(token, options) {
       if (typeof token !== "string") {
           throw new InvalidTokenError("Invalid token specified: must be a string");
       }
