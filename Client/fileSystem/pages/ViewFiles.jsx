@@ -22,7 +22,7 @@ export default class ViewFiles extends Component {
 
 const Container = styled.div`
   padding: 41px;
-  margin-left: 320px;
+  margin-left: 20px;
   transition: margin-left 250ms ease-in;
   @media screen and (max-width: 768px) {
     margin-left: 0px;

@@ -8,6 +8,8 @@ import FolderIcon from '@Image/folder.png';
 import { Container, Logo, Img, Name } from './styles';
 import Menu from '../Menu';
 import FileInfo from '../FileInfo';
+import { prodApi } from '../../../api/prodApi';
+import AuthService from '../../../services/AuthService';
 
 class Icon extends Component {
   nodeRef = createRef();
@@ -150,6 +152,27 @@ class Icon extends Component {
       this.props.history.push(this.props.entry.path);
   };
 
+  openDocument = async (documentName) => {
+    await prodApi.get(
+      "/artifact",
+      {
+        headers: {
+          "Authorization": AuthService.getCurrentUser()
+        },
+        params: {
+            id: documentName
+        }
+      }
+    )
+    .then(function ({ data }) {
+      window.open(data, '_blank');
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    });
+  }
+
   render() {
     const { entry } = this.props;
     let ext = entry.name.split('.').filter(el => el);
@@ -168,35 +191,37 @@ class Icon extends Component {
             style={this.state.style}
             content={[
               {
-                info: 'Open',
+                info: 'Abrir',
                 onClick: () => {
-                  entry.type === FOLDER
-                    ? this.props.history.push(this.props.entry.path)
-                    : this.setState({
-                        showInfo: true
-                      });
+                  this.openDocument(entry.name);
+
+                  // entry.type === FOLDER
+                  //   ? this.props.history.push(this.props.entry.path)
+                  //   : this.setState({
+                  //       showInfo: true
+                  //     });
                 }
               },
               {
-                info: 'Get Info',
+                info: 'Info',
                 onClick: () =>
                   this.setState({
                     showInfo: true
                   })
-              },
-              {
-                info: 'Delete',
-                style: { color: 'red' },
-                onClick: () => {
-                  this.handleDelete();
-                }
               }
+              //, {
+              //   info: 'Delete',
+              //   style: { color: 'red' },
+              //   onClick: () => {
+              //     this.handleDelete();
+              //   }
+              // }
             ]}
           />
         )}
         {this.state.showInfo ? (
           <FileInfo
-            title="File Info"
+            title="Info"
             style={this.state.prevStyle}
             closeFn={() =>
               this.setState({

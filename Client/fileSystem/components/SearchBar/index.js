@@ -37,7 +37,7 @@ class SearchBar extends Component {
 
   render() {
     return (
-      <Input placeholder="Search for anything" ref={this._ref}>
+      <Input placeholder="Buscar documento" ref={this._ref}>
         <MagnifyIcon
           fill="#545B61"
           style={{
@@ -49,14 +49,14 @@ class SearchBar extends Component {
           size={15}
         />
         <input
-          placeholder="Search for Anything"
+          placeholder="Buscar documento"
           value={this.state.term}
           onChange={event => this.setState({ term: event.target.value })}
         />
         {this.state.term.length > 0 ? (
           <Container style={{ width: this.state.width }}>
-            <Filter mode={this.state.mode} handleMode={this.handleMode} />
-            <Line />
+            {/* <Filter mode={this.state.mode} handleMode={this.handleMode} /> */}
+            {/* <Line /> */}
             <SearchResults
               style={{ width: this.state.width }}
               term={this.state.term}

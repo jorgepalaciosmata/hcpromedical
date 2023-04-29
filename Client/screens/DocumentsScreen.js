@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from "react";
+import React, { useEffect, Fragment, componentWillMount } from "react";
 import { useState } from "react";
 import { View, Button , Pressable, ScrollView, StyleSheet, Text } from 'react-native';
 import AuthService from '../services/AuthService';
@@ -20,76 +20,53 @@ import '@Styles/App.scss';
 import reducers from '@Reducer';
 import { ViewFiles } from '@Pages';
 
-import generatedummyFileSystem from '@Utils/dummyFileSystem';
-
+import test2 from '@Utils/dummyFileSystem';
 
 const DocumentsScreen = ({ navigation }) => {
 
   const [isInit, setIsInit] = useState(false);
   const [artifacts, setArtifacts] = useState([]);
 
-  async function getData() {
-    await prodApi.get(
-        "/listartifacts",
-        {
-          headers: {
-            "Authorization": AuthService.getCurrentUser()
-          }
-        }
-      )
-      .then(function ({ data }) {
-        setArtifacts(data);
-        setIsInit(true);
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      });
-  }
-
-  async function loadDocument(artifact) {
-    await prodApi.get(
-      "/artifact",
+  let store = store = createStore(
+      reducers,
       {
-        headers: {
-          "Authorization": AuthService.getCurrentUser()
-        },
-        params: {
-            id: artifact.name
-        }
-      }
-    )
-    .then(function ({ data }) {
-      window.open(data, '_blank');
-    })
-    .catch(function (error) {
-      // handle error
-      console.log(error);
-    });
-  }
-
-  const store = createStore(
-    reducers,
-    {
-      fileSystem:
-        localStorage.getItem('fileSystem') &&
-        Object.keys(localStorage.getItem('fileSystem')).length > 0
-          ? JSON.parse(localStorage.getItem('fileSystem'))
-          : generatedummyFileSystem()
-    },
-    composeWithDevTools()
-  );
+        fileSystem: test2(artifacts)
+      },
+      composeWithDevTools()
+    );
 
   useEffect(() => {
-      getData();
+    async function getData() {
+      await prodApi.get(
+          "/listartifacts",
+          {
+            headers: {
+              "Authorization": AuthService.getCurrentUser()
+            }
+          }
+        )
+        .then(function ({ data }) {
+          setArtifacts(data);
+          setIsInit(true);
+
+
+        })
+        .catch(function (error) {
+          // handle error
+          console.log(error);
+        });
+    }
+    getData();
   }, []);
 
   return (
+
+    (artifacts) &&
     <Provider store={store}>
       <Router>
         <BrowserRouter>
           <Fragment>
-            <Sidebar />
+            {/* <Sidebar /> */}
             <ViewFiles />
           </Fragment>
         </BrowserRouter>

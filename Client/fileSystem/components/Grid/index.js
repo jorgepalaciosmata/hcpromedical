@@ -54,7 +54,7 @@ class Grid extends Component {
             }}
           />
         ))}
-        <Add
+        {/* <Add
           saveEntry={value => {
             this.props.addEntry({
               ...value,
@@ -62,7 +62,7 @@ class Grid extends Component {
               parentPath: this.props.match.url
             });
           }}
-        />
+        /> */}
       </Container>
     );
   }

@@ -32,7 +32,7 @@ class SearchResults extends Component {
             </Result>
           ))
         ) : (
-          <NoResult>No Result</NoResult>
+          <NoResult>No hay resultados</NoResult>
         )}
       </Fragment>
     );

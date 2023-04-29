@@ -7,18 +7,18 @@ import FolderIcon from '@Image/folder.png';
 import { Icon, Logo, Img, Details } from './styles';
 
 const monthNames = [
-  'Jan',
-  'Feb',
-  'Mar',
-  'Apr',
-  'May',
-  'Jun',
-  'Jul',
-  'Aug',
-  'Sep',
-  'Oct',
-  'Nov',
-  'Dec'
+  'Enero',
+  'Febrero',
+  'Marzo',
+  'Abril',
+  'Mayo',
+  'Junio',
+  'Julio',
+  'Agosto',
+  'Septiembre',
+  'Octubre',
+  'Noviembre',
+  'Diciembre'
 ];
 
 const nth = d => {
@@ -39,7 +39,7 @@ const formatDate = value => {
   var day = date.getDate(),
     monthIndex = date.getMonth(),
     year = date.getFullYear().toString();
-  return `${day}${nth(day)} ${monthNames[monthIndex]}, ${year}`;
+  return `${day} de ${monthNames[monthIndex]}, ${year}`;
 };
 
 class FileInfo extends Component {
@@ -51,26 +51,27 @@ class FileInfo extends Component {
       <Fragment>
         <Icon>
           <Logo>
-            <Img src={entry.type == 'file' ? FileIcon : FolderIcon} />
+            <Img src={entry.type == 'file' ? FileIcon : FolderIcon} 
+              style={{tintColor: 'red'}}/>
             {entry.type == 'file' ? <span>{`.${ext}`}</span> : ''}
           </Logo>
         </Icon>
 
         <Details.Container>
           <Details.Info>
-            <Details.Label>Name:</Details.Label>
+            <Details.Label>Nombre:</Details.Label>
             <Details.Value>{entry.name}</Details.Value>
           </Details.Info>
           <Details.Info>
-            <Details.Label>Size:</Details.Label>
-            <Details.Value>{entry.size}kb</Details.Value>
+            <Details.Label>Tamaño:</Details.Label>
+            <Details.Value>{entry.size ? entry.size + ' kb' : '-'}</Details.Value>
           </Details.Info>
-          <Details.Info>
+          {/* <Details.Info>
             <Details.Label>Creator Name:</Details.Label>
             <Details.Value>{entry.creatorName}</Details.Value>
-          </Details.Info>
+          </Details.Info> */}
           <Details.Info>
-            <Details.Label>Created Date:</Details.Label>
+            <Details.Label>Fecha de captura:</Details.Label>
             <Details.Value>{formatDate(entry.date)}</Details.Value>
           </Details.Info>
         </Details.Container>
