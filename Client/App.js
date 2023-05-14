@@ -18,17 +18,13 @@ import AuthenticationScreen from './screens/AuthenticationScreen';
 import { AntecedentesScreen } from './screens/AntecedentesScreen';
 import { DoctorScreen } from "./screens/DoctorScreen";
 import ClinicalHistoriesScreen from "./screens/ClinicalHistories";
+import HomeScreen from "./screens/HomeScreen";
+import FAQ from "./screens/FAQ";
 
 EStyleSheet.build({ 
   $mainColor: 'rgb(39, 51, 88)'
 });
 
-function HomeScreen({ navigation }) {
-  return (
-      <>
-      </>
-  );
-}
 
 const Drawer = createDrawerNavigator();
 
@@ -98,7 +94,8 @@ function HCPromedicalDrawer() {
       <Drawer.Screen name="Datos personales" component={PersonalInfoScreen} />
       <Drawer.Screen name="Historial" component={AntecedentesScreen} />
       <Drawer.Screen name="Documentos" component={DocumentsScreen} />
-      <Drawer.Screen name="Historias clínicas" component={ClinicalHistoriesScreen} />
+      <Drawer.Screen name="Preguntas frecuentes" component={FAQ} />
+      {/* <Drawer.Screen name="Historias clínicas" component={ClinicalHistoriesScreen} /> */}
     </Drawer.Navigator>
   );
 }
@@ -191,7 +188,8 @@ const styles = EStyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 4,
     elevation: 5,
-    width: 500
+    maxWidth: 500,
+    width: '100%'
   },
   modalText: {
     textAlign: 'center',

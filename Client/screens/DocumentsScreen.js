@@ -1,26 +1,18 @@
 import React, { useEffect, Fragment, componentWillMount } from "react";
 import { useState } from "react";
-import { View, Button , Pressable, ScrollView, StyleSheet, Text } from 'react-native';
+import { StyleSheet } from 'react-native';
 import AuthService from '../services/AuthService';
 import { prodApi } from '../api/prodApi';
-
-// ----
-
 import { BrowserRouter as Router } from 'react-router-dom';
-import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
-
 import { BrowserRouter } from 'react-router-dom';
-import Sidebar from '@Components/Sidebar';
-
 import '@Styles/App.scss';
-
 import reducers from '@Reducer';
 import { ViewFiles } from '@Pages';
 
-import test2 from '@Utils/dummyFileSystem';
+import formatFileSystem from '@Utils/fileSystemHelper';
 
 const DocumentsScreen = ({ navigation }) => {
 
@@ -30,7 +22,7 @@ const DocumentsScreen = ({ navigation }) => {
   let store = store = createStore(
       reducers,
       {
-        fileSystem: test2(artifacts)
+        fileSystem: formatFileSystem(artifacts)
       },
       composeWithDevTools()
     );
@@ -74,11 +66,6 @@ const DocumentsScreen = ({ navigation }) => {
     </Provider>
   );
 };
-
-function formatDate(dateString) {
-  let date = new Date(dateString);
-  return date.getDate() + '/'+ (date.getMonth() + 1) + '/' + date.getFullYear();
-}
 
 const styles = StyleSheet.create({
   container: {

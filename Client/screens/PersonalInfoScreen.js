@@ -1,4 +1,4 @@
-import {View, Text, Image} from 'react-native';
+import {View, Text, ImageBackground, Image} from 'react-native';
 import {useForm} from "../hooks/useForm";
 import inputsFromJson from "../assets/data/jsons/InformacionPersonal.json"
 import {useWhatComWillUse} from "../hooks/useWhatComWillUse";
@@ -13,13 +13,21 @@ const PersonalInfoScreen = ({ editable = true }) => {
 	return (
 		<View pointerEvents = {editable ? 'auto' : 'none'}>
 			<View style = {styles.background}>
-				<View style = {styles.userCase}>
-					<Image  
-						source = {{uri: data.profilePicture }} 
-						style = {styles.image}
-					/>
-					<Text style = {styles.name}>{data.name} {data.firstLastName} {data.secondLastName}</Text>
-				</View> 
+
+				<ImageBackground source={require('../assets/footer-image.png')} style={styles.headerImage}>
+					<View style={styles.overlay}>
+					<View style = {styles.background}>
+						<View style = {styles.userCase}>
+						<Image  
+							source = {{uri: data.profilePicture }} 
+							style = {styles.image}
+						/>
+						<Text style = {styles.name}>{data.name} {data.firstLastName} {data.secondLastName}</Text>
+						</View>
+					</View>
+					</View>
+				</ImageBackground>
+
 				<View style = {styles.inputSection}>
 					{/* Nombre y Appellidos */}
 					<View style = {styles['content:last-child']}>
@@ -59,6 +67,21 @@ const PersonalInfoScreen = ({ editable = true }) => {
 };
 
 const styles = EStyleSheet.create({
+	headerImage: {
+		width: '100%',
+		height: '300px',
+		resizeMode:'cover',
+	  },
+	  overlay: {
+		...StyleSheet.absoluteFillObject,
+		height: '100%',
+		//backgroundColor: 'rgba(39,51,88, 0.5)',
+		backgroundColor: 'rgba(39,51,88, 0.75)',
+	},
+	background: {
+		//backgroundColor: '#273358',
+		backgroundColor: 'rgba(39,51,88, 0.75)',
+		},
 	name: {
 		color: "#FFFFFF",
 		fontWeight: 'bold'

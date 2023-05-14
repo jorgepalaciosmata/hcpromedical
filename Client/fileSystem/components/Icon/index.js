@@ -181,7 +181,7 @@ class Icon extends Component {
 
     return (
       <Container ref={this.nodeRef}>
-        <Logo onClick={() => this.enterFolder()}>
+        <Logo onClick={() => this.openDocument(entry.name)} >
           <Img src={entry.type == FILE ? FileIcon : FolderIcon} />
           {entry.type == FILE ? <span>{`.${ext}`}</span> : ''}
         </Logo>

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { Route } from 'react-router-dom';
-
 import Navigation from '@Components/Navigation';
 import SearchBar from '@Components/SearchBar';
 import Grid from '@Components/Grid';
@@ -11,7 +10,11 @@ export default class ViewFiles extends Component {
     return (
       <Container>
         <TopBar>
-          <Navigation />
+          <Disclaimer>
+            Para agregar un documento envía un correo electrónico a 
+            esta dirección <b>data@hcpromedical.awsapps.com</b> con un archivo adjunto.
+          </Disclaimer>
+          {/* <Navigation /> */}
           <SearchBar />
         </TopBar>
         <Route path="*" component={Grid} />
@@ -19,6 +22,12 @@ export default class ViewFiles extends Component {
     );
   }
 }
+
+const Disclaimer = styled.div`
+  max-width: 400px;
+  float: left,
+  font-family: 'Segoe UI'
+`;
 
 const Container = styled.div`
   padding: 41px;
@@ -32,6 +41,8 @@ const Container = styled.div`
 
 const TopBar = styled.div`
   display: flex;
+  margin-top: 20px;
+  float: right;
   @media screen and (max-width: 768px) {
     display: block;
   }
