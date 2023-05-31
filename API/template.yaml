@@ -18,6 +18,12 @@ Resources:
                 type: aws_proxy
                 uri: !Sub arn:${AWS::Partition}:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetArtifact.Arn}/invocations
               responses: {}
+            delete:
+              x-amazon-apigateway-integration:
+                httpMethod: POST
+                type: aws_proxy
+                uri: !Sub arn:${AWS::Partition}:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${DeleteArtifact.Arn}/invocations
+              responses: {}
           /personalinfo:
             post:
               x-amazon-apigateway-integration:
@@ -49,7 +55,7 @@ Resources:
       EndpointConfiguration: REGIONAL
       TracingEnabled: true
       Cors:
-        AllowMethods: '''GET,POST,OPTIONS'''
+        AllowMethods: '''GET,POST,OPTIONS,DELETE'''
         AllowOrigin: '''*'''
         AllowHeaders: '''Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'''
   GetPersonalInfo:
@@ -238,3 +244,27 @@ Resources:
       TimeToLiveSpecification:
         AttributeName: expiration
         Enabled: true
+  DeleteArtifact:
+    Type: AWS::Serverless::Function
+    Properties:
+      Description: !Sub
+        - Stack ${AWS::StackName} Function ${ResourceName}
+        - ResourceName: DeleteArtifact
+      CodeUri: src/DeleteArtifact
+      Handler: index.handler
+      Runtime: nodejs16.x
+      MemorySize: 3008
+      Timeout: 30
+      Tracing: Active
+      Events:
+        ApiDELETEartifact:
+          Type: Api
+          Properties:
+            Path: /artifact
+            Method: DELETE
+            RestApiId: !Ref Api
+  DeleteArtifactLogGroup:
+    Type: AWS::Logs::LogGroup
+    DeletionPolicy: Retain
+    Properties:
+      LogGroupName: !Sub /aws/lambda/${DeleteArtifact}
