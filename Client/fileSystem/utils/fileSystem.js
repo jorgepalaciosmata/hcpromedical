@@ -1,5 +1,7 @@
 import md5 from 'md5';
 import { FOLDER, FILE } from './constants';
+import { prodApi } from '../../api/prodApi';
+import AuthService from '../../services/AuthService';
 
 const search = (arr, entry) => {
   let no = 0;
@@ -50,19 +52,34 @@ export const AddEntry = (data, newEntry) => {
   return { ...data };
 };
 
-export const DeleteEntry = (data, entryID) => {
-  const entry = data[entryID];
-  if (entry.type === FOLDER) {
-    entry.children.forEach(id => {
-      DeleteEntry(data, id);
-    });
-  }
-  let parentID = data[entryID].parentID;
-  let index = data[parentID].children.indexOf(entryID);
-  if (index !== -1) data[parentID].children.splice(index, 1);
-  delete data[entryID];
-  localStorage.setItem('fileSystem', JSON.stringify(data));
-  return { ...data };
+export const DeleteEntry = async (data, entryID) => {
+  // const entry = data[entryID];
+  // if (entry.type === FOLDER) {
+  //   entry.children.forEach(id => {
+  //     DeleteEntry(data, id);
+  //   });
+  // }
+  // let parentID = data[entryID].parentID;
+  // let index = data[parentID].children.indexOf(entryID);
+  // if (index !== -1) data[parentID].children.splice(index, 1);
+  // delete data[entryID];
+  // localStorage.setItem('fileSystem', JSON.stringify(data));
+  // return { ...data };
+
+  const response = await prodApi.delete( '/artifact', {
+    headers: {
+      "Authorization" : AuthService.getCurrentUser(),
+    },
+    params: {
+      id: entryID
+    }
+  }).catch(function (error) {
+    alert(error);
+  });
+
+
+  alert(entryID);
+  console.log(response);
 };
 
 const cloneObj = obj => {

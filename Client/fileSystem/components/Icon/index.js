@@ -208,14 +208,14 @@ class Icon extends Component {
                   this.setState({
                     showInfo: true
                   })
+              },
+              {
+                info: 'Eliminar',
+                style: { color: 'red' },
+                onClick: () => {
+                  this.handleDelete();
+                }
               }
-              //, {
-              //   info: 'Delete',
-              //   style: { color: 'red' },
-              //   onClick: () => {
-              //     this.handleDelete();
-              //   }
-              // }
             ]}
           />
         )}

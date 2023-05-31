@@ -50,11 +50,13 @@ class Grid extends Component {
             index={_}
             key={`${entry.path}_${entry.type}`}
             deleteFn={() => {
-              this.props.deleteEntry(md5(entry.path + entry.type));
+              this.props.deleteEntry(entry.path);
             }}
           />
         ))}
-        {/* <Add
+        {/* 
+        
+        <Add
           saveEntry={value => {
             this.props.addEntry({
               ...value,

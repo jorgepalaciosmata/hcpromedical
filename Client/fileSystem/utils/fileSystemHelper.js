@@ -21,7 +21,7 @@ const formatFileSystem = (files) => {
   files.map(function(item) {
     fileSystem[item.name] = {
       type: '__file__',
-      name: item.name,
+      name: formatFilename(item.name),
       date: item.created,
       parentID: 'root',
       parentPath: '/',
@@ -31,6 +31,10 @@ const formatFileSystem = (files) => {
 
   localStorage.setItem('fileSystem', JSON.stringify(fileSystem));
   return fileSystem;
+};
+
+const formatFilename = (filename) => {
+  return filename.substring(37);
 };
 
 export default formatFileSystem;
