@@ -160,7 +160,7 @@ class Icon extends Component {
           "Authorization": AuthService.getCurrentUser()
         },
         params: {
-            id: documentName
+            id: documentName.substring(1)
         }
       }
     )
@@ -181,7 +181,7 @@ class Icon extends Component {
 
     return (
       <Container ref={this.nodeRef}>
-        <Logo onClick={() => this.openDocument(entry.name)} >
+        <Logo onClick={() => this.openDocument(entry.path)} >
           <Img src={entry.type == FILE ? FileIcon : FolderIcon} />
           {entry.type == FILE ? <span>{`.${ext}`}</span> : ''}
         </Logo>
@@ -193,7 +193,7 @@ class Icon extends Component {
               {
                 info: 'Abrir',
                 onClick: () => {
-                  this.openDocument(entry.name);
+                  this.openDocument(entry.path);
 
                   // entry.type === FOLDER
                   //   ? this.props.history.push(this.props.entry.path)
