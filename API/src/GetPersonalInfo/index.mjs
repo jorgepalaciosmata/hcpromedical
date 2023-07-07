@@ -1,8 +1,8 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, GetCommand } from "@aws-sdk/lib-dynamodb";
-import { jwtDecode } from './helpers/jwtDecode.mjs';
-import { sendResponse } from './helpers/sendResponse.mjs';
-import { validateAuthorization } from './helpers/validateAuthorization.mjs';
+import { jwtDecode } from './helpers/jwtDecode/index.js';
+import { sendResponse } from './helpers/sendResponse/index.js';
+import { validateAuthorization } from './helpers/validateAuthorization/index.js'
 
 /*
   Table mappings

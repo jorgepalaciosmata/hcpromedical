@@ -1,8 +1,8 @@
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
-import { jwtDecode } from './helpers/jwtDecode.mjs';
-import { sendResponse } from './helpers/sendResponse.mjs';
-import { validateJwtToken } from './helpers/validateAuthorization.mjs';
+import { jwtDecode } from './helpers/jwtDecode/index.js';
+import { sendResponse } from './helpers/sendResponse/index.js';
+import { validateJwtToken } from './helpers/validateAuthorization/index.js';
 
 export const handler = async event => {
 
